@@ -7,8 +7,8 @@ public class Queue {
     QueueNode end;
 
     public Queue(){
-        front= new QueueNode();
-        end= new QueueNode();
+        front= null;
+        end= null;
     }
 
     public void enqueue(Node node){
