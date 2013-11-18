@@ -16,4 +16,8 @@ public class Node<T> {
         Node<T> child= new Node(data);
         childen.add(child);
     }
+
+    public void addChild(Node node){
+        childen.add(node);
+    }
 }
