@@ -23,6 +23,9 @@ public class Main {
         d.addChild(c);
         d.addChild(b);
         Graph G= new Graph(a);
+        //So, the above is a typical input.
+
+        //Now we need to make a list of all nodes in the graph.
 
 
     }
