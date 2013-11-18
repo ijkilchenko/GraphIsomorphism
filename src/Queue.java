@@ -32,4 +32,13 @@ public class Queue {
             return null;
         }
     }
+
+    public boolean isEmpty(){
+        if (front == null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
