@@ -25,8 +25,10 @@ public class Main {
         Graph G= new Graph(a);
         //So, the above is a typical input.
 
-        //Now we need to make a list of all nodes in the graph.
+        //Makes a list of all nodes in the graph.
         G.traverse(G.mainNode);
+
+        //Now we need to make spanning trees.
 
 
 
