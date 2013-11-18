@@ -4,13 +4,13 @@
  */
 public class QueueNode {
     Node data;
-    Node next;
+    QueueNode next;
 
     public QueueNode(Node node){
         data= node;
     }
 
     public void addNext(Node node){
-        next= node;
+        next= new QueueNode(node);
     }
 }
