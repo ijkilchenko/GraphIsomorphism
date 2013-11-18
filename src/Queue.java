@@ -6,6 +6,11 @@ public class Queue {
     QueueNode front;
     QueueNode end;
 
+    public Queue(){
+        front= new QueueNode();
+        end= new QueueNode();
+    }
+
     public void enqueue(Node node){
         if (front == null){
             end= new QueueNode(node);

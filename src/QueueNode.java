@@ -6,6 +6,10 @@ public class QueueNode {
     Node data;
     QueueNode next;
 
+    public QueueNode(){
+        data= new Node();
+    }
+
     public QueueNode(Node node){
         data= node;
     }

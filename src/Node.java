@@ -9,6 +9,9 @@ public class Node<T> {
     boolean visited= false;
     ArrayList<Node> childen= new ArrayList<Node>();
 
+    public Node(){
+    }
+
     public Node(T data){
         this.data= data;
     }
