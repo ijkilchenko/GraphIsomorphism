@@ -1,0 +1,1 @@
+Another class 'QueueNode' may not be necessary - using the 'Node' instead might suffice. 
