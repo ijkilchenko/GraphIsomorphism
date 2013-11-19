@@ -30,9 +30,10 @@ public class Graph {
         }
     }
 
-    public static Tree BFS(Node node){
-        //Breadth First Search to make a list of all nodes in the graph.
+    public static Tree BFS(Graph G, Node node){
         Queue queue= new Queue();
+
+        Graph G1= (Graph)DeepCopy.copy(G);
         ArrayList<Node> tempV= new ArrayList<Node>();
         tempV.add(node);
         queue.enqueue(node);
@@ -51,6 +52,7 @@ public class Graph {
                 }
             }
         }
+        G= G1;
         Tree tree= new Tree(node);
         return tree;
     }

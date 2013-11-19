@@ -29,7 +29,7 @@ public class Main {
         G.traverse(G.mainNode);
 
         //Now we need to make spanning trees.
-        Tree tree= G.BFS(G.mainNode);
+        Tree tree= G.BFS(G, G.mainNode);
 
 
 
