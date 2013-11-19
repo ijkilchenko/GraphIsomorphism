@@ -23,6 +23,7 @@ public class Main {
         d.addChild(c);
         d.addChild(b);
         Graph G= new Graph(a);
+        Graph G1= (Graph)DeepCopy.copy(G);
         //So, the above is a typical input.
 
         //Makes a list of all nodes in the graph.

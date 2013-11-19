@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * User: ijk
  * Date: 11/17/13
  */
-public class Graph {
+public class Graph implements Serializable{
     Node mainNode;
     ArrayList<Node> V= new ArrayList<Node>();
 
