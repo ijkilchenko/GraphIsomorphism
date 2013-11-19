@@ -1,1 +1,3 @@
 Another class 'QueueNode' may not be necessary - using the 'Node' instead might suffice. 
+
+I need to write my own ArrayList class so to make figuring out the running time much more explicitly. Note: use generics. 

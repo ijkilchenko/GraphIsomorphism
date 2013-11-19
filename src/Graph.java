@@ -30,7 +30,7 @@ public class Graph {
         }
     }
 
-    public static Tree BFS(Graph G, Node node){
+    public static Tree BFS(Node node){
         Queue queue= new Queue();
         Queue treeQueue= new Queue();
         ArrayList<Node> tempV= new ArrayList<Node>();

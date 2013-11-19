@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * User: ijk
  * Date: 11/17/13
@@ -33,6 +35,14 @@ public class Main {
         G.traverse(G.mainNode);
 
         //Now we need to make spanning trees.
-        Tree tree= G.BFS(G, G.mainNode);
+        Tree tree= G.BFS(G.mainNode);
+
+        //We need to make an ArrayList of trees rooted at each node in the graph.
+        ArrayList<Tree> trees= new ArrayList<Tree>();
+
+        for (int i= 0; i < G.V.size(); i++){
+            trees.add(G.BFS(G.V.get(i)));
+        }
+        System.out.println("Breakpoint");
     }
 }
