@@ -21,16 +21,42 @@ public class Graph {
 
         while (!queue.isEmpty()){
             Node r= queue.dequeue();
-            if (r != null){
-                for (int i= 0; i < r.childen.size(); i++){
-                    Node s= (Node)r.childen.get(i); //Why do I need to do the cast?
-                    if (s.visited == false){
-                        V.add(s);
-                        s.visited= true;
-                        queue.enqueue(s);
-                    }
+            for (int i= 0; i < r.childen.size(); i++){
+                Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
+                if (s.visited == false){
+                    V.add(s);
+                    s.visited= true;
+                    queue.enqueue(s);
                 }
             }
         }
+
+        for (int i= 0; i < V.size(); i++){
+            V.get(i).visited= false;
+        }
+    }
+
+    public static Tree BFS(Node node){
+        //Breadth First Search to make a list of all nodes in the graph.
+        Queue queue= new Queue();
+        node.visited= true;
+        queue.enqueue(node);
+
+        while (!queue.isEmpty()){
+            Node r= queue.dequeue();
+            for (int i= 0; i < r.childen.size(); i++){
+                Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
+                if (s.visited == false){
+                    s.visited= true;
+                    queue.enqueue(s);
+                }
+                else{
+                    r.childen.remove(i);
+                    i--;//Remove edge.
+                }
+            }
+        }
+        Tree tree= new Tree(node);
+        return tree;
     }
 }
