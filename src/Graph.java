@@ -34,25 +34,28 @@ public class Graph implements Serializable{
     public static Tree BFS(Node node){
         //Breadth First Search to make a list of all nodes in the graph.
         Queue queue= new Queue();
+        Queue treeQueue= new Queue();
         ArrayList<Node> tempV= new ArrayList<Node>();
         tempV.add(node);
         queue.enqueue(node);
+        Node root= new Node(node.data);
+        treeQueue.enqueue(root);
 
         while (!queue.isEmpty()){
             Node r= queue.dequeue();
+            Node t= treeQueue.dequeue();
             for (int i= 0; i < r.childen.size(); i++){
                 Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
                 if (tempV.indexOf(s) < 0){
                     tempV.add(s);
+                    Node child= new Node(s.data);
+                    t.childen.add(child);
                     queue.enqueue(s);
-                }
-                else{
-                    r.childen.remove(i);
-                    i--;//Remove edge.
+                    treeQueue.enqueue(child);
                 }
             }
         }
-        Tree tree= new Tree(node);
+        Tree tree= new Tree(root);
         return tree;
     }
 }
