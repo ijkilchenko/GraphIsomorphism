@@ -6,7 +6,6 @@ import java.util.ArrayList;
  */
 public class Node<T> {
     T data;
-    boolean visited= false;
     ArrayList<Node> childen= new ArrayList<Node>();
 
     public Node(){
