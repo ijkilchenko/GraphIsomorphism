@@ -1,3 +1,7 @@
+/**
+ * User: ijk
+ * Date: 11/17/13
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -30,8 +34,5 @@ public class Main {
 
         //Now we need to make spanning trees.
         Tree tree= G.BFS(G, G.mainNode);
-
-
-
     }
 }
