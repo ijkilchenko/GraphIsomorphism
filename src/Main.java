@@ -43,6 +43,12 @@ public class Main {
         for (int i= 0; i < G.V.size(); i++){
             trees.add(G.BFS(G.V.get(i)));
         }
+
+        //Now we need to make an ArrayList of ArrayLists where each ArrayList at each index will contain all nodes that
+        //are at a certain level in the tree. TODO: re-phase this comment.
+
+        ArrayList<ArrayList<Node>> table= trees.get(0).makeTable();
         System.out.println("Breakpoint");
+
     }
 }
