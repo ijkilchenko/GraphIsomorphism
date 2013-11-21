@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: ijk
@@ -45,12 +47,14 @@ public class Main {
         }
 
         //Now we need to make an ArrayList of ArrayLists where each ArrayList at each index will contain all nodes that
-        //are at a certain level in the tree. TODO: re-phase this comment.
+        //are at a certain level in the tree. TODO: re-phrase this comment.
 
         ArrayList<ArrayList<ArrayList<Node>>> tables= new ArrayList<ArrayList<ArrayList<Node>>>();
         for (int i= 0; i < G.V.size(); i++){
             tables.add(trees.get(i).makeTable());
         }
+
+        Map<Node, Node> map= new HashMap<Node, Node>();
 
         System.out.println("Breakpoint");
 
