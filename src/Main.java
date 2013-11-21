@@ -47,7 +47,11 @@ public class Main {
         //Now we need to make an ArrayList of ArrayLists where each ArrayList at each index will contain all nodes that
         //are at a certain level in the tree. TODO: re-phase this comment.
 
-        ArrayList<ArrayList<Node>> table= trees.get(0).makeTable();
+        ArrayList<ArrayList<ArrayList<Node>>> tables= new ArrayList<ArrayList<ArrayList<Node>>>();
+        for (int i= 0; i < G.V.size(); i++){
+            tables.add(trees.get(i).makeTable());
+        }
+
         System.out.println("Breakpoint");
 
     }
