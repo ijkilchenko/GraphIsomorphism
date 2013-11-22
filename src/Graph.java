@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: ijk
@@ -55,5 +57,41 @@ public class Graph {
         }
         Tree tree= new Tree(root);
         return tree;
+    }
+
+    public static boolean areIsomorphic(Graph G1, Graph G2){
+        G1.traverse(G1.mainNode);
+        G2.traverse(G2.mainNode);
+        if (G1.V.size() != G2.V.size()) return false;
+
+        ArrayList<Tree> trees1= new ArrayList<Tree>();
+        for (int i= 0; i < G1.V.size(); i++){
+            trees1.add(G1.BFS(G1.V.get(i)));
+        }
+
+        ArrayList<Tree> trees2= new ArrayList<Tree>();
+        for (int i= 0; i < G2.V.size(); i++){
+            trees2.add(G2.BFS(G2.V.get(i)));
+        }
+
+        ArrayList<ArrayList<ArrayList<Node>>> tables1= new ArrayList<ArrayList<ArrayList<Node>>>();
+        for (int i= 0; i < G1.V.size(); i++){
+            tables1.add(trees1.get(i).makeTable());
+        }
+
+        ArrayList<ArrayList<ArrayList<Node>>> tables2= new ArrayList<ArrayList<ArrayList<Node>>>();
+        for (int i= 0; i < G2.V.size(); i++){
+            tables2.add(trees2.get(i).makeTable());
+        }
+
+        Map<Node, Node> map= new HashMap<Node, Node>();
+
+//        while (map.size() < G1.V.size()+1){
+//
+//
+//
+//        }
+
+        return true;
     }
 }
