@@ -33,28 +33,7 @@ public class Main {
         Graph G= new Graph(a);
         //So, the above is a typical input.
 
-        //Makes a list of all nodes in the graph.
-        G.traverse(G.mainNode);
-
-        //Now we need to make spanning trees.
-        Tree tree= G.BFS(G.mainNode);
-
-        //We need to make an ArrayList of trees rooted at each node in the graph.
-        ArrayList<Tree> trees= new ArrayList<Tree>();
-
-        for (int i= 0; i < G.V.size(); i++){
-            trees.add(G.BFS(G.V.get(i)));
-        }
-
-        //Now we need to make an ArrayList of ArrayLists where each ArrayList at each index will contain all nodes that
-        //are at a certain level in the tree. TODO: re-phrase this comment.
-
-        ArrayList<ArrayList<ArrayList<Node>>> tables= new ArrayList<ArrayList<ArrayList<Node>>>();
-        for (int i= 0; i < G.V.size(); i++){
-            tables.add(trees.get(i).makeTable());
-        }
-
-        Map<Node, Node> map= new HashMap<Node, Node>();
+        boolean isomorphic= Graph.areIsomorphic(G, G);
 
         System.out.println("Breakpoint");
 
