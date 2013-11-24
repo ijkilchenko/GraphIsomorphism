@@ -102,7 +102,6 @@ public class Graph {
                 if (tables1.get(G1.V.get(i).index).size() != tables2.get(G2.V.get(j).index).size()){
                     //Distance to the farthest node must be the same in both spanning trees.
                     match= false;
-                    break;
                 }
                 else{
                     //Check that the number of nodes at each distance away is the same in both spanning trees.
@@ -113,7 +112,7 @@ public class Graph {
                         }
                     }
                     if (match == false){
-                        break;
+                        //break;
                     }
                     else{
                         //Check check check...
