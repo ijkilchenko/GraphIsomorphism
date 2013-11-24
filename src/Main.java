@@ -119,7 +119,43 @@ public class Main {
 
         Graph G4= new Graph(c2);
 
-        boolean isomorphic= Graph.areIsomorphic(G1, G2);
+        //The following is a graph from Sarada Herke's Youtube video.
+        Node<String> v1= new Node<String>("v1");
+        Node<String> v2= new Node<String>("v2");
+        Node<String> v3= new Node<String>("v3");
+        Node<String> v4= new Node<String>("v4");
+        Node<String> v5= new Node<String>("v5");
+        Node<String> v6= new Node<String>("v6");
+        Node<String> v7= new Node<String>("v7");
+        Node<String> v8= new Node<String>("v8");
+        v1.addChild(v2);
+        v1.addChild(v5);
+        v1.addChild(v8);
+        v2.addChild(v1);
+        v2.addChild(v3);
+        v2.addChild(v6);
+        v3.addChild(v2);
+        v3.addChild(v4);
+        v3.addChild(v7);
+        v4.addChild(v3);
+        v4.addChild(v5);
+        v4.addChild(v8);
+        v5.addChild(v4);
+        v5.addChild(v6);
+        v5.addChild(v1);
+        v6.addChild(v5);
+        v6.addChild(v7);
+        v6.addChild(v2);
+        v7.addChild(v6);
+        v7.addChild(v8);
+        v7.addChild(v3);
+        v8.addChild(v7);
+        v8.addChild(v1);
+        v8.addChild(v4);
+
+        Graph H= new Graph(v1);
+
+        boolean isomorphic= Graph.areIsomorphic(H, G3);
 
         System.out.println(isomorphic);
     }
