@@ -95,33 +95,38 @@ public class Graph {
 
         Map<Node, Node> map= new HashMap<Node, Node>();
 
+        int[] matched= new int[G2.V.size()];
+
         for (int i= 0; i < G1.V.size(); i++){
             int mapSize= map.size();
             for (int j= 0; j < G2.V.size(); j++){
-                boolean match= true;
-                if (tables1.get(G1.V.get(i).index).size() != tables2.get(G2.V.get(j).index).size()){
-                    //Distance to the farthest node must be the same in both spanning trees.
-                    match= false;
-                }
-                else{
-                    //Check that the number of nodes at each distance away is the same in both spanning trees.
-                    for (int k= 0; k < tables1.get(G1.V.get(i).index).size(); k++){
-                        if (tables1.get(G1.V.get(i).index).get(k).size() != tables2.get(G2.V.get(j).index).get(k).size()){
-                            match= false;
-                            break;
-                        }
-                    }
-                    if (match == false){
-                        //break;
+                if (matched[j] != 1){
+                    boolean match= true;
+                    if (tables1.get(G1.V.get(i).index).size() != tables2.get(G2.V.get(j).index).size()){
+                        //Distance to the farthest node must be the same in both spanning trees.
+                        match= false;
                     }
                     else{
-                        //Check check check...
-                    }
+                        //Check that the number of nodes at each distance away is the same in both spanning trees.
+                        for (int k= 0; k < tables1.get(G1.V.get(i).index).size(); k++){
+                            if (tables1.get(G1.V.get(i).index).get(k).size() != tables2.get(G2.V.get(j).index).get(k).size()){
+                                match= false;
+                                break;
+                            }
+                        }
+                        if (match == false){
+                            //break;
+                        }
+                        else{
+                            //Check check check...
+                        }
 
-                }
-                if (match == true){
-                    map.put(G1.V.get(i), G2.V.get(j));
-                    break;//Break at first possible match <- this may not be right.
+                    }
+                    if (match == true){
+                        map.put(G1.V.get(i), G2.V.get(j));
+                        matched[j]= 1;
+                        break;//Break at first possible match <- this may not be right.
+                    }
                 }
             }
             if (map.size() == mapSize){
