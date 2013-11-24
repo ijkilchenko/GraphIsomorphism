@@ -22,8 +22,8 @@ public class Tree {
         }
         table.get(level).add(node);
 
-        for (int i= 0; i < node.childen.size(); i++){
-            table= makeTable(table, (Node)node.childen.get(i), level+1);
+        for (int i= 0; i < node.children.size(); i++){
+            table= makeTable(table, (Node)node.children.get(i), level+1);
         }
         return table;
     }

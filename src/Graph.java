@@ -25,8 +25,8 @@ public class Graph {
 
         while (!queue.isEmpty()){
             Node r= queue.dequeue();
-            for (int i= 0; i < r.childen.size(); i++){
-                Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
+            for (int i= 0; i < r.children.size(); i++){
+                Node s= (Node)r.children.get(i); //Why do I need to do the cast? Because of generics?
                 if (V.indexOf(s) < 0){
                     V.add(s);
                     s.index= index;
@@ -49,12 +49,12 @@ public class Graph {
         while (!queue.isEmpty()){
             Node r= queue.dequeue();
             Node t= treeQueue.dequeue();
-            for (int i= 0; i < r.childen.size(); i++){
-                Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
+            for (int i= 0; i < r.children.size(); i++){
+                Node s= (Node)r.children.get(i); //Why do I need to do the cast? Because of generics?
                 if (tempV.indexOf(s) < 0){
                     tempV.add(s);
                     Node child= new Node(s.data);
-                    t.childen.add(child);
+                    t.children.add(child);
                     queue.enqueue(s);
                     treeQueue.enqueue(child);
                 }
