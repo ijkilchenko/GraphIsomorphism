@@ -132,7 +132,7 @@ public class Graph {
                                 }
                                 for (int l= 0; l < table2.size(); l++){
                                     for (int m= 0; m < table2.get(l).size(); m++){
-                                        if (table1.get(l).get(m).index == map.get(node).index){
+                                        if (table2.get(l).get(m).index == map.get(node).index){
                                             mNodeLevel= l;
                                             break;
                                         }

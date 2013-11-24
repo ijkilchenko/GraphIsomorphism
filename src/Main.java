@@ -103,7 +103,6 @@ public class Main {
         c2.addChild(j2);
         d2.addChild(h2);
         d2.addChild(i2);
-        d2.addChild(g2);//False edge. Testing with this for now!
         d2.addChild(j2);
         g2.addChild(a2);
         g2.addChild(b2);
@@ -120,7 +119,7 @@ public class Main {
 
         Graph G4= new Graph(c2);
 
-        boolean isomorphic= Graph.areIsomorphic(G3, G4);
+        boolean isomorphic= Graph.areIsomorphic(G1, G2);
 
         System.out.println(isomorphic);
     }
