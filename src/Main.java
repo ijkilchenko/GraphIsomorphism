@@ -103,6 +103,7 @@ public class Main {
         c2.addChild(j2);
         d2.addChild(h2);
         d2.addChild(i2);
+        d2.addChild(g2);//False edge. Testing with this for now!
         d2.addChild(j2);
         g2.addChild(a2);
         g2.addChild(b2);
@@ -117,11 +118,10 @@ public class Main {
         j2.addChild(c2);
         j2.addChild(d2);
 
-        Graph G4= new Graph(h2);
-
+        Graph G4= new Graph(c2);
 
         boolean isomorphic= Graph.areIsomorphic(G3, G4);
 
-        System.out.println("Helpful breakpoint...");
+        System.out.println(isomorphic);
     }
 }

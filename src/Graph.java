@@ -91,7 +91,7 @@ public class Graph {
             tables2.add(trees2.get(i).makeTable());
         }
 
-        LinkedHashMap<Node, Node> map= new LinkedHashMap<Node, Node>();
+        Map<Node, Node> map= new HashMap<Node, Node>();
 
         int[] matched= new int[G2.V.size()];
 
@@ -115,7 +115,8 @@ public class Graph {
                         if (match == true){
                             //if match== true, we need to check the all the mappings up to this point hold true.
                             //by calculating distances between nodes or something.
-                            for (int k= 0; k < map.size(); k++){
+                            Set<Node> set= map.keySet();
+                            for (Node node : set){
                                 int nodeLevel= 0;
                                 int mNodeLevel= 0;
                                 //Search current spanning tables...
@@ -123,7 +124,7 @@ public class Graph {
                                 ArrayList<ArrayList<Node>> table2= tables2.get(G2.V.get(j).index);
                                 for (int l= 0; l < table1.size(); l++){
                                     for (int m= 0; m < table1.get(l).size(); m++){
-                                        if (table1.get(l).get(m).index == map.get(k).index){ //We are comparing graph nodes with tree nodes.
+                                        if (table1.get(l).get(m).index == node.index){ //We are comparing graph nodes with tree nodes.
                                             nodeLevel= l;
                                             break;
                                         }
@@ -131,7 +132,7 @@ public class Graph {
                                 }
                                 for (int l= 0; l < table2.size(); l++){
                                     for (int m= 0; m < table2.get(l).size(); m++){
-                                        if (table1.get(l).get(m).index == G1.V.get(i).index){
+                                        if (table1.get(l).get(m).index == map.get(node).index){
                                             mNodeLevel= l;
                                             break;
                                         }
