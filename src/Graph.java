@@ -118,7 +118,8 @@ public class Graph {
                             //break;
                         }
                         else{
-                            //Check check check...
+                            //if match== true, we need to check the all the mappings up to this point hold true.
+                            //by calculating distances between nodes or something.
                         }
 
                     }
