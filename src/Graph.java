@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: ijk
@@ -93,7 +91,7 @@ public class Graph {
             tables2.add(trees2.get(i).makeTable());
         }
 
-        Map<Node, Node> map= new HashMap<Node, Node>();
+        LinkedHashMap<Node, Node> map= new LinkedHashMap<Node, Node>();
 
         int[] matched= new int[G2.V.size()];
 
@@ -114,14 +112,36 @@ public class Graph {
                                 break;
                             }
                         }
-                        if (match == false){
-                            //break;
-                        }
-                        else{
+                        if (match == true){
                             //if match== true, we need to check the all the mappings up to this point hold true.
                             //by calculating distances between nodes or something.
+                            for (int k= 0; k < map.size(); k++){
+                                int nodeLevel= 0;
+                                int mNodeLevel= 0;
+                                //Search current spanning tables...
+                                ArrayList<ArrayList<Node>> table1= tables1.get(G1.V.get(i).index);
+                                ArrayList<ArrayList<Node>> table2= tables2.get(G2.V.get(j).index);
+                                for (int l= 0; l < table1.size(); l++){
+                                    for (int m= 0; m < table1.get(l).size(); m++){
+                                        if (table1.get(l).get(m).index == map.get(k).index){ //We are comparing graph nodes with tree nodes.
+                                            nodeLevel= l;
+                                            break;
+                                        }
+                                    }
+                                }
+                                for (int l= 0; l < table2.size(); l++){
+                                    for (int m= 0; m < table2.get(l).size(); m++){
+                                        if (table1.get(l).get(m).index == G1.V.get(i).index){
+                                            mNodeLevel= l;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (nodeLevel != mNodeLevel){
+                                    match= false;
+                                }
+                            }
                         }
-
                     }
                     if (match == true){
                         map.put(G1.V.get(i), G2.V.get(j));
