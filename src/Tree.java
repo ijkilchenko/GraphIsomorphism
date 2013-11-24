@@ -12,8 +12,6 @@ public class Tree {
     }
 
     public ArrayList<ArrayList<Node>> makeTable(){
-//        ArrayList<ArrayList<Node>> table= new ArrayList<ArrayList<Node>>();
-//        table.add(0, new ArrayList<Node>());
         return makeTable(new ArrayList<ArrayList<Node>>(), root, 0);
     }
 
@@ -25,7 +23,6 @@ public class Tree {
         table.get(level).add(node);
 
         for (int i= 0; i < node.childen.size(); i++){
-            //table.add(level+1, new ArrayList<Node>());
             table= makeTable(table, (Node)node.childen.get(i), level+1);
         }
         return table;

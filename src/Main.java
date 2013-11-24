@@ -30,10 +30,31 @@ public class Main {
         c.addChild(d);
         d.addChild(c);
         d.addChild(b);
-        Graph G= new Graph(a);
+        Graph G1= new Graph(a);
+
+        //The following makes an isomorphic "kite" graph G (with "1" the main node).
+        /*     1-2
+               |/|
+               3-4
+        */
+        Node<String> a1= new Node("1");
+        Node<String> b2= new Node("2");
+        Node<String> c3= new Node("3");
+        Node<String> d4= new Node("4");
+        a1.addChild(b2);
+        a1.addChild(c3);
+        b2.addChild(a1);
+        b2.addChild(c3);
+        b2.addChild(d4);
+        c3.addChild(a1);
+        c3.addChild(b2);
+        c3.addChild(d4);
+        d4.addChild(c3);
+        d4.addChild(b2);
+        Graph G2= new Graph(a1);
         //So, the above is a typical input.
 
-        boolean isomorphic= Graph.areIsomorphic(G, G);
+        boolean isomorphic= Graph.areIsomorphic(G1, G2);
 
         System.out.println("Breakpoint");
 
