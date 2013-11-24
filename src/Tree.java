@@ -15,7 +15,6 @@ public class Tree {
         return makeTable(new ArrayList<ArrayList<Node>>(), root, 0);
     }
 
-
     private static ArrayList<ArrayList<Node>> makeTable(ArrayList<ArrayList<Node>> table, Node node, int level){
         if (table.size() < level+1){
             table.add(level, new ArrayList<Node>());
