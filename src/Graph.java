@@ -16,8 +16,11 @@ public class Graph {
 
     public void traverse(Node node){
         //Breadth First Search to make a list of all nodes in the graph.
+        int index= 0;
         Queue queue= new Queue();
         V.add(node);
+        node.index= 0;
+        index++;
         queue.enqueue(node);
 
         while (!queue.isEmpty()){
@@ -26,6 +29,8 @@ public class Graph {
                 Node s= (Node)r.childen.get(i); //Why do I need to do the cast? Because of generics?
                 if (V.indexOf(s) < 0){
                     V.add(s);
+                    s.index= index;
+                    index++;
                     queue.enqueue(s);
                 }
             }
