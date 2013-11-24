@@ -155,7 +155,7 @@ public class Main {
 
         Graph H= new Graph(v1);
 
-        boolean isomorphic= Graph.areIsomorphic(H, G3);
+        boolean isomorphic= Graph.areIsomorphic(H, H);
 
         System.out.println(isomorphic);
     }
