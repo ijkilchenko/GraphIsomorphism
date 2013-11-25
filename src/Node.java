@@ -8,6 +8,7 @@ public class Node<T> {
     T data;
     Integer index= null;
     ArrayList<Node> children= new ArrayList<Node>();
+    Node next= null;
 
     public Node(){
     }

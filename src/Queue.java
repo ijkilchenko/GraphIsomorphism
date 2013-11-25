@@ -3,8 +3,8 @@
  * Date: 11/17/13
  */
 public class Queue {
-    QueueNode front;
-    QueueNode end;
+    Node front;
+    Node end;
 
     public Queue(){
         front= null;
@@ -13,18 +13,18 @@ public class Queue {
 
     public void enqueue(Node node){
         if (front == null){
-            end= new QueueNode(node);
+            end= new Node(node);
             front= end;
         }
         else{
-            end.next= new QueueNode(node);
+            end.next= new Node(node);
             end= end.next;
         }
     }
 
     public Node dequeue(){
         if (front != null){
-            Node node= front.data;
+            Node node= (Node)front.data;
             front= front.next;
             return node;
         }
