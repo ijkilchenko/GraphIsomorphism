@@ -32,24 +32,29 @@ public class Main {
 /*        Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");*/
 
-        Graph randomGraph5= new Graph(4);
-        int[][] adj5= randomGraph5.adjacency;
-        int[][] perm= Checker.makePermutation(4);
-        int[][] permTranspose= Checker.makeTranspose(perm);
-        int[][] adj5New= Checker.matrixMultiply(perm,adj5);
-        adj5New= Checker.matrixMultiply(adj5New,permTranspose);
-        //Note: adj5 and adj5New must represent isomorphic graphs.
+        int n= 5;
 
-        Graph A1= new Graph();
-        A1.traverseMatrix(adj5);
-        Graph A2= new Graph();
-        A2.traverseMatrix(adj5New);
+        for (int i= 0; i < 100; i++){
+            Graph randomGraph5= new Graph(n);
+            int[][] adj5= randomGraph5.adjacency;
+            int[][] perm= Checker.makePermutation(n);
+            int[][] permTranspose= Checker.makeTranspose(perm);
+            int[][] adj5New= Checker.matrixMultiply(perm,adj5);
+            adj5New= Checker.matrixMultiply(adj5New,permTranspose);
+            //Note: adj5 and adj5New must represent isomorphic graphs.
 
-/*        Graph N1= new Graph("star_in_pentagon");
-        Graph N2= new Graph("star_in_pentagon_isomess");*/
 
-        boolean isomorphic= Graph.areIsomorphic(A1, A2);
+            Graph A1= new Graph();
+            A1.traverseMatrix(adj5);
+            Graph A2= new Graph();
+            A2.traverseMatrix(adj5New);
 
-        System.out.println(isomorphic);
+    /*        Graph N1= new Graph("star_in_pentagon");
+            Graph N2= new Graph("star_in_pentagon_isomess");*/
+
+            boolean isomorphic= Graph.areIsomorphic(A1, A2);
+
+            System.out.println(" " + (A1.V.size() == A2.V.size()) + " " + isomorphic);
+        }
     }
 }
