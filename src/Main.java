@@ -32,12 +32,14 @@ public class Main {
 /*        Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");*/
 
-        Graph randomGraph5= new Graph(3);
+        Graph randomGraph5= new Graph(4);
         int[][] adj5= randomGraph5.adjacency;
-        int[][] perm= Checker.makePermutation(3);
+        int[][] perm= Checker.makePermutation(4);
         int[][] permTranspose= Checker.makeTranspose(perm);
         int[][] adj5New= Checker.matrixMultiply(perm,adj5);
         adj5New= Checker.matrixMultiply(adj5New,permTranspose);
+
+
 
 
         System.out.println("Breakpoint!");
