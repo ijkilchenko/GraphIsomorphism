@@ -1,15 +1,38 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
  * User: ijk
  * Date: 11/17/13
  */
-public class Graph {
+public class Graph{
     Node mainNode;
     ArrayList<Node> V= new ArrayList<Node>();
 
     public Graph(Node node){
         mainNode= node;
+    }
+
+    public Graph(String name) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader("Graphs/"+name+".txt"));
+        StringBuilder sb = new StringBuilder();
+        String line = br.readLine();
+        while (line != null) {
+            sb.append(line);
+            sb.append('\n');
+            line = br.readLine();
+        }
+        String matrixStr = sb.toString();
+        int n= (matrixStr.indexOf("\n")+1)/2;
+        int[][] matrix= new int[n][n];
+        for (int i= 0; i < n; i++){
+            for (int j= 0; j < 2*n-1; j=j+2){
+                matrix[i][j/2]= Integer.parseInt(matrixStr.substring(i*(2*n-1+1)+j,i*(2*n-1+1)+j+1));
+            }
+        }
+        br.close();
     }
 
     public void traverse(Node node){

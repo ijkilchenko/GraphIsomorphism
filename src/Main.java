@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -159,19 +157,7 @@ public class Main {
 
         Graph H= new Graph(v1);
 
-        BufferedReader br = new BufferedReader(new FileReader("graph.txt"));
-        StringBuilder sb = new StringBuilder();
-        String line = br.readLine();
-
-        while (line != null) {
-            sb.append(line);
-            sb.append('\n');
-            line = br.readLine();
-        }
-        String everything = sb.toString();
-        int n= (everything.indexOf("\n"))/2;
-        br.close();
-
+        Graph M= new Graph("graph");
 
         //boolean isomorphic= Graph.areIsomorphic(G3, G4);
 
