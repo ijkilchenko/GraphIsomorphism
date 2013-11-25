@@ -24,15 +24,31 @@ public class Graph{
             sb.append('\n');
             line = br.readLine();
         }
+        br.close();
         String matrixStr = sb.toString();
-        int n= (matrixStr.indexOf("\n")+1)/2;
+        int n= (matrixStr.indexOf("\n")+1)/2; //Number of nodes in the graph.
         int[][] matrix= new int[n][n];
         for (int i= 0; i < n; i++){
             for (int j= 0; j < 2*n-1; j=j+2){
                 matrix[i][j/2]= Integer.parseInt(matrixStr.substring(i*(2*n-1+1)+j,i*(2*n-1+1)+j+1));
             }
         }
-        br.close();
+
+        ArrayList<Node> nodes= new ArrayList<Node>();
+        for (int i= 0; i < n; i++){
+            nodes.add(new Node(String.valueOf(i)));
+        }
+
+        for (int i= 0; i < n; i++){
+            for (int j= 0; j < n; j++){
+                if (matrix[i][j] == 1){
+                    nodes.get(i).addChild(nodes.get(j));
+                }
+            }
+        }
+
+        mainNode= nodes.get(0);
+
     }
 
     public void traverse(Node node){

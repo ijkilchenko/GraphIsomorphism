@@ -159,8 +159,8 @@ public class Main {
 
         Graph M= new Graph("graph");
 
-        //boolean isomorphic= Graph.areIsomorphic(G3, G4);
+        boolean isomorphic= Graph.areIsomorphic(G3, M);
 
-        //System.out.println(isomorphic);
+        System.out.println(isomorphic);
     }
 }
