@@ -179,18 +179,15 @@ public class Graph {
         }
 
         //We need to check the edge preservation in the backward direction: we need to construct an inverse map.
-
         Map<Node, Node> inverseMap= new HashMap<Node, Node>();
 
         Set<Node> set= map.keySet();
         for (Node node : set){
             inverseMap.put((Node)map.get(node), node);
         }
-
         if (missingEdge(G2, inverseMap)){
             return false; //Missing edge when using the inverse map.
         }
-
         return true;
     }
 

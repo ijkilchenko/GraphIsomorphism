@@ -1,9 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * User: ijk
  * Date: 11/17/13
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         System.out.println("Welcome to Graph Isomorphism!");
 
         //The following makes a "kite" graph G (with "a" as the main node).
@@ -155,8 +159,22 @@ public class Main {
 
         Graph H= new Graph(v1);
 
-        boolean isomorphic= Graph.areIsomorphic(G3, G4);
+        BufferedReader br = new BufferedReader(new FileReader("graph.txt"));
+        StringBuilder sb = new StringBuilder();
+        String line = br.readLine();
 
-        System.out.println(isomorphic);
+        while (line != null) {
+            sb.append(line);
+            sb.append('\n');
+            line = br.readLine();
+        }
+        String everything = sb.toString();
+        int n= (everything.indexOf("\n"))/2;
+        br.close();
+
+
+        //boolean isomorphic= Graph.areIsomorphic(G3, G4);
+
+        //System.out.println(isomorphic);
     }
 }
