@@ -156,6 +156,57 @@ public class Graph {
             }
         }
 
+        if (checkMap(G1, G2, map)){
+            return true;
+        }
+        else{
+            System.out.println("There was an error...");
+            return false;
+        }
+    }
+
+    public static boolean checkMap(Graph G1, Graph G2, Map map){
+        if (map.size() != G1.V.size() || map.size() != G2.V.size()){
+            return false;
+        }
+
+        //TODO: we may need to check that every point in the domain of 'map' is unique, but may need not since 'map' is a map.
+
+        //The following nested for-loop checks the forward direction of edge preservation,
+        //i.e., each edge in G1 is also found in G2.
+        if (missingEdge(G1, map)){
+            return false; //No edge connecting 'node' and 'child' exists in the second Graph.
+        }
+
+        //We need to check the edge preservation in the backward direction: we need to construct an inverse map.
+
+        Map<Node, Node> inverseMap= new HashMap<Node, Node>();
+
+        Set<Node> set= map.keySet();
+        for (Node node : set){
+            inverseMap.put((Node)map.get(node), node);
+        }
+
+        if (missingEdge(G2, inverseMap)){
+            return false; //Missing edge when using the inverse map.
+        }
+
         return true;
+    }
+
+    private static boolean missingEdge(Graph G1, Map map) {
+        for (int i= 0; i < G1.V.size(); i++){
+            Node node= G1.V.get(i);
+            for (int j= 0; j < G1.V.get(i).children.size(); j++){
+                Node child= (Node)node.children.get(j);
+                //There exists an edge between 'node' and 'child.'
+                Node mNode= (Node)map.get(node);
+                Node mChild= (Node)map.get(child);
+                if (mNode.children.indexOf(mChild) < 0){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
