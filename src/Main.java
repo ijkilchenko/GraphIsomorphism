@@ -161,10 +161,10 @@ public class Main {
         Graph M2= new Graph("graph");
         Graph kite= new Graph("kite");
 
-        Graph hyper= new Graph("hypersquare");
-        Graph hypo= new Graph("hypotesseract");
+        Graph N1= new Graph("star_in_pentagon");
+        Graph N2= new Graph("star_in_pentagon_isomess");
 
-        boolean isomorphic= Graph.areIsomorphic(hyper, hypo);
+        boolean isomorphic= Graph.areIsomorphic(N1, N2);
 
         System.out.println(isomorphic);
     }
