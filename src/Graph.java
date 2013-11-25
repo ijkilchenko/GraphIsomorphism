@@ -9,13 +9,14 @@ import java.util.*;
  */
 public class Graph{
     Node mainNode;
+    int[][] adjacency;
     ArrayList<Node> V= new ArrayList<Node>();
 
     public Graph(Node node){
         mainNode= node;
     }
 
-    public Graph(String name) throws IOException{
+    public Graph(String name)  throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Graphs/"+name+".txt"));
         StringBuilder sb = new StringBuilder();
         String line = br.readLine();
@@ -33,14 +34,21 @@ public class Graph{
                 matrix[i][j/2]= Integer.parseInt(matrixStr.substring(i*(2*n-1+1)+j,i*(2*n-1+1)+j+1));
             }
         }
+        traverseMatrix(matrix);
+    }
 
+    public Graph(int n){
+
+    }
+
+    public void traverseMatrix(int[][] matrix) throws IOException{
         ArrayList<Node> nodes= new ArrayList<Node>();
-        for (int i= 0; i < n; i++){
+        for (int i= 0; i < matrix.length; i++){
             nodes.add(new Node(String.valueOf(i)));
         }
 
-        for (int i= 0; i < n; i++){
-            for (int j= 0; j < n; j++){
+        for (int i= 0; i < matrix.length; i++){
+            for (int j= 0; j < matrix.length; j++){
                 if (matrix[i][j] == 1){
                     nodes.get(i).addChild(nodes.get(j));
                 }
@@ -48,7 +56,7 @@ public class Graph{
         }
 
         mainNode= nodes.get(0);
-
+        this.adjacency= matrix;
     }
 
     public void traverse(Node node){
