@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Graph{
     Node mainNode;
-    int[][] adjacency;
+    int[][] adjacency;//TODO: possibly change this to boolean[][] to save space?
     ArrayList<Node> V= new ArrayList<Node>();
 
     public Graph(Node node){
@@ -53,7 +53,8 @@ public class Graph{
                 }
             }
         }
-        //matrix might not be connected,yet.
+        //TODO: matrix might not be connected,yet.
+        //I think the probability of a graph being disconnected is (1/2)^n. For example, if n=5, then p=3%.
         traverseMatrix(matrix);
     }
 
