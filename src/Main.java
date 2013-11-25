@@ -29,19 +29,25 @@ public class Main {
         d.addChild(b);
         Graph G1= new Graph(a);
 
-        int[][] perm= Checker.makePermutation(6);
+/*        Graph G2= new Graph("graph");
+        Graph kite= new Graph("kite");*/
+
+        Graph randomGraph5= new Graph(3);
+        int[][] adj5= randomGraph5.adjacency;
+        int[][] perm= Checker.makePermutation(3);
         int[][] permTranspose= Checker.makeTranspose(perm);
+        int[][] adj5New= Checker.matrixMultiply(perm,adj5);
+        adj5New= Checker.matrixMultiply(adj5New,permTranspose);
 
-        Graph G2= new Graph("graph");
-        Graph kite= new Graph("kite");
 
-        Graph randomGraph5= new Graph(6);
+        System.out.println("Breakpoint!");
 
-        Graph N1= new Graph("star_in_pentagon");
-        Graph N2= new Graph("star_in_pentagon_isomess");
 
-        boolean isomorphic= Graph.areIsomorphic(N2, N1);
+/*        Graph N1= new Graph("star_in_pentagon");
+        Graph N2= new Graph("star_in_pentagon_isomess");*/
 
-        System.out.println(isomorphic);
+        //boolean isomorphic= Graph.areIsomorphic(N2, N1);
+
+        //System.out.println(isomorphic);
     }
 }
