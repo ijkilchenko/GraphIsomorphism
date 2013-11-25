@@ -1,7 +1,6 @@
 1. [LOW] Write my own ArrayList<T> class. 
-2. [MEDIUM] Write a way to initialize graphs given their adjacency matrix. 
-3. [MEDIUM] Try to write a method which would generate random graphs (follow the Erdős–Rényi model). 
-4. [MEDIUM] Implement Blum and Kannan program checker for the Graph Isomorphism problem. 
-5. [LOW] Clean up the Node class - might have too many fields or something. 
-6. [LOW] Rename variables in the Tree class and in the areIsomorphic method which have to do with spanning trees and "spanning tables."
-7. [LOW] Implement my own Map<T,T> class (or use my own version of a two-dimensional ArrayList<T> class from #1). 
+2. [MEDIUM] Try to write a method which would generate random graphs (follow the Erdős–Rényi model). 
+3. [MEDIUM] Implement Blum and Kannan program checker for the Graph Isomorphism problem. 
+4. [LOW] Clean up the Node class - might have too many fields or something. 
+5. [LOW] Rename variables in the Tree class and in the areIsomorphic method which have to do with spanning trees and "spanning tables."
+6. [LOW] Implement my own Map<T,T> class (or use my own version of a two-dimensional ArrayList<T> class from #1). 
