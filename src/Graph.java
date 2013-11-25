@@ -16,7 +16,7 @@ public class Graph{
         mainNode= node;
     }
 
-    public Graph(String name)  throws IOException {
+    public Graph(String name) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Graphs/"+name+".txt"));
         StringBuilder sb = new StringBuilder();
         String line = br.readLine();
@@ -37,8 +37,24 @@ public class Graph{
         traverseMatrix(matrix);
     }
 
-    public Graph(int n){
+    public Graph(int n) throws IOException {
+        Random random= new Random();
 
+        //Make a random undirected (i.e. symmetric matrix) graph's adjacency matrix.
+        int[][] matrix= new int[n][n];
+        for (int i= 0; i < n; i++){
+            for (int j= i; j < n; j++){
+                if (i == j){
+                    matrix[i][j]= 0;
+                }
+                else{
+                    matrix[i][j]= random.nextInt(2);
+                    matrix[j][i]= matrix[i][j];
+                }
+            }
+        }
+        //matrix might not be connected,yet.
+        traverseMatrix(matrix);
     }
 
     public void traverseMatrix(int[][] matrix) throws IOException{

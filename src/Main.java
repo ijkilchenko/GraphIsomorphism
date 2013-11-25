@@ -161,10 +161,12 @@ public class Main {
         Graph M2= new Graph("graph");
         Graph kite= new Graph("kite");
 
+        Graph randomGraph5= new Graph(6);
+
         Graph N1= new Graph("star_in_pentagon");
         Graph N2= new Graph("star_in_pentagon_isomess");
 
-        boolean isomorphic= Graph.areIsomorphic(N1, N2);
+        boolean isomorphic= Graph.areIsomorphic(randomGraph5, kite);
 
         System.out.println(isomorphic);
     }
