@@ -1,6 +1,6 @@
 1. [LOW] Write my own ArrayList<T> class. 
 2. [LOW] Maybe use the Erdős–Rényi model to generate random graphs if current simple model isn't good enough. 
-3. [MEDIUM] Be able to randomly permute a given adjacenecy matrix.
+3. [HIGH] Try to fix current bugs. 
 4. [MEDIUM] Implement Blum and Kannan program checker for the Graph Isomorphism problem; need to think about whether or not I want to make this an object of itself.  
 5. [LOW] Clean up the Node class - might have too many fields or something. 
 6. [LOW] Rename variables in the Tree class and in the areIsomorphic method which have to do with spanning trees and "spanning tables."

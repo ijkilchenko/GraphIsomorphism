@@ -32,7 +32,7 @@ public class Main {
 /*        Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");*/
 
-        int n= 5;
+        int n= 100;
 
         for (int i= 0; i < 100; i++){
             Graph randomGraph5= new Graph(n);
