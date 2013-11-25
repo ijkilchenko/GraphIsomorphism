@@ -38,4 +38,16 @@ public class Checker {
         }
         return trans;
     }
+
+    public static int[][] matrixMultiply(int[][] A, int[][] B){
+        int[][] matrix= new int[A.length][A.length];
+        for (int i= 0; i < A.length; i++){
+            for (int j= 0; j < A.length; j++){
+                for (int k= 0; k < A.length; k++){
+                    matrix[i][j]+= A[i][k]*B[k][j];
+                }
+            }
+        }
+        return matrix;
+    }
 }
