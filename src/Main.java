@@ -157,9 +157,11 @@ public class Main {
 
         Graph H= new Graph(v1);
 
-        Graph M= new Graph("graph");
+        Graph M1= new Graph("graph");
+        Graph M2= new Graph("graph");
+        Graph kite= new Graph("kite");
 
-        boolean isomorphic= Graph.areIsomorphic(G3, M);
+        boolean isomorphic= Graph.areIsomorphic(H, kite);
 
         System.out.println(isomorphic);
     }
