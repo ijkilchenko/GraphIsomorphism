@@ -1,1 +1,8 @@
-I need to write my own ArrayList class so to make figuring out the running time much more explicitly. Note: use generics. 
+1. [LOW] Write my own ArrayList<T> class. 
+2. [HIGH] Write a method which checks the isomorphism. 
+3. [MEDIUM] Write a way to initialize graphs given their adjacency matrix. 
+4. [MEDIUM] Try to write a method which would generate random graphs (follow the Erdős–Rényi model). 
+5. [MEDIUM] Implement Blum and Kannan program checker for the Graph Isomorphism problem. 
+6. [LOW] Clean up the Node class - might have too many fields or something. 
+7. [LOW] Rename variables in the Tree class and in the areIsomorphic method which have to do with spanning trees and "spanning tables."
+8. [LOW] Implement my own Map<T,T> class (or use my own version of a two-dimensional ArrayList<T> class from #1). 
