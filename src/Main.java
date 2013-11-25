@@ -38,18 +38,18 @@ public class Main {
         int[][] permTranspose= Checker.makeTranspose(perm);
         int[][] adj5New= Checker.matrixMultiply(perm,adj5);
         adj5New= Checker.matrixMultiply(adj5New,permTranspose);
+        //Note: adj5 and adj5New must represent isomorphic graphs.
 
-
-
-
-        System.out.println("Breakpoint!");
-
+        Graph A1= new Graph();
+        A1.traverseMatrix(adj5);
+        Graph A2= new Graph();
+        A2.traverseMatrix(adj5New);
 
 /*        Graph N1= new Graph("star_in_pentagon");
         Graph N2= new Graph("star_in_pentagon_isomess");*/
 
-        //boolean isomorphic= Graph.areIsomorphic(N2, N1);
+        boolean isomorphic= Graph.areIsomorphic(A1, A2);
 
-        //System.out.println(isomorphic);
+        System.out.println(isomorphic);
     }
 }

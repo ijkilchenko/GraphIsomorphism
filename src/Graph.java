@@ -12,6 +12,10 @@ public class Graph{
     int[][] adjacency;//TODO: possibly change this to boolean[][] to save space?
     ArrayList<Node> V= new ArrayList<Node>();
 
+    public Graph(){
+
+    }
+
     public Graph(Node node){
         mainNode= node;
     }
