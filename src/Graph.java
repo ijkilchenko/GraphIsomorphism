@@ -159,7 +159,7 @@ public class Graph{
             tables2.add(trees2.get(i).makeTable());
         }
 
-        Map<Node, Node> map= new HashMap<Node, Node>();
+        ArrayList<Map<Node, Node>> map= new ArrayList<Map<Node, Node>>();
 
         int[] matched= new int[G2.V.size()];
 
@@ -183,8 +183,9 @@ public class Graph{
                         if (match == true){
                             //if match== true, we need to check the all the mappings up to this point hold true.
                             //by calculating distances between nodes or something.
-                            Set<Node> set= map.keySet();
-                            for (Node node : set){
+                            for (int k= 0; k < map.size(); k++){
+                                Set<Node> set= map.get(k).keySet();
+                                Node node= set.iterator().next();
                                 int nodeLevel= 0;
                                 int mNodeLevel= 0;
                                 //Search current spanning tables...
@@ -200,7 +201,7 @@ public class Graph{
                                 }
                                 for (int l= 0; l < table2.size(); l++){
                                     for (int m= 0; m < table2.get(l).size(); m++){
-                                        if (table2.get(l).get(m).index == map.get(node).index){
+                                        if (table2.get(l).get(m).index == map.get(k).get(node).index){
                                             mNodeLevel= l;
                                             break;
                                         }
@@ -215,7 +216,9 @@ public class Graph{
                         }
                     }
                     if (match == true){
-                        map.put(G1.V.get(i), G2.V.get(j));
+                        Map<Node, Node> newMap= new HashMap<Node, Node>();
+                        newMap.put(G1.V.get(i), G2.V.get(j));
+                        map.add(newMap);
                         matched[j]= 1;
                         break;//Break at first possible match <- this may not be right.
                     }
@@ -229,7 +232,12 @@ public class Graph{
             }
         }
 
-        if (checkMap(G1, G2, map)){
+        Map<Node, Node> mapmap= new HashMap<Node, Node>();
+        for (int i= 0; i < map.size(); i++){
+            mapmap.putAll(map.get(i));
+        }
+
+        if (checkMap(G1, G2, mapmap)){
             return true;
         }
         else{
