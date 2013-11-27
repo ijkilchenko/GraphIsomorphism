@@ -32,9 +32,9 @@ public class Main {
 /*        Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");*/
 
-        int n= 100;
+        int n= 6;
 
-        for (int i= 0; i < 100; i++){
+        for (int i= 0; i < 10; i++){
             Graph randomGraph5= new Graph(n);
             int[][] adj5= randomGraph5.adjacency;
             int[][] perm= Checker.makePermutation(n);

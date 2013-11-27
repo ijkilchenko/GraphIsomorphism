@@ -207,7 +207,9 @@ public class Graph{
                                     }
                                 }
                                 if (nodeLevel != mNodeLevel){
+                                    //System.out.println("Map mistmatch.");
                                     match= false;
+                                    break;
                                 }
                             }
                         }
