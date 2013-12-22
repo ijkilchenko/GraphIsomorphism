@@ -32,11 +32,18 @@ public class Main {
         Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");
 
-        int n= 128;
+        int n= 120;
         int count= 0;
+        int opCount= 0;
 
-        for (int i= 0; i < 10; i++){
+        int loops= 100;
+
+        for (int i= 0; i < loops; i++){
             Graph randomGraph5= new Graph(n);
+
+            //Reset the number of operations.
+            Graph.numOp= 0;
+
             int[][] adj5= randomGraph5.adjacency;
             int[][] perm= Checker.makePermutation(n);
             int[][] permTranspose= Checker.makeTranspose(perm);
@@ -56,7 +63,8 @@ public class Main {
             boolean isomorphic= Graph.areIsomorphic(A1, A2);
             if (isomorphic == true) count++;
 
-            System.out.println(" " + (A1.V.size() == A2.V.size()) + " " + isomorphic);
+            System.out.println(" " + (A1.V.size() == A2.V.size()) + " " + isomorphic + " " + Graph.numOp);
+            opCount+= Graph.numOp;
         }
 
 //        Graph hyper= new Graph("hypersquare");
@@ -65,6 +73,7 @@ public class Main {
 //        boolean isomorphic= Graph.areIsomorphic(hyper, hypo);
 
         System.out.println("Our success ratio is " + count%1000);
+        System.out.println("Our total number of operations is " + opCount);
 //        System.out.println(isomorphic);
     }
 }

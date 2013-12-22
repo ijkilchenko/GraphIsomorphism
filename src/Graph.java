@@ -12,6 +12,8 @@ public class Graph{
     int[][] adjacency;//TODO: possibly change this to boolean[][] to save space?
     ArrayList<Node> V= new ArrayList<Node>();
 
+    static int numOp= 0;
+
     public Graph(){
 
     }
@@ -220,6 +222,9 @@ public class Graph{
                         Map<Node, Node> newMap= new HashMap<Node, Node>();
                         newMap.put(G1.V.get(i), G2.V.get(j));
                         map.add(newMap);
+
+                        numOp++;
+
                         matched[j]= 1;
                         noMatch= -1;
                         break;//Break at first possible match <- this may not be right.
@@ -236,6 +241,9 @@ public class Graph{
                 //noMatch= matched[G1.V.get(i-1).index];
                 matched[noMatch]= 0;
                 map.remove(i-1);
+
+                numOp++;
+
                 i= map.size()-1;
 
                 //return false; //Couldn't find a match for a node.
