@@ -29,10 +29,11 @@ public class Main {
         d.addChild(b);
         Graph G1= new Graph(a);
 
-/*        Graph G2= new Graph("graph");
-        Graph kite= new Graph("kite");*/
+        Graph G2= new Graph("graph");
+        Graph kite= new Graph("kite");
 
-        int n= 6;
+        int n= 10;
+        int count= 0;
 
         for (int i= 0; i < 10; i++){
             Graph randomGraph5= new Graph(n);
@@ -49,12 +50,21 @@ public class Main {
             Graph A2= new Graph();
             A2.traverseMatrix(adj5New);
 
-    /*        Graph N1= new Graph("star_in_pentagon");
-            Graph N2= new Graph("star_in_pentagon_isomess");*/
+            Graph N1= new Graph("star_in_pentagon");
+            Graph N2= new Graph("star_in_pentagon_isomess");
 
             boolean isomorphic= Graph.areIsomorphic(A1, A2);
+            if (isomorphic == true) count++;
 
             System.out.println(" " + (A1.V.size() == A2.V.size()) + " " + isomorphic);
         }
+
+//        Graph hyper= new Graph("hypersquare");
+//        Graph hypo= new Graph("hypotesseract");
+//
+//        boolean isomorphic= Graph.areIsomorphic(hyper, hypo);
+
+        System.out.println("Our success ratio is " + count%1000);
+//        System.out.println(isomorphic);
     }
 }
