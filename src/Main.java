@@ -32,7 +32,7 @@ public class Main {
         Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");
 
-        int n= 10;
+        int n= 128;
         int count= 0;
 
         for (int i= 0; i < 10; i++){

@@ -229,8 +229,8 @@ public class Graph{
             if (map.size() == mapSize){
                 //If this is the case, all we know for sure is that the last key-value pair is not correct
                 // for the proposed isomorphism.
-                System.out.println("Couldn't find a match for a node. Current map size is " + map.size());
-                System.out.println("Current i is " + i);
+                //System.out.println("Couldn't find a match for a node. Current map size is " + map.size());
+                //System.out.println("Current i is " + i);
 
                 noMatch= map.get(i-1).values().iterator().next().index;
                 //noMatch= matched[G1.V.get(i-1).index];
