@@ -162,11 +162,12 @@ public class Graph{
         ArrayList<Map<Node, Node>> map= new ArrayList<Map<Node, Node>>();
 
         int[] matched= new int[G2.V.size()];
+        int noMatch= -1;
 
         for (int i= 0; i < G1.V.size(); i++){
             int mapSize= map.size();
             for (int j= 0; j < G2.V.size(); j++){
-                if (matched[j] != 1){
+                if (matched[j] != 1 && j > noMatch){
                     boolean match= true;
                     if (tables1.get(G1.V.get(i).index).size() != tables2.get(G2.V.get(j).index).size()){
                         //Distance to the farthest node must be the same in both spanning trees.
@@ -220,6 +221,7 @@ public class Graph{
                         newMap.put(G1.V.get(i), G2.V.get(j));
                         map.add(newMap);
                         matched[j]= 1;
+                        noMatch= -1;
                         break;//Break at first possible match <- this may not be right.
                     }
                 }
@@ -228,7 +230,15 @@ public class Graph{
                 //If this is the case, all we know for sure is that the last key-value pair is not correct
                 // for the proposed isomorphism.
                 System.out.println("Couldn't find a match for a node. Current map size is " + map.size());
-                return false; //Couldn't find a match for a node.
+                System.out.println("Current i is " + i);
+
+                noMatch= map.get(i-1).values().iterator().next().index;
+                //noMatch= matched[G1.V.get(i-1).index];
+                matched[noMatch]= 0;
+                map.remove(i-1);
+                i= map.size()-1;
+
+                //return false; //Couldn't find a match for a node.
             }
         }
 
