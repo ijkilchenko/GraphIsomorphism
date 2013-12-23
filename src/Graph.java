@@ -237,6 +237,11 @@ public class Graph{
                 //System.out.println("Couldn't find a match for a node. Current map size is " + map.size());
                 //System.out.println("Current i is " + i);
 
+                if (i-1 < 0){
+                    System.out.println("Can't find match for the very first node...");
+                    return false;
+                }
+
                 noMatch= map.get(i-1).values().iterator().next().index;
                 //noMatch= matched[G1.V.get(i-1).index];
                 matched[noMatch]= 0;

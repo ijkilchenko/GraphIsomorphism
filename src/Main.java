@@ -32,7 +32,7 @@ public class Main {
         Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");
 
-        int n= 120;
+        int n= 129;
         int count= 0;
         int opCount= 0;
 
