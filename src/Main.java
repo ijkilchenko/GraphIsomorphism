@@ -32,11 +32,11 @@ public class Main {
         Graph G2= new Graph("graph");
         Graph kite= new Graph("kite");
 
-        int n= 129;
+        int n= 128;
         int count= 0;
         int opCount= 0;
 
-        int loops= 100;
+        int loops= 1000;
 
         for (int i= 0; i < loops; i++){
             Graph randomGraph5= new Graph(n);
@@ -72,7 +72,7 @@ public class Main {
 //
 //        boolean isomorphic= Graph.areIsomorphic(hyper, hypo);
 
-        System.out.println("Our success ratio is " + count%1000);
+        System.out.println("Our success ratio is " + count);
         System.out.println("Our total number of operations is " + opCount);
 //        System.out.println(isomorphic);
     }
