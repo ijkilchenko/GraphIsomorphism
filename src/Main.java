@@ -36,10 +36,11 @@ public class Main {
         int count= 0;
         int opCount= 0;
 
-        int loops= 100;
+        int loops= 10;
 
         for (int i= 0; i < loops; i++){
             Graph randomGraph5= new Graph(n);
+            Graph randomGraph5_Noniso= new Graph(n);
 
             //Reset the number of operations.
             Graph.numOp= 0;
@@ -51,11 +52,12 @@ public class Main {
             adj5New= Checker.matrixMultiply(adj5New,permTranspose);
             //Note: adj5 and adj5New must represent isomorphic graphs.
 
+            int[][] adj5_Noniso= randomGraph5_Noniso.adjacency;
 
             Graph A1= new Graph();
             A1.traverseMatrix(adj5);
             Graph A2= new Graph();
-            A2.traverseMatrix(adj5New);
+            A2.traverseMatrix(adj5_Noniso);
 
             Graph N1= new Graph("star_in_pentagon");
             Graph N2= new Graph("star_in_pentagon_isomess");
