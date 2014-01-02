@@ -36,7 +36,7 @@ public class Main {
         int count= 0;
         int opCount= 0;
 
-        int loops= 1000;
+        int loops= 100;
 
         for (int i= 0; i < loops; i++){
             Graph randomGraph5= new Graph(n);
