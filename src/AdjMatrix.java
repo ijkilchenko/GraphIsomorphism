@@ -5,6 +5,11 @@ import java.util.Random;
  * Date: 1/4/14
  */
 public class AdjMatrix extends BitMatrix{
+    BitMatrix matrix;
+
+    public AdjMatrix(int n){
+        matrix= new BitMatrix(n);
+    }
 
     public static BitMatrix makeRandom(int n){
         BitMatrix matrix= new BitMatrix(n);

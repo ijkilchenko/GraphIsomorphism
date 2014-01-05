@@ -23,27 +23,35 @@ public class BitMatrix {
 
     }
 
-    public static BitSet[] makeTranspose(BitSet[] matrix){
-        BitSet[] transpose= new BitSet[matrix.length];
-        for (int i= 0; i < matrix.length; i++){
-            transpose[i]= new BitSet(matrix.length);
-            for (int j= 0; j < matrix.length; j++){
-                if (matrix[i].get(j) == true){
-                    transpose[i].set(j, true); //Default value is set to false.
+    public BitSet getRow(int i){
+        return matrix[i];
+    }
+
+    public int getSize(){
+        return  this.matrix.length;
+    }
+
+    public static BitMatrix makeTranspose(BitMatrix matrix){
+        int n= matrix.getSize();
+        BitMatrix transpose= new BitMatrix(n);
+        for (int i= 0; i < n; i++){
+            for (int j= 0; j < n; j++){
+                if (matrix.getRow(i).get(j) == true){
+                    transpose.getRow(j).set(i, true); //Default value is set to false.
                 }
             }
         }
         return transpose;
     }
 
-    public static BitSet[] multiply(BitSet[] A, BitSet[] B){
-        BitSet[] product= new BitSet[B.length];
-        for (int i= 0; i < B.length; i++){
-            product[i]= new BitSet(B.length);
-            for (int j= 0; j < B.length; j++){
-                for (int k= 0; k < B.length; k++){
-                    if (A[i].get(k) && B[k].get(j)){
-                        product[i].set(j, true);
+    public static BitMatrix multiply(BitMatrix A, BitMatrix B){
+        int n= B.getSize();
+        BitMatrix product= new BitMatrix(n);
+        for (int i= 0; i < n; i++){
+            for (int j= 0; j < n; j++){
+                for (int k= 0; k < n; k++){
+                    if (A.getRow(i).get(k) && B.getRow(k).get(j)){
+                        product.getRow(i).set(j, true);
                         break; //Each element in the product matrix is at most 1, so we can break when we get 1.
                     }
                 }

@@ -1,81 +1,29 @@
-import java.io.IOException;
-
 /**
  * User: ijk
- * Date: 11/17/13
+ * Date: 1/4/14
  */
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args){
         System.out.println("Welcome to Graph Isomorphism!");
 
-        //The following makes a "kite" graph G (with "a" as the main node).
-        /*     a-b
-               |/|
-               c-d
-        */
-        Node<String> a= new Node("a");
-        Node<String> b= new Node("b");
-        Node<String> c= new Node("c");
-        Node<String> d= new Node("d");
-        a.addChild(b);
-        a.addChild(c);
-        b.addChild(a);
-        b.addChild(c);
-        b.addChild(d);
-        c.addChild(a);
-        c.addChild(b);
-        c.addChild(d);
-        d.addChild(c);
-        d.addChild(b);
-        Graph G1= new Graph(a);
+        int n= 5;
 
-        Graph G2= new Graph("graph");
-        Graph kite= new Graph("kite");
+        BitMatrix adjMatrix= new AdjMatrix(n);
+        adjMatrix= AdjMatrix.makeRandom(n);
 
-        int n= 128;
-        int count= 0;
-        int opCount= 0;
+        BitMatrix permMatrix= new PermMatrix(n);
+        permMatrix= PermMatrix.makeRandom(n);
 
-        int loops= 10;
+        BitMatrix permMatrixTrans= new PermMatrix(n);
+        permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
 
-        for (int i= 0; i < loops; i++){
-            Graph randomGraph5= new Graph(n);
-            Graph randomGraph5_Noniso= new Graph(n);
+        BitMatrix adjMatrixPerm= new AdjMatrix(n);
+        adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
+        adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
-            //Reset the number of operations.
-            Graph.numOp= 0;
+        System.out.println("Breakpoint!");
 
-            int[][] adj5= randomGraph5.adjacency;
-            int[][] perm= Checker.makePermutation(n);
-            int[][] permTranspose= Checker.makeTranspose(perm);
-            int[][] adj5New= Checker.matrixMultiply(perm,adj5);
-            adj5New= Checker.matrixMultiply(adj5New,permTranspose);
-            //Note: adj5 and adj5New must represent isomorphic graphs.
 
-            int[][] adj5_Noniso= randomGraph5_Noniso.adjacency;
 
-            Graph A1= new Graph();
-            A1.traverseMatrix(adj5);
-            Graph A2= new Graph();
-            A2.traverseMatrix(adj5_Noniso);
-
-            Graph N1= new Graph("star_in_pentagon");
-            Graph N2= new Graph("star_in_pentagon_isomess");
-
-            boolean isomorphic= Graph.areIsomorphic(A1, A2);
-            if (isomorphic == true) count++;
-
-            System.out.println(" " + (A1.V.size() == A2.V.size()) + " " + isomorphic + " " + Graph.numOp);
-            opCount+= Graph.numOp;
-        }
-
-//        Graph hyper= new Graph("hypersquare");
-//        Graph hypo= new Graph("hypotesseract");
-//
-//        boolean isomorphic= Graph.areIsomorphic(hyper, hypo);
-
-        System.out.println("Our success ratio is " + count);
-        System.out.println("Our total number of operations is " + opCount);
-//        System.out.println(isomorphic);
     }
 }

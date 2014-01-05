@@ -4,7 +4,12 @@ import java.util.Random;
  * User: ijk
  * Date: 1/4/14
  */
-public class PermMatrix {
+public class PermMatrix extends BitMatrix{
+    BitMatrix matrix;
+
+    public PermMatrix(int n){
+        matrix= new BitMatrix(n);
+    }
 
     public static BitMatrix makeRandom(int n){
         BitMatrix matrix= new BitMatrix(n);
