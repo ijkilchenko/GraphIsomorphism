@@ -20,11 +20,10 @@ public class BitMatrix {
 
     public void setBit(int i, int j, boolean flag){
         this.matrix[i].set(j, flag);
-
     }
 
-    public BitSet getRow(int i){
-        return matrix[i];
+    public boolean getBit(int i, int j){
+        return this.matrix[i].get(j);
     }
 
     public int getSize(){
@@ -36,8 +35,8 @@ public class BitMatrix {
         BitMatrix transpose= new BitMatrix(n);
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
-                if (matrix.getRow(i).get(j) == true){
-                    transpose.getRow(j).set(i, true); //Default value is set to false.
+                if (matrix.getBit(i, j) == true){
+                    transpose.setBit(j, i, true); //Default value is set to false.
                 }
             }
         }
@@ -50,8 +49,8 @@ public class BitMatrix {
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
                 for (int k= 0; k < n; k++){
-                    if (A.getRow(i).get(k) && B.getRow(k).get(j)){
-                        product.getRow(i).set(j, true);
+                    if (A.getBit(i, k) && B.getBit(k, j)){
+                        product.setBit(i, j, true);
                         break; //Each element in the product matrix is at most 1, so we can break when we get 1.
                     }
                 }
@@ -60,6 +59,5 @@ public class BitMatrix {
         return product;
 
     }
-
 
 }

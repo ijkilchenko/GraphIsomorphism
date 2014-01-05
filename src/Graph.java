@@ -1,85 +1,27 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 /**
  * User: ijk
- * Date: 11/17/13
+ * Date: 1/4/14
  */
 public class Graph{
-    Node mainNode;
-    int[][] adjacency;//TODO: possibly change this to boolean[][] to save space?
-    ArrayList<Node> V= new ArrayList<Node>();
+    Node[] V;
 
-    static int numOp= 0;
-
-    public Graph(){
-
-    }
-
-    public Graph(Node node){
-        mainNode= node;
-    }
-
-    public Graph(String name) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Graphs/"+name+".txt"));
-        StringBuilder sb = new StringBuilder();
-        String line = br.readLine();
-        while (line != null) {
-            sb.append(line);
-            sb.append('\n');
-            line = br.readLine();
-        }
-        br.close();
-        String matrixStr = sb.toString();
-        int n= (matrixStr.indexOf("\n")+1)/2; //Number of nodes in the graph.
-        int[][] matrix= new int[n][n];
+    public Graph(AdjMatrix matrix){
+        int n= matrix.getSize();
+        this.V= new Node[n];
         for (int i= 0; i < n; i++){
-            for (int j= 0; j < 2*n-1; j=j+2){
-                matrix[i][j/2]= Integer.parseInt(matrixStr.substring(i*(2*n-1+1)+j,i*(2*n-1+1)+j+1));
-            }
+            V[i]= new Node(String.valueOf(i));
         }
-        traverseMatrix(matrix);
-    }
-
-    public Graph(int n) throws IOException {
-        Random random= new Random();
-
-        //Make a random undirected (i.e. symmetric matrix) graph's adjacency matrix.
-        int[][] matrix= new int[n][n];
         for (int i= 0; i < n; i++){
-            for (int j= i; j < n; j++){
-                if (i == j){
-                    matrix[i][j]= 0;
-                }
-                else{
-                    matrix[i][j]= random.nextInt(2);
-                    matrix[j][i]= matrix[i][j];
-                }
-            }
-        }
-        //TODO: matrix might not be connected,yet.
-        //I think the probability of a graph being disconnected is (1/2)^n. For example, if n=5, then p=3%.
-        traverseMatrix(matrix);
-    }
-
-    public void traverseMatrix(int[][] matrix) throws IOException{
-        ArrayList<Node> nodes= new ArrayList<Node>();
-        for (int i= 0; i < matrix.length; i++){
-            nodes.add(new Node(String.valueOf(i)));
-        }
-
-        for (int i= 0; i < matrix.length; i++){
-            for (int j= 0; j < matrix.length; j++){
-                if (matrix[i][j] == 1){
-                    nodes.get(i).addChild(nodes.get(j));
+            for (int j= 0; j < n; j++){
+                if (matrix.getBit(i,j) == true){
+                    V[i].addChild(V[j]);
                 }
             }
         }
 
-        mainNode= nodes.get(0);
-        this.adjacency= matrix;
+
     }
 
     public void traverse(Node node){
