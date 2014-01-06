@@ -1,5 +1,3 @@
-import java.util.*;
-
 /**
  * User: ijk
  * Date: 1/4/14
@@ -20,44 +18,42 @@ public class Graph{
                 }
             }
         }
-
-
     }
 
-    public void traverse(Node node){
-        //Breadth First Search to make a list of all nodes in the graph.
-        if (node.index != null){
-            return; //Already traversed.
-        }
-        int index= 0;
-        Queue queue= new Queue();
-        node.index= 0;
-        V.add(node);
-        index++;
-        queue.enqueue(node);
+    public static boolean areIsomorphic(Graph G1, Graph G2){
+        HashTable table1;
+        HashTable table2;
 
-        while (!queue.isEmpty()){
-            Node r= queue.dequeue();
-            for (int i= 0; i < r.children.size(); i++){
-                Node s= (Node)r.children.get(i);
-                if (V.indexOf(s) < 0){
-                    s.index= index;
-                    V.add(s);
-                    index++;
-                    queue.enqueue(s);
+        int n= G1.V.length;
+
+        table1= new HashTable();
+        LinkedList temp= new LinkedList();
+        int i= 0;
+        int k= 0;
+        temp.addNode(G1.V[i]);
+        table1.add(k, G1.V[i]);
+
+        while (i < n){
+            Node r= table1.get(i);
+            for (int j= 0; j < r.children.size(); j++){
+                Node s= (Node)r.children.get(j);
+                if (temp.findNode(s) == false){
+                    temp.addNode(s);
+                    table1.add(k+1, s);
+                    i++;
                 }
             }
         }
     }
 
-    public static Tree BFS(Node node){
-        //Breadth First Search to make a spanning tree of a graph rooted at 'node'.
+    /*public static Tree BFS(Node start){
+        //Breadth First Search to make a spanning tree of a graph rooted at 'start'.
         Queue queue= new Queue();
         Queue treeQueue= new Queue();
         ArrayList<Node> tempV= new ArrayList<Node>();
-        tempV.add(node);
-        queue.enqueue(node);
-        Node root= new Node(node.data, node.index);
+        tempV.add(start);
+        queue.enqueue(start);
+        Node root= new Node(start.data, start.index);
         treeQueue.enqueue(root);
 
         while (!queue.isEmpty()){
@@ -114,7 +110,7 @@ public class Graph{
                 if (matched[j] != 1 && j > noMatch){
                     boolean match= true;
                     if (tables1.get(G1.V.get(i).index).size() != tables2.get(G2.V.get(j).index).size()){
-                        //Distance to the farthest node must be the same in both spanning trees.
+                        //Distance to the farthest start must be the same in both spanning trees.
                         match= false;
                     }
                     else{
@@ -130,7 +126,7 @@ public class Graph{
                             //by calculating distances between nodes or something.
                             for (int k= 0; k < map.size(); k++){
                                 Set<Node> set= map.get(k).keySet();
-                                Node node= set.iterator().next();
+                                Node start= set.iterator().next();
                                 int nodeLevel= 0;
                                 int mNodeLevel= 0;
                                 //Search current spanning tables...
@@ -138,7 +134,7 @@ public class Graph{
                                 ArrayList<ArrayList<Node>> table2= tables2.get(G2.V.get(j).index);
                                 for (int l= 0; l < table1.size(); l++){
                                     for (int m= 0; m < table1.get(l).size(); m++){
-                                        if (table1.get(l).get(m).index == node.index){ //We are comparing graph nodes with tree nodes.
+                                        if (table1.get(l).get(m).index == start.index){ //We are comparing graph nodes with tree nodes.
                                             nodeLevel= l;
                                             break;
                                         }
@@ -146,7 +142,7 @@ public class Graph{
                                 }
                                 for (int l= 0; l < table2.size(); l++){
                                     for (int m= 0; m < table2.get(l).size(); m++){
-                                        if (table2.get(l).get(m).index == map.get(k).get(node).index){
+                                        if (table2.get(l).get(m).index == map.get(k).get(start).index){
                                             mNodeLevel= l;
                                             break;
                                         }
@@ -180,11 +176,11 @@ public class Graph{
             if (map.size() == mapSize){
                 //If this is the case, all we know for sure is that the last key-value pair is not correct
                 // for the proposed isomorphism.
-                System.out.println("Couldn't find a match for a node. Current map size is " + map.size());
+                System.out.println("Couldn't find a match for a start. Current map size is " + map.size());
                 System.out.println("Current i is " + i + " NoMatch is " + noMatch);
 
                 if (i-1 < 0){
-                    System.out.println("Can't find match for the very first node...");
+                    System.out.println("Can't find match for the very first start...");
                     return false;
                 }
 
@@ -197,7 +193,7 @@ public class Graph{
 
                 i= map.size()-1;
 
-                //return false; //Couldn't find a match for a node.
+                //return false; //Couldn't find a match for a start.
             }
         }
 
@@ -225,15 +221,15 @@ public class Graph{
         //The following nested for-loop checks the forward direction of edge preservation,
         //i.e., each edge in G1 is also found in G2.
         if (missingEdge(G1, map)){
-            return false; //No edge connecting 'node' and 'child' exists in the second Graph.
+            return false; //No edge connecting 'start' and 'child' exists in the second Graph.
         }
 
         //We need to check the edge preservation in the backward direction: we need to construct an inverse map.
         Map<Node, Node> inverseMap= new HashMap<Node, Node>();
 
         Set<Node> set= map.keySet();
-        for (Node node : set){
-            inverseMap.put((Node)map.get(node), node);
+        for (Node start : set){
+            inverseMap.put((Node)map.get(start), start);
         }
         if (missingEdge(G2, inverseMap)){
             return false; //Missing edge when using the inverse map.
@@ -243,11 +239,11 @@ public class Graph{
 
     private static boolean missingEdge(Graph G1, Map map) {
         for (int i= 0; i < G1.V.size(); i++){
-            Node node= G1.V.get(i);
+            Node start= G1.V.get(i);
             for (int j= 0; j < G1.V.get(i).children.size(); j++){
-                Node child= (Node)node.children.get(j);
-                //There exists an edge between 'node' and 'child.'
-                Node mNode= (Node)map.get(node);
+                Node child= (Node)start.children.get(j);
+                //There exists an edge between 'start' and 'child.'
+                Node mNode= (Node)map.get(start);
                 Node mChild= (Node)map.get(child);
                 if (mNode.children.indexOf(mChild) < 0){
                     return true;
@@ -255,5 +251,5 @@ public class Graph{
             }
         }
         return false;
-    }
+    }*/
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
  */
 public class Node<T> {
     T data;
-    Integer index= null;
     ArrayList<Node> children= new ArrayList<Node>();
     Node next= null;
 
@@ -17,14 +16,14 @@ public class Node<T> {
         this.data= data;
     }
 
-    public Node(T data, int index){
+/*    public Node(T data, int index){
         this.data= data;
         this.index= index;
-    }
+    }*/
 
-    public void addChild(T data){
+/*    public void addChild(T data){
         children.add(new Node(data));
-    }
+    }*/
 
     public void addChild(Node node){
         children.add(node);
