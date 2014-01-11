@@ -2,12 +2,12 @@
  * User: ijk
  * Date: 1/4/14
  */
-public class LinkedList{
+public class TableList{
     Node start;
     int length;
-    LinkedList next;
+    TableList next;
 
-    public LinkedList(){
+    public TableList(){
         start = new Node();
         length= 0;
         next= null;

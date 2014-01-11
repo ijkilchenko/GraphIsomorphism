@@ -8,21 +8,19 @@ public class Main {
 
         int n= 5;
 
-        BitMatrix adjMatrix= new AdjMatrix(n);
-        adjMatrix= AdjMatrix.makeRandom(n);
+        BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
-        BitMatrix permMatrix= new PermMatrix(n);
-        permMatrix= PermMatrix.makeRandom(n);
+        BitMatrix permMatrix= PermMatrix.makeRandom(n);
 
-        BitMatrix permMatrixTrans= new PermMatrix(n);
-        permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
+        BitMatrix permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
 
-        BitMatrix adjMatrixPerm= new AdjMatrix(n);
-        adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
+        BitMatrix adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
         adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
-        System.out.println("Breakpoint!");
+        Graph G1= new Graph(adjMatrix);
+        Graph.areIsomorphic(G1,G1);
 
+        System.out.println("Breakpoint!");
 
 
     }
