@@ -11,7 +11,7 @@ public class Table {
         length= 0;
     }
 
-    public void add(int k, Node node){
+    public void add(int k, int index){
         TableList s= first;
         int i= 0;
         while (s.next != null && i < k){
@@ -19,37 +19,34 @@ public class Table {
         }
         if (s.next == null){
             TableList t= new TableList();
-            t.add(node);
+            t.add(index);
             s.next= t;
             length++;
         }
         else{
-            s.add(node);
+            s.add(index);
         }
     }
+
+/*    public int get(int i){
+        TableList s= first;
+        int j= 0;
+        while (s.next != null && j < i){
+            s= s.next;
+        }
+        if (s.next == null){
+            TableList t= new TableList();
+            t.add(index);
+            s.next= t;
+            length++;
+        }
+        else{
+            s.add(index);
+        }
+    }*/
 
     public int getLength(){
         return this.length;
     }
-
-/*    public Node get(int i){
-        int j= 0;
-        TableList s= first;
-        Node node= new Node();
-        while (j < i ){
-            node= s.start;
-            while (node.next != null && j < i){
-                node.next= node;
-                j++;
-            }
-            if (j == i){
-                return node;
-            }
-            else{
-                s.next= s;
-            }
-        }
-        return node;
-    }*/
 
 }

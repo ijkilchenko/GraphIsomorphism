@@ -5,12 +5,10 @@
 public class LinkedList{
     Node start;
     int length;
-    LinkedList next;
 
     public LinkedList(){
         start = new Node();
         length= 0;
-        next= null;
     }
 
     public void add(Node node){
@@ -45,18 +43,5 @@ public class LinkedList{
         }
         return s;
     }
-
-/*    private class Node<T> {
-        T data;
-        Node next= null;
-
-        public Node(){
-            this.next= null;
-        }
-
-        public Node(T data){
-            this.data= data;
-        }
-    }*/
 
 }

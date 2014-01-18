@@ -9,7 +9,7 @@ public class Graph{
         int n= matrix.getSize();
         this.V= new Node[n];
         for (int i= 0; i < n; i++){
-            V[i]= new Node(String.valueOf(i));
+            V[i]= new Node(i);
         }
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
@@ -20,21 +20,21 @@ public class Graph{
         }
     }
 
-    public static Table makeTable(Graph G, int i){
+/*    public static Table makeTable(Graph G, int i){
         int n= G.V.length;
 
         Table table= new Table();
-        LinkedList temp= new LinkedList();
+        boolean[] visited= new boolean[n];
         int k= 0;
-        temp.add(G.V[i]);
-        table.add(k, G.V[i]);
+        visited[i]= true;
+        table.add(k, i);
 
         while (i < n){
-            Node r= table.get(i);
-            for (int j= 0; j < r.children.getLength(); j++){
-                Node s= r.children.get(j);
-                if (temp.findNode(s) == false){
-                    temp.add(s);
+            int r= table.get(i);
+            for (int j= 0; j < G.V[r].children.getLength(); j++){
+                Node s= G.V[r].children.get(j);
+                if (visited[s] == false){
+                    visited[s]= true;
                     table.add(k + 1, s);
                     i++;
                 }
@@ -48,5 +48,5 @@ public class Graph{
 
         System.out.println("Breakpoint!");
 
-    }
+    }*/
 }

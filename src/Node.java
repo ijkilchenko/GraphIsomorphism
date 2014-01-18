@@ -4,12 +4,11 @@
  */
 public class Node<T> {
     T data;
-    LinkedList children= new LinkedList();
-    Node next= null;
+    LinkedList children;
+    Node next;
 
     public Node(){
-        this.children= new LinkedList();
-        this.next= null;
+
     }
 
     public Node(T data){

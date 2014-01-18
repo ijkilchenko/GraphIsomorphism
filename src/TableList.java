@@ -3,22 +3,23 @@
  * Date: 1/4/14
  */
 public class TableList{
-    Node start;
+    TableNode start;
     int length;
+
     TableList next;
 
     public TableList(){
-        start = new Node();
+        start = new TableNode();
         length= 0;
         next= null;
     }
 
-    public void add(Node node){
-        Node s= start;
+    public void add(int index){
+        TableNode s= start;
         while (s.next != null){
             s= s.next;
         }
-        s.next= node;
+        s.next= new TableNode(index);
         length++;
     }
 
@@ -26,8 +27,8 @@ public class TableList{
         return this.length;
     }
 
-    public boolean findNode(Node node){
-        Node s= start;
+    public boolean findNode(TableNode node){
+        TableNode s= start;
         while(s.next != null){
             if (s == node){
                 return true;
@@ -37,26 +38,25 @@ public class TableList{
         return false;
     }
 
-    public Node get(int i){
-        Node s= start;
+    public int get(int i){
+        TableNode s= start;
         int j= 0;
         while (j < i){
             s.next= s;
         }
-        return s;
+        return s.index;
     }
 
-/*    private class Node<T> {
-        T data;
-        Node next= null;
+    private class TableNode {
+        int index;
+        TableNode next;
 
-        public Node(){
-            this.next= null;
+        public TableNode(){
         }
 
-        public Node(T data){
-            this.data= data;
+        public TableNode(int index){
+            this.index= index;
         }
-    }*/
+    }
 
 }
