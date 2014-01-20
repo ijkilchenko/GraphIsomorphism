@@ -12,11 +12,21 @@ public class Graph{
             V[i]= new Node(i);
         }
         for (int i= 0; i < n; i++){
+            int childrenSize= 0;
             for (int j= 0; j < n; j++){
                 if (matrix.getBit(i,j) == true){
-                    V[i].addChild(V[j]);
+                    childrenSize++;
                 }
             }
+            Node[] C= new Node[childrenSize];
+            int k= 0;
+            for (int j= 0; j < n; j++){
+                if (matrix.getBit(i,j) == true){
+                    C[k]= V[j];
+                    k++;
+                }
+            }
+            V[i].addChildren(C);
         }
     }
 

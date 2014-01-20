@@ -4,19 +4,17 @@
  */
 public class Node<T> {
     T data;
-    LinkedList children;
-    Node next;
+    Node[] children;
 
     public Node(){
 
     }
 
     public Node(T data){
-        this.children= new LinkedList();
         this.data= data;
     }
 
-    public void addChild(Node node){
-        children.add(node);
+    public void addChildren(Node[] C){
+        this.children= C;
     }
 }

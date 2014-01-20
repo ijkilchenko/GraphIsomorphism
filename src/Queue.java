@@ -11,7 +11,7 @@ public class Queue {
         end= null;
     }
 
-    public void enqueue(Node node){
+/*    public void enqueue(Node node){
         if (front == null){
             end= new Node(node);
             front= end;
@@ -31,7 +31,7 @@ public class Queue {
         else{
             return null;
         }
-    }
+    }*/
 
     public boolean isEmpty(){
         if (front == null){
