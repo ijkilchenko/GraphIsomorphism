@@ -18,7 +18,7 @@ public class Main {
         adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
         Graph G1= new Graph(adjMatrix);
-//        Graph.areIsomorphic(G1,G1);
+        Graph.areIsomorphic(G1,G1);
 
         System.out.println("Breakpoint!");
 

@@ -5,7 +5,6 @@
 public class TableList{
     TableNode start;
     int length;
-
     TableList next;
 
     public TableList(){
@@ -44,19 +43,7 @@ public class TableList{
         while (j < i){
             s.next= s;
         }
-        return s.index;
-    }
-
-    private class TableNode {
-        int index;
-        TableNode next;
-
-        public TableNode(){
-        }
-
-        public TableNode(int index){
-            this.index= index;
-        }
+        return s.data;
     }
 
 }

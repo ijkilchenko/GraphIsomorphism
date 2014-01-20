@@ -30,23 +30,24 @@ public class Graph{
         }
     }
 
-/*    public static Table makeTable(Graph G, int i){
+    public static Table makeTable(Graph G, int i){
         int n= G.V.length;
 
         Table table= new Table();
         boolean[] visited= new boolean[n];
         int k= 0;
+        int m= 0;
         visited[i]= true;
         table.add(k, i);
 
-        while (i < n){
-            int r= table.get(i);
-            for (int j= 0; j < G.V[r].children.getLength(); j++){
-                Node s= G.V[r].children.get(j);
-                if (visited[s] == false){
-                    visited[s]= true;
-                    table.add(k + 1, s);
-                    i++;
+        while (m < n){
+            int r= table.get(m);
+            for (int j= 0; j < G.V[r].children.length; j++){
+                Node s= G.V[r].children[j];
+                if (visited[s.data] == false){
+                    visited[s.data]= true;
+                    table.add(k + 1, s.data);
+                    m++;
                 }
             }
         }
@@ -58,5 +59,5 @@ public class Graph{
 
         System.out.println("Breakpoint!");
 
-    }*/
+    }
 }
