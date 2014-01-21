@@ -4,7 +4,7 @@
  */
 public class TableList{
     TableNode start;
-    TableList next;
+    TableList next= null;
 
     int length;
 
@@ -14,16 +14,16 @@ public class TableList{
         next= null;
     }
 
-    public void add(int index){
+    public void add(int data){
         TableNode s= start;
         while (s.next != null){
             s= s.next;
         }
-        s= new TableNode(index);
+        s.next= new TableNode(data);
         length++;
     }
 
-    public boolean findNode(TableNode node){
+/*    public boolean findNode(TableNode node){
         TableNode s= start;
         while(s.next != null){
             if (s == node){
@@ -32,13 +32,14 @@ public class TableList{
             s.next= node;
         }
         return false;
-    }
+    }*/
 
     public int get(int i){
-        TableNode s= start;
+        TableNode s= start.next;
         int j= 0;
         while (j < i){
-            s.next= s;
+            s= s.next;
+            j++;
         }
         return s.data;
     }

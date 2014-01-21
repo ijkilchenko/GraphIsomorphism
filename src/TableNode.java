@@ -4,7 +4,7 @@
  */
 public class TableNode {
     int data;
-    TableNode next;
+    TableNode next= null;
 
     public TableNode(){
 
