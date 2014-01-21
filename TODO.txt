@@ -1,1 +1,2 @@
-1. [H] Think of how Table should be implemented. It should look like LinkedList<LinkedList>.
+1.
+2.

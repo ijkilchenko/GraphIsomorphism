@@ -4,8 +4,9 @@
  */
 public class TableList{
     TableNode start;
-    int length;
     TableList next;
+
+    int length;
 
     public TableList(){
         start = new TableNode();
@@ -18,12 +19,8 @@ public class TableList{
         while (s.next != null){
             s= s.next;
         }
-        s.next= new TableNode(index);
+        s= new TableNode(index);
         length++;
-    }
-
-    public int getLength(){
-        return this.length;
     }
 
     public boolean findNode(TableNode node){

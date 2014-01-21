@@ -32,18 +32,14 @@ public class Table {
     public int get(int i){
         TableList s= first;
         while (true){
-            if (s.getLength() > i){
+            if (s.length > i){
                 return s.get(i);
             }
             else{
-                i= i - s.getLength();
+                i= i - s.length;
                 s= s.next;
             }
         }
-    }
-
-    public int getLength(){
-        return this.length;
     }
 
 }

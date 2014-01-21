@@ -11,17 +11,16 @@ public class Main {
         BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
         BitMatrix permMatrix= PermMatrix.makeRandom(n);
-
         BitMatrix permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
-
         BitMatrix adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
         adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
         Graph G1= new Graph(adjMatrix);
+        Graph G2= new Graph(adjMatrixPerm);
+
         Graph.areIsomorphic(G1,G1);
 
         System.out.println("Breakpoint!");
-
 
     }
 }
