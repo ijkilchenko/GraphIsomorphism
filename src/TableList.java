@@ -9,12 +9,16 @@ public class TableList{
     int length;
 
     public TableList(){
-        start = new TableNode();
         length= 0;
         next= null;
     }
 
     public void add(int data){
+        if (length == 0){
+            start= new TableNode(data);
+            length++;
+            return;
+        }
         TableNode s= start;
         while (s.next != null){
             s= s.next;

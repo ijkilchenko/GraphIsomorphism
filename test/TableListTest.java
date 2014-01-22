@@ -11,10 +11,10 @@ public class TableListTest {
     public void testAdd() throws Exception {
         TableList tableList= new TableList();
         tableList.add(123);
-        assertEquals(123, tableList.start.next.data);
+        assertEquals(123, tableList.start.data);
         assertEquals(1, tableList.length);
         tableList.add(234);
-        assertEquals(234, tableList.start.next.next.data);
+        assertEquals(234, tableList.start.next.data);
         assertEquals(2, tableList.length);
 
     }
