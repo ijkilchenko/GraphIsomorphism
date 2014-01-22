@@ -29,6 +29,38 @@ public class TableTest {
     }
 
     @Test
+    public void popTest() throws Exception {
+        Table table= new Table();
+        table.add(0, 123);
+        table.add(0, 234);
+        table.add(1, 345);
+        table.add(2, 456);
+        assertEquals(3, table.length);
+        table.pop();
+        assertEquals(2, table.length);
+        table.add(2, 456);
+        assertEquals(3, table.length);
+        table.pop();
+        table.pop();
+        table.pop();
+        assertEquals(0, table.length);
+
+    }
+
+    @Test
+    public void getWidthTest() throws Exception {
+        Table table= new Table();
+        table.add(0, 123);
+        table.add(0, 234);
+        table.add(1, 345);
+        table.add(2, 456);
+        assertEquals(2, table.getWidth(0));
+        assertEquals(1, table.getWidth(1));
+        assertEquals(1, table.getWidth(2));
+
+    }
+
+    @Test
     public void testGet() throws Exception {
         Table table= new Table();
         table.add(0, 123);

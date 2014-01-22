@@ -35,14 +35,13 @@ public class Graph{
 
         Table table= new Table();
         boolean[] visited= new boolean[n];
-        int k= 0;
         int m= 0;
         visited[i]= true;
-        table.add(k, i);
+        table.add(0, i);
 
         while (m < n){
             int r= table.get(m);
-            k= table.getLevel(m);
+            int k= table.getLevel(m);
             for (int j= 0; j < G.V[r].children.length; j++){
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
@@ -69,7 +68,58 @@ public class Graph{
             tables2[i]= Graph.makeTable(G2, i);
         }
 
-
+        Table map= new Table();
+        boolean[] matched= new boolean[n];
+        int noMatch= -1;
+        for (int i= 0; i < n; i++){
+            int mapSize= map.length;
+            for (int j= 0; j < n; j++){
+                if (matched[j] != true && j > noMatch){
+                    boolean match= true;
+                    if (tables1[i].length != tables2[j].length){
+                        match= false;
+                    }
+                    else{
+                        for (int k= 0; k < tables1[i].length; k++){
+                            if (tables1[i].getWidth(k) != tables2[j].getWidth(k)){
+                                match= false;
+                                break;
+                            }
+                        }
+                        if (match == false){
+                            for (int k= 0; k < map.length; k++){
+                                int key= map.get(k*2);
+                                int mapped= map.get(k*2+1);
+                                int keyLevel= 0;
+                                int mapLevel= 0;
+                                keyLevel= tables1[i].getLevel(key);
+                                mapLevel= tables2[j].getLevel(mapped);
+                                if (keyLevel != mapLevel){
+                                    match= false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (match == true){
+                        map.add(mapSize+1, i);
+                        map.add(mapSize+1, j);
+                        matched[j]= true;
+                        noMatch= -1;
+                        break;
+                    }
+                }
+            }
+            if (map.length == mapSize){
+                if (i-1 < 0){
+                    System.out.println("Can't find match for the very first node...");
+                }
+                noMatch= map.get((i-1)*2+1);
+                matched[noMatch]= false;
+                map.pop();
+                i= map.length-1;
+            }
+        }
 
         System.out.println("Breakpoint!");
 

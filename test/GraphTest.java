@@ -10,12 +10,9 @@ public class GraphTest {
     @Test
     public void testMakeTable() throws Exception {
         /*
-
-        0
-        |
-        3--1
-        |  |
-        2--4
+           1--4
+           |  |
+        0--3--2
 
          */
 
@@ -46,6 +43,19 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
+        int n= 5;
+
+        BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
+
+        BitMatrix permMatrix= PermMatrix.makeRandom(n);
+        BitMatrix permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
+        BitMatrix adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
+        adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
+
+        Graph G1= new Graph(adjMatrix);
+        Graph G2= new Graph(adjMatrixPerm);
+
+        Graph.areIsomorphic(G1,G1);
 
     }
 }

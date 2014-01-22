@@ -36,6 +36,22 @@ public class Table {
         }
     }
 
+    public void pop(){
+        if (length == 0){
+            return;
+        }
+        TableList s= first;
+        TableList prev= first;
+        int i= 0;
+        while (s.next != null){
+            prev= s;
+            s= s.next;
+            i++;
+        }
+        prev.next= null;
+        length--;
+    }
+
     public int get(int i){
         TableList s= first;
         while (true){
@@ -46,6 +62,21 @@ public class Table {
                 i= i - s.length;
                 s= s.next;
             }
+        }
+    }
+
+    public int getWidth(int i){
+        TableList s= first;
+        if (this.length < i){
+            return -1;
+        }
+        else{
+            int j= 0;
+            while (j < i){
+                s= s.next;
+                j++;
+            }
+            return s.length;
         }
     }
 
