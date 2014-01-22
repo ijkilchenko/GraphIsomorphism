@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
  * Date: 1/20/14
  */
 public class BitMatrixTest {
-    int n= 5;
+    int n= 256;
 
     @org.junit.Test
     public void testSetBit() throws Exception {

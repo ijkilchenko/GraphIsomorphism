@@ -12,8 +12,8 @@ public class PermMatrixTest {
     @Test
     public void testMakeRandom() throws Exception {
 
-        int n= 5;
-        BitMatrix matrix= PermMatrix.makeRandom(5);
+        int n= 256;
+        BitMatrix matrix= PermMatrix.makeRandom(n);
         BitMatrix identity= BitMatrix.multiply(matrix, matrix);
 
         Random random= new Random();

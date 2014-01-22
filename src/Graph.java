@@ -42,14 +42,15 @@ public class Graph{
 
         while (m < n){
             int r= table.get(m);
+            k= table.getLevel(m);
             for (int j= 0; j < G.V[r].children.length; j++){
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
                     visited[s.data]= true;
                     table.add(k + 1, s.data);
-                    m++;
                 }
             }
+            m++;
         }
         return table;
     }

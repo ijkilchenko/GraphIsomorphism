@@ -1,0 +1,51 @@
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * User: ijk
+ * Date: 1/21/14
+ */
+public class GraphTest {
+    @Test
+    public void testMakeTable() throws Exception {
+        /*
+
+        0
+        |
+        3--1
+        |  |
+        2--4
+
+         */
+
+        int n= 5;
+        BitMatrix adjMatrix= new BitMatrix(n);
+        adjMatrix.setBit(0, 3, true);
+        adjMatrix.setBit(1, 3, true);
+        adjMatrix.setBit(1, 4, true);
+        adjMatrix.setBit(2, 3, true);
+        adjMatrix.setBit(2, 4, true);
+        adjMatrix.setBit(3, 0, true);
+        adjMatrix.setBit(3, 1, true);
+        adjMatrix.setBit(3, 2, true);
+        adjMatrix.setBit(4, 1, true);
+        adjMatrix.setBit(4, 2, true);
+        Graph G1= new Graph(adjMatrix);
+        Table table= Graph.makeTable(G1, 0);
+        assertEquals(0, table.first.get(0));
+        assertEquals(3, table.get(1));
+        assertEquals(1, table.get(2));
+        assertEquals(2, table.get(3));
+        assertEquals(1, table.first.length);
+        assertEquals(1, table.first.next.length);
+        assertEquals(2, table.first.next.next.length);
+        assertEquals(4, table.length);
+
+    }
+
+    @Test
+    public void testAreIsomorphic() throws Exception {
+
+    }
+}

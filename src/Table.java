@@ -49,4 +49,19 @@ public class Table {
         }
     }
 
+    public int getLevel(int i){
+        TableList s= first;
+        int level= 0;
+        while (true){
+            if (s.length > i){
+                return level;
+            }
+            else{
+                i= i - s.length;
+                s= s.next;
+                level++;
+            }
+        }
+    }
+
 }
