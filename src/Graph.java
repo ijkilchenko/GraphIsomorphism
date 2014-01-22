@@ -56,7 +56,20 @@ public class Graph{
     }
 
     public static void areIsomorphic(Graph G1, Graph G2){
-        Table table= makeTable(G1, 0);
+        int n= G1.V.length;
+        if (n != G2.V.length){
+            System.out.println("Graphs are of different size!");
+            return;
+        }
+        Table[] tables1= new Table[n];
+        Table[] tables2= new Table[n];
+
+        for (int i= 0; i < n; i++){
+            tables1[i]= Graph.makeTable(G1, i);
+            tables2[i]= Graph.makeTable(G2, i);
+        }
+
+
 
         System.out.println("Breakpoint!");
 
