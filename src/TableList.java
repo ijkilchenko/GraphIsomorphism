@@ -39,7 +39,7 @@ public class TableList{
     }*/
 
     public int get(int i){
-        TableNode s= start.next;
+        TableNode s= start;
         int j= 0;
         while (j < i){
             s= s.next;

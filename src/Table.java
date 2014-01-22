@@ -7,25 +7,32 @@ public class Table {
     int length;
 
     public Table(){
-        first= new TableList();
         length= 0;
     }
 
-    public void add(int k, int index){
+    public void add(int k, int data){
+        if (length == 0){
+            first= new TableList();
+            length++;
+            first.add(data);
+            return;
+        }
         TableList s= first;
+        TableList prev= first;
         int i= 0;
         while (i < k){
+            prev= s;
             s= s.next;
             i++;
         }
-        if (s.next == null){
-            TableList t= new TableList();
-            t.add(index);
-            s.next= t;
+        if (s == null){
+            s= new TableList();
+            s.add(data);
+            prev.next= s;
             length++;
         }
         else{
-            s.add(index);
+            s.add(data);
         }
     }
 
