@@ -43,7 +43,7 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 5;
+        int n= 3;
 
         BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
@@ -55,7 +55,7 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrixPerm);
 
-        Graph.areIsomorphic(G1,G1);
+        Graph.areIsomorphic(G1,G2);
 
     }
 }

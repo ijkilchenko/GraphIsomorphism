@@ -40,6 +40,7 @@ public class Graph{
         table.add(0, i);
 
         while (m < n){
+            //TODO: Fix this so the graph doesn't have to be connected. Should be easy.
             int r= table.get(m);
             int k= table.getLevel(m);
             for (int j= 0; j < G.V[r].children.length; j++){
@@ -102,8 +103,8 @@ public class Graph{
                         }
                     }
                     if (match == true){
-                        map.add(mapSize+1, i);
-                        map.add(mapSize+1, j);
+                        map.add(mapSize, i);
+                        map.add(mapSize, j);
                         matched[j]= true;
                         noMatch= -1;
                         break;
