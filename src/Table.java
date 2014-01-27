@@ -55,6 +55,9 @@ public class Table {
     public int get(int i){
         TableList s= first;
         while (true){
+            if (s == null){
+                return -1;
+            }
             if (s.length > i){
                 return s.get(i);
             }

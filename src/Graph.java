@@ -39,8 +39,7 @@ public class Graph{
         visited[i]= true;
         table.add(0, i);
 
-        while (m < n){
-            //TODO: Fix this so the graph doesn't have to be connected. Should be easy.
+        while (table.get(m) != -1 ){
             int r= table.get(m);
             int k= table.getLevel(m);
             for (int j= 0; j < G.V[r].children.length; j++){
@@ -55,11 +54,12 @@ public class Graph{
         return table;
     }
 
-    public static void areIsomorphic(Graph G1, Graph G2){
+    public static Table areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
+        Table map= new Table();
         if (n != G2.V.length){
             System.out.println("Graphs are of different size!");
-            return;
+            return map;
         }
         Table[] tables1= new Table[n];
         Table[] tables2= new Table[n];
@@ -69,7 +69,6 @@ public class Graph{
             tables2[i]= Graph.makeTable(G2, i);
         }
 
-        Table map= new Table();
         boolean[] matched= new boolean[n];
         int noMatch= -1;
         for (int i= 0; i < n; i++){
@@ -124,5 +123,6 @@ public class Graph{
 
         System.out.println("Breakpoint!");
 
+        return map;
     }
 }

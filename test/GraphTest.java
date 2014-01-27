@@ -51,6 +51,39 @@ public class GraphTest {
         assertEquals(2, table.first.next.next.length);
         assertEquals(3, table.length);
 
+        /*
+           1--4
+
+        0--3--2
+
+         */
+
+        n= 5;
+        adjMatrix= new BitMatrix(n);
+        adjMatrix.setBit(0, 3, true);
+        adjMatrix.setBit(1, 4, true);
+        adjMatrix.setBit(2, 3, true);
+        adjMatrix.setBit(3, 0, true);
+        adjMatrix.setBit(3, 2, true);
+        adjMatrix.setBit(4, 1, true);
+        Graph G2= new Graph(adjMatrix);
+        Table table2= Graph.makeTable(G2, 0);
+        assertEquals(0, table2.first.get(0));
+        assertEquals(3, table2.get(1));
+        assertEquals(2, table2.get(2));
+        assertEquals(-1, table2.get(3));
+        assertEquals(1, table2.first.length);
+        assertEquals(1, table2.first.next.length);
+        assertEquals(1, table2.first.next.next.length);
+        assertEquals(3, table2.length);
+
+        table2= Graph.makeTable(G2, 1);
+        assertEquals(1, table2.first.get(0));
+        assertEquals(4, table2.get(1));
+        assertEquals(-1, table2.get(2));
+        assertEquals(1, table2.first.length);
+        assertEquals(1, table2.first.next.length);
+        assertEquals(2, table2.length);
 
     }
 
