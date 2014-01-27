@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * User: ijk
@@ -90,7 +91,7 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 50;
+        int n= 4;
         int t= 1;
 
         long totalTime= 0;
@@ -127,6 +128,136 @@ public class GraphTest {
             }
         }
         System.out.print("Total time is " + totalTime/Math.pow(10,9) + " seconds.");
+
+    }
+
+    @Test
+    public void testAreIsomorphicSimple() throws Exception {
+        /* G1
+        2--3
+         \/
+         1--0
+           / \
+          4--5
+
+           G2
+        5--1
+         \/
+         4--0
+           / \
+          2--3
+
+         */
+
+        int n= 6;
+        BitMatrix adjMatrix= new BitMatrix(n);
+        adjMatrix.setBit(0, 1, true);
+        adjMatrix.setBit(0, 4, true);
+        adjMatrix.setBit(0, 5, true);
+        adjMatrix.setBit(1, 0, true);
+        adjMatrix.setBit(1, 2, true);
+        adjMatrix.setBit(1, 3, true);
+        adjMatrix.setBit(2, 1, true);
+        adjMatrix.setBit(2, 3, true);
+        adjMatrix.setBit(3, 1, true);
+        adjMatrix.setBit(3, 2, true);
+        adjMatrix.setBit(4, 0, true);
+        adjMatrix.setBit(4, 5, true);
+        adjMatrix.setBit(5, 0, true);
+        adjMatrix.setBit(5, 4, true);
+
+        BitMatrix adjMatrix2= new BitMatrix(n);
+        adjMatrix2.setBit(0, 2, true);
+        adjMatrix2.setBit(0, 3, true);
+        adjMatrix2.setBit(0, 4, true);
+        adjMatrix2.setBit(4, 0, true);
+        adjMatrix2.setBit(4, 5, true);
+        adjMatrix2.setBit(4, 1, true);
+        adjMatrix2.setBit(5, 1, true);
+        adjMatrix2.setBit(5, 4, true);
+        adjMatrix2.setBit(2, 0, true);
+        adjMatrix2.setBit(2, 3, true);
+        adjMatrix2.setBit(3, 0, true);
+        adjMatrix2.setBit(3, 2, true);
+        adjMatrix2.setBit(1, 5, true);
+        adjMatrix2.setBit(1, 4, true);
+
+        Graph G1= new Graph(adjMatrix);
+        Graph G2= new Graph(adjMatrix2);
+
+        Table map= Graph.areIsomorphic(G1,G2);
+        assertTrue(Graph.checkEdges(G1, G2, map));
+
+    }
+
+    @Test
+    public void testCheckConditions() throws Exception {
+        /* G1
+        2--3
+         \/
+         1--0
+           / \
+          4--5
+
+           G2
+        5--1
+         \/
+         4--0
+           / \
+          2--3
+
+         */
+
+        int n= 6;
+        BitMatrix adjMatrix= new BitMatrix(n);
+        adjMatrix.setBit(0, 1, true);
+        adjMatrix.setBit(0, 4, true);
+        adjMatrix.setBit(0, 5, true);
+        adjMatrix.setBit(1, 0, true);
+        adjMatrix.setBit(1, 2, true);
+        adjMatrix.setBit(1, 3, true);
+        adjMatrix.setBit(2, 1, true);
+        adjMatrix.setBit(2, 3, true);
+        adjMatrix.setBit(3, 1, true);
+        adjMatrix.setBit(3, 2, true);
+        adjMatrix.setBit(4, 0, true);
+        adjMatrix.setBit(4, 5, true);
+        adjMatrix.setBit(5, 0, true);
+        adjMatrix.setBit(5, 4, true);
+
+        BitMatrix adjMatrix2= new BitMatrix(n);
+        adjMatrix2.setBit(0, 2, true);
+        adjMatrix2.setBit(0, 3, true);
+        adjMatrix2.setBit(0, 4, true);
+        adjMatrix2.setBit(4, 0, true);
+        adjMatrix2.setBit(4, 5, true);
+        adjMatrix2.setBit(4, 1, true);
+        adjMatrix2.setBit(5, 1, true);
+        adjMatrix2.setBit(5, 4, true);
+        adjMatrix2.setBit(2, 0, true);
+        adjMatrix2.setBit(2, 3, true);
+        adjMatrix2.setBit(3, 0, true);
+        adjMatrix2.setBit(3, 2, true);
+        adjMatrix2.setBit(1, 5, true);
+        adjMatrix2.setBit(1, 4, true);
+
+        Graph G1= new Graph(adjMatrix);
+        Graph G2= new Graph(adjMatrix2);
+
+        Table table3= new Table();
+        table3= Graph.makeTable(G1,3);
+        Table table2= new Table();
+        table2= Graph.makeTable(G2,2);
+
+        Table map= new Table();
+        map.add(0, 0);
+        map.add(1, 1);
+        map.add(2, 2);
+        map.add(0, 0);
+        map.add(1, 4);
+        map.add(2, 1);
+
+        assertFalse(Graph.checkConditions(map, table3, table2, false));
 
     }
 

@@ -76,29 +76,7 @@ public class Graph{
             for (int j= 0; j < n; j++){
                 if (matched[j] != true && j > mismatched){
                     boolean match= true;
-                    if (tables1[i].length != tables2[j].length){
-                        match= false;
-                    }
-                    else{
-                        for (int k= 0; k < tables1[i].length; k++){
-                            if (tables1[i].getWidth(k) != tables2[j].getWidth(k)){
-                                match= false;
-                                break;
-                            }
-                        }
-                        if (match == false){
-                            for (int k= 0; k < map.length; k++){
-                                int key= map.get(k*2);
-                                int mapped= map.get(k*2+1);
-                                int keyLevel= tables1[i].getLevel(key);
-                                int mapLevel= tables2[j].getLevel(mapped);
-                                if (keyLevel != mapLevel){
-                                    match= false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
+                    match = checkConditions(map, tables1[i], tables2[j], match);
                     if (match == true){
                         map.add(currentLength, i);
                         map.add(currentLength, j);
@@ -122,6 +100,33 @@ public class Graph{
 
         System.out.println("True. Graphs are isomorphic! ");
         return map;
+    }
+
+    public static boolean checkConditions(Table map, Table table, Table table1, boolean match) {
+        if (table.length != table1.length){
+            match= false;
+        }
+        else{
+            for (int k= 0; k < table.length; k++){
+                if (table.getWidth(k) != table1.getWidth(k)){
+                    match= false;
+                    break;
+                }
+            }
+            if (match == true){
+                for (int k= 0; k < map.length; k++){
+                    int key= map.get(k*2);
+                    int mapped= map.get(k*2+1);
+                    int keyLevel= table.getLevel(key);
+                    int mapLevel= table1.getLevel(mapped);
+                    if (keyLevel != mapLevel){
+                        match= false;
+                        break;
+                    }
+                }
+            }
+        }
+        return match;
     }
 
     public static boolean checkEdges(Graph G1, Graph G2, Table map){
