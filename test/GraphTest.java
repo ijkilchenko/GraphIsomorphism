@@ -90,8 +90,8 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 3;
-        int t= 10;
+        int n= 50;
+        int t= 1;
 
         long totalTime= 0;
 
@@ -114,12 +114,16 @@ public class GraphTest {
             totalTime += duration;
 
             if (map == null){
-                System.out.println("Error. Map return between isomorphic was null");
+                System.out.println("Error. Map returned between isomorphic graphs was null");
             }
             else{
+                //long startCheck = System.nanoTime();
                 if (!Graph.checkEdges(G1, G2, map)){
-
+                    System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
                 }
+                //long endCheck= System.nanoTime();
+                //long checkDuration = endTime - startTime;
+                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
             }
         }
         System.out.print("Total time is " + totalTime/Math.pow(10,9) + " seconds.");
@@ -184,9 +188,11 @@ public class GraphTest {
         map.add(3, 4);
         map.add(4, 0);
 
+        long startTime = System.nanoTime();
         assertTrue(Graph.checkEdges(G1, G2, map));
-
-
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        System.out.println("Success! Isomorphism confirmed. Check took " + duration/Math.pow(10,9)+ " seconds");
 
     }
 }

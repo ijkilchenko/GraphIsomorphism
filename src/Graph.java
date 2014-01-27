@@ -125,7 +125,6 @@ public class Graph{
     }
 
     public static boolean checkEdges(Graph G1, Graph G2, Table map){
-        long startTime = System.nanoTime();
         int n= map.length;
         for (int i= 0; i < n; i++){
             int key= map.get(2*i);
@@ -150,9 +149,7 @@ public class Graph{
 
             }
         }
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-        System.out.println("Success! Isomorphism confirmed. Check took " + duration/Math.pow(10,9)+ "seconds");
+        System.out.println("Success! Isomorphism confirmed.");
         return true;
     }
 
