@@ -29,7 +29,7 @@ public class TableTest {
     }
 
     @Test
-    public void popTest() throws Exception {
+    public void testPop() throws Exception {
         Table table= new Table();
         table.add(0, 123);
         table.add(0, 234);
@@ -48,7 +48,7 @@ public class TableTest {
     }
 
     @Test
-    public void getWidthTest() throws Exception {
+    public void testGetWidth() throws Exception {
         Table table= new Table();
         table.add(0, 123);
         table.add(0, 234);
@@ -73,7 +73,8 @@ public class TableTest {
         assertEquals(456, table.get(3));
     }
 
-    public void getLevelTest() throws Exception {
+    @Test
+    public void testGetLevel() throws Exception {
         Table table= new Table();
         table.add(0, 123);
         table.add(0, 234);

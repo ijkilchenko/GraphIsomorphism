@@ -16,6 +16,9 @@ public class TableListTest {
         tableList.add(234);
         assertEquals(234, tableList.start.next.data);
         assertEquals(2, tableList.length);
+        tableList.add(345);
+        assertEquals(345, tableList.start.next.next.data);
+        assertEquals(3, tableList.length);
 
     }
 
@@ -29,8 +32,10 @@ public class TableListTest {
         TableList tableList= new TableList();
         tableList.add(123);
         tableList.add(234);
+        tableList.add(345);
         assertEquals(123, tableList.get(0));
         assertEquals(234, tableList.get(1));
+        assertEquals(345, tableList.get(2));
 
     }
 }

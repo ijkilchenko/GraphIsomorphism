@@ -41,7 +41,7 @@ public class Graph{
 
         while (table.get(m) != -1 ){
             int r= table.get(m);
-            int k= table.getLevel(m);
+            int k= table.getLevel(r);
             for (int j= 0; j < G.V[r].children.length; j++){
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
@@ -98,7 +98,7 @@ public class Graph{
             }
         }
 
-        System.out.println("True. Graphs are isomorphic! ");
+        //System.out.println("True. Graphs are isomorphic! ");
         return map;
     }
 
@@ -154,7 +154,7 @@ public class Graph{
 
             }
         }
-        System.out.println("Success! Isomorphism confirmed.");
+        //System.out.println("Success! Isomorphism confirmed.");
         return true;
     }
 

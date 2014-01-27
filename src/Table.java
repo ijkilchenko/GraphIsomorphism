@@ -90,14 +90,13 @@ public class Table {
             if (s == null){
                 return -1;
             }
-            if (s.length > i){
-                return level;
+            for (int j= 0; j < s.length; j++){
+                if (s.get(j) == i){
+                    return level;
+                }
             }
-            else{
-                i= i - s.length;
-                s= s.next;
-                level++;
-            }
+            s= s.next;
+            level++;
         }
     }
 

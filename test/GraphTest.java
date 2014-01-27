@@ -1,8 +1,6 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
  * User: ijk
@@ -91,8 +89,8 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 4;
-        int t= 1;
+        int n= 20;
+        int t= 10;
 
         long totalTime= 0;
 
@@ -121,6 +119,7 @@ public class GraphTest {
                 //long startCheck = System.nanoTime();
                 if (!Graph.checkEdges(G1, G2, map)){
                     System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
+                    fail();
                 }
                 //long endCheck= System.nanoTime();
                 //long checkDuration = endTime - startTime;
@@ -323,7 +322,7 @@ public class GraphTest {
         assertTrue(Graph.checkEdges(G1, G2, map));
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
-        System.out.println("Success! Isomorphism confirmed. Check took " + duration/Math.pow(10,9)+ " seconds");
+        System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
 
     }
 }
