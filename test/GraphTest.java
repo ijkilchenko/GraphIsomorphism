@@ -34,10 +34,23 @@ public class GraphTest {
         assertEquals(3, table.get(1));
         assertEquals(1, table.get(2));
         assertEquals(2, table.get(3));
+        assertEquals(4, table.get(4));
         assertEquals(1, table.first.length);
         assertEquals(1, table.first.next.length);
         assertEquals(2, table.first.next.next.length);
         assertEquals(4, table.length);
+
+        table= Graph.makeTable(G1, 1);
+        assertEquals(1, table.first.get(0));
+        assertEquals(3, table.get(1));
+        assertEquals(4, table.get(2));
+        assertEquals(0, table.get(3));
+        assertEquals(2, table.get(4));
+        assertEquals(1, table.first.length);
+        assertEquals(2, table.first.next.length);
+        assertEquals(2, table.first.next.next.length);
+        assertEquals(3, table.length);
+
 
     }
 
@@ -48,9 +61,9 @@ public class GraphTest {
         BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
         BitMatrix permMatrix= PermMatrix.makeRandom(n);
-        BitMatrix permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
-        BitMatrix adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
-        adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
+        BitMatrix permMatrixTrans= PermMatrix.transpose(permMatrix);
+        BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
+        adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrixPerm);

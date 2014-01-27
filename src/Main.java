@@ -11,9 +11,9 @@ public class Main {
         BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
         BitMatrix permMatrix= PermMatrix.makeRandom(n);
-        BitMatrix permMatrixTrans= PermMatrix.makeTranspose(permMatrix);
-        BitMatrix adjMatrixPerm= BitMatrix.multiply(permMatrix, adjMatrix);
-        adjMatrixPerm= BitMatrix.multiply(adjMatrixPerm, permMatrixTrans);
+        BitMatrix permMatrixTrans= PermMatrix.transpose(permMatrix);
+        BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
+        adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrixPerm);

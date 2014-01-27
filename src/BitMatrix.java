@@ -11,15 +11,15 @@ public class BitMatrix {
 
     }
 
-    public BitMatrix(int n){
+    public BitMatrix(int n){ //Initialize a square binary matrix with side n.
         this.matrix= new BitSet[n];
         for (int i= 0; i < n; i++){
-            this.matrix[i]= new BitSet(n); //matrix[i].get(j) gives (i,j)th element.
+            this.matrix[i]= new BitSet(n);
         }
     }
 
-    public void setBit(int i, int j, boolean flag){
-        this.matrix[i].set(j, flag);
+    public void setBit(int i, int j, boolean value){
+        this.matrix[i].set(j, value);
     }
 
     public boolean getBit(int i, int j){
@@ -30,34 +30,16 @@ public class BitMatrix {
         return  this.matrix.length;
     }
 
-    public static BitMatrix makeTranspose(BitMatrix matrix){
+    public static BitMatrix transpose(BitMatrix matrix){
         int n= matrix.getSize();
         BitMatrix transpose= new BitMatrix(n);
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
                 if (matrix.getBit(i, j) == true){
-                    transpose.setBit(j, i, true); //Default value is set to false.
+                    transpose.setBit(j, i, true); //Note: default value is set to false.
                 }
             }
         }
         return transpose;
     }
-
-    public static BitMatrix multiply(BitMatrix A, BitMatrix B){
-        int n= B.getSize();
-        BitMatrix product= new BitMatrix(n);
-        for (int i= 0; i < n; i++){
-            for (int j= 0; j < n; j++){
-                for (int k= 0; k < n; k++){
-                    if (A.getBit(i, k) && B.getBit(k, j)){
-                        product.setBit(i, j, true);
-                        break; //Each element in the product matrix is at most 1, so we can break when we get 1.
-                    }
-                }
-            }
-        }
-        return product;
-
-    }
-
 }

@@ -27,4 +27,21 @@ public class PermMatrix extends BitMatrix{
         return matrix;
     }
 
+    public static BitMatrix multiply(BitMatrix A, BitMatrix B){
+        //Note: this method assumes at least one of A and B is a permutation matrix.
+        int n= B.getSize();
+        BitMatrix product= new BitMatrix(n);
+        for (int i= 0; i < n; i++){
+            for (int j= 0; j < n; j++){
+                for (int k= 0; k < n; k++){
+                    if (A.getBit(i, k) && B.getBit(k, j)){
+                        product.setBit(i, j, true);
+                        break; //Each element in the product matrix is at most 1, so we can break when we get 1.
+                    }
+                }
+            }
+        }
+        return product;
+    }
+
 }

@@ -2,78 +2,65 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * User: ijk
  * Date: 1/20/14
  */
 public class BitMatrixTest {
-    int n= 256;
+    int n= 2048; //Test matrix size.
 
     @org.junit.Test
     public void testSetBit() throws Exception {
         BitMatrix matrix= new BitMatrix(n);
-        assertFalse(matrix.matrix[n - 2].get(n - 2));
-        matrix.setBit(n-2, n-2, true);
-        assertTrue(matrix.matrix[n - 2].get(n - 2));
+        Random random= new Random();
+        for (int k= 0; k < 10; k++){
+            int i= random.nextInt(n);
+            int j= random.nextInt(n);
+            assertFalse(matrix.matrix[i].get(j));
+            matrix.setBit(i, j, true);
+            assertTrue(matrix.matrix[i].get(j));
+        }
     }
 
     @Test
     public void testGetBit() throws Exception {
         BitMatrix matrix= new BitMatrix(n);
-        assertEquals(matrix.getBit(n-2,n-2), matrix.matrix[n - 2].get(n - 2));
-        matrix.setBit(n-2, n-2, true);
-        assertEquals(matrix.getBit(n-2,n-2), matrix.matrix[n - 2].get(n - 2));
+        Random random= new Random();
+        for (int k= 0; k < 10; k++){
+            int i= random.nextInt(n);
+            int j= random.nextInt(n);
+            assertEquals(matrix.getBit(i,j), matrix.matrix[i].get(j));
+            matrix.setBit(i, j, true);
+            assertEquals(matrix.getBit(i,j), matrix.matrix[i].get(j));
+        }
     }
 
     @Test
-    public void testMakeTranspose() throws Exception {
+    public void testTranspose() throws Exception {
         BitMatrix matrix= new BitMatrix(n);
         boolean[][] keys= new boolean[n][n];
         Random random= new Random();
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
-                keys[i][j]= (random.nextInt(1) == 1)? true: false;
+                keys[i][j]= (random.nextInt(2) == 1)? true: false;
                 matrix.setBit(i, j, keys[i][j]);
             }
         }
 
-        BitMatrix matrixTrans= BitMatrix.makeTranspose(matrix);
-
+        BitMatrix matrixT= BitMatrix.transpose(matrix);
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
-                assertEquals(matrix.getBit(i, j), matrixTrans.getBit(j, i));
+                assertEquals(matrix.getBit(i, j), matrixT.getBit(j, i));
             }
         }
 
-
-        BitMatrix matrixIdentity= BitMatrix.makeTranspose(matrixTrans);
+        BitMatrix matrixTT= BitMatrix.transpose(matrixT);
         for (int i= 0; i < n; i++){
             for (int j= 0; j < n; j++){
-                assertEquals(matrix.getBit(i, j), matrixIdentity.getBit(i, j));
+                assertEquals(matrix.getBit(i, j), matrixTT.getBit(i, j));
             }
         }
-
-    }
-
-    @Test
-    public void testMultiply() throws Exception {
-
-        BitMatrix matrix= new BitMatrix(n);
-        matrix.setBit(0, 0, true);
-        matrix.setBit(0, 1, false);
-        matrix.setBit(1, 1, true);
-        matrix.setBit(1, 0, false);
-
-        BitMatrix matrixIdentity= BitMatrix.multiply(matrix, matrix);
-        for (int i= 0; i < n; i++){
-            for (int j= 0; j < n; j++){
-                assertEquals(matrix.getBit(i, j), matrixIdentity.getBit(i, j));
-            }
-        }
-
     }
 }

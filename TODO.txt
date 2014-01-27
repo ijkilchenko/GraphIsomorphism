@@ -1,2 +1,2 @@
-1.
-2.
+1. [L] Generalize makeRandom methods to give graphs of any p, not just p=1/2.
+2. [L] Test uniformity of the random graphs.
