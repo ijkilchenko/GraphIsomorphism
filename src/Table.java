@@ -87,6 +87,9 @@ public class Table {
         TableList s= first;
         int level= 0;
         while (true){
+            if (s == null){
+                return -1;
+            }
             if (s.length > i){
                 return level;
             }

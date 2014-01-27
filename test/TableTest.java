@@ -72,4 +72,18 @@ public class TableTest {
         assertEquals(345, table.get(2));
         assertEquals(456, table.get(3));
     }
+
+    public void getLevelTest() throws Exception {
+        Table table= new Table();
+        table.add(0, 123);
+        table.add(0, 234);
+        table.add(1, 345);
+        table.add(2, 456);
+        assertEquals(0, table.getLevel(234));
+        assertEquals(1, table.getLevel(345));
+        assertEquals(2, table.getLevel(456));
+        assertEquals(-1, table.getLevel(111));
+        assertEquals(-1, table.getLevel(111));
+
+    }
 }

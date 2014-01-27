@@ -58,7 +58,7 @@ public class Graph{
         int n= G1.V.length;
         Table map= new Table();
         if (n != G2.V.length){
-            System.out.println("Graphs are of different size!");
+            System.out.println("False. Graphs are of different size! ");
             return map;
         }
         Table[] tables1= new Table[n];
@@ -90,10 +90,8 @@ public class Graph{
                             for (int k= 0; k < map.length; k++){
                                 int key= map.get(k*2);
                                 int mapped= map.get(k*2+1);
-                                int keyLevel= 0;
-                                int mapLevel= 0;
-                                keyLevel= tables1[i].getLevel(key);
-                                mapLevel= tables2[j].getLevel(mapped);
+                                int keyLevel= tables1[i].getLevel(key);;
+                                int mapLevel= tables2[j].getLevel(mapped);
                                 if (keyLevel != mapLevel){
                                     match= false;
                                     break;

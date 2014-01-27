@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class GraphTest {
     @Test
     public void testMakeTable() throws Exception {
-        /*
+        /* connected graph
            1--4
            |  |
         0--3--2
@@ -51,7 +51,7 @@ public class GraphTest {
         assertEquals(2, table.first.next.next.length);
         assertEquals(3, table.length);
 
-        /*
+        /* non-connected graph
            1--4
 
         0--3--2
