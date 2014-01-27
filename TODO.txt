@@ -1,2 +1,3 @@
 1. [L] Generalize makeRandom methods to give graphs of any p, not just p=1/2.
 2. [L] Test uniformity of the random graphs.
+3. [M] Map doesn't have to be a Table, could simply be a TableList.
