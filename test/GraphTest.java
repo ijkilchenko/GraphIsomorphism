@@ -89,10 +89,11 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 20;
-        int t= 10;
+        int n= 128;
+        int t= 1;
 
         long totalTime= 0;
+        long totalCheckTime= 0;
 
         /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
@@ -116,17 +117,20 @@ public class GraphTest {
                 System.out.println("Error. Map returned between isomorphic graphs was null");
             }
             else{
-                //long startCheck = System.nanoTime();
+                long startCheck = System.nanoTime();
                 if (!Graph.checkEdges(G1, G2, map)){
                     System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
                     fail();
                 }
-                //long endCheck= System.nanoTime();
-                //long checkDuration = endTime - startTime;
+                long endCheck= System.nanoTime();
+                long checkDuration = endCheck - startCheck;
+                totalCheckTime += checkDuration;
                 //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
             }
+            System.out.println("Test " + i +" is finished!");
         }
-        System.out.print("Total time is " + totalTime/Math.pow(10,9) + " seconds.");
+        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
+        System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
 
     }
 
