@@ -115,6 +115,7 @@ public class GraphTest {
 
             if (map == null){
                 System.out.println("Error. Map returned between isomorphic graphs was null");
+                fail();
             }
             else{
                 long startCheck = System.nanoTime();

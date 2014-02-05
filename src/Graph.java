@@ -130,6 +130,7 @@ public class Graph{
     }
 
     public static boolean checkEdges(Graph G1, Graph G2, Table map){
+        //Forward direction.
         int n= map.length;
         for (int i= 0; i < n; i++){
             int key= map.get(2*i);
@@ -154,6 +155,41 @@ public class Graph{
 
             }
         }
+        //Backward direction.
+        Table map2= new Table(); //Backward map.
+        for (int i= 0; i < n; i++){
+            map2.add(i, i);
+        }
+        for (int i= 0; i < n; i++){
+            map2.add(map.get(2*i+1),i);
+        }
+
+        for (int i= 0; i < n; i++){
+            int key= map2.get(2*i);
+            int value= map2.get(2*i+1);
+            if (G2.V[key].children.length != G1.V[value].children.length){
+                System.out.println("Error. Backward map sets correspondence between nodes with different number of children! ");
+                return false;
+            }
+            for (int j= 0; j < G2.V[key].children.length; j++){
+                int key1= G2.V[key].children[j].data;
+                int value1= map2.get(2*key1+1);
+                boolean flag= false;
+                for (int k= 0; k < G1.V[value].children.length; k++){
+                    if (G1.V[value].children[k].data == value1){
+                        flag= true;
+                    }
+                }
+                if (flag == false){
+                    System.out.println("Error. An edge was not backward mapped! ");
+                    return false;
+                }
+
+            }
+        }
+
+
+
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
     }
