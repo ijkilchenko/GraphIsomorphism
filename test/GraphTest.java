@@ -89,8 +89,8 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 128;
-        int t= 1;
+        int n= 256;
+        int t= 10;
 
         long totalTime= 0;
         long totalCheckTime= 0;
@@ -113,8 +113,8 @@ public class GraphTest {
             long duration = endTime - startTime;
             totalTime += duration;
 
-            if (map == null){
-                System.out.println("Error. Map returned between isomorphic graphs was null");
+            if (map.length < n){
+                System.out.println("Error. Map returned between isomorphic graphs was not of length " + n +".");
                 fail();
             }
             else{
@@ -122,6 +122,49 @@ public class GraphTest {
                 if (!Graph.checkEdges(G1, G2, map)){
                     System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
                     fail();
+                }
+                long endCheck= System.nanoTime();
+                long checkDuration = endCheck - startCheck;
+                totalCheckTime += checkDuration;
+                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
+            }
+            System.out.println("Test " + i +" is finished!");
+        }
+        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
+        System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
+
+    }
+
+    @Test
+    public void testAreNonIsomorphic() throws Exception {
+        int n= 128;
+        int t= 10;
+
+        long totalTime= 0;
+        long totalCheckTime= 0;
+
+        /*Test non-isomorphic graphs*/
+        for (int i= 0; i < t; i++){
+            BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
+            BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
+
+
+            Graph G1= new Graph(adjMatrix);
+            Graph G2= new Graph(adjMatrix2);
+
+            long startTime = System.nanoTime();
+            Table map= Graph.areIsomorphic(G1,G2);
+            long endTime = System.nanoTime();
+            long duration = endTime - startTime;
+            totalTime += duration;
+
+            if (map.length == 0){
+                System.out.println("Success. Graphs are non-isomorphic. Map is null. ");
+            }
+            else{
+                long startCheck = System.nanoTime();
+                if (!Graph.checkEdges(G1, G2, map)){
+                    System.out.println("Improbable result. Two random graphs are isomorphic.");
                 }
                 long endCheck= System.nanoTime();
                 long checkDuration = endCheck - startCheck;
