@@ -10,6 +10,10 @@ import java.util.Random;
 public class AdjMatrix extends BitMatrix{
 
     public static BitMatrix makeRandom(int n){
+        return makeRandom(n, 1, 2);
+    }
+
+    public static BitMatrix makeRandom(int n, int p, int q){
         BitMatrix matrix= new BitMatrix(n);
         Random random= new Random();
 
@@ -19,7 +23,7 @@ public class AdjMatrix extends BitMatrix{
                     matrix.setBit(i, j, false);
                 }
                 else{
-                    boolean flag= random.nextBoolean();
+                    boolean flag= (random.nextInt(q) <= p-1)? true: false;
                     matrix.setBit(i, j, flag);
                     matrix.setBit(j, i, flag);
                 }

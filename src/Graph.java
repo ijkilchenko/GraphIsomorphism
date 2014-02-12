@@ -102,13 +102,13 @@ public class Graph{
         return map;
     }
 
-    public static boolean checkConditions(Table map, Table table, Table table1, boolean match) {
-        if (table.length != table1.length){
+    public static boolean checkConditions(Table map, Table table1, Table table2, boolean match) {
+        if (table1.length != table2.length){
             match= false;
         }
         else{
-            for (int k= 0; k < table.length; k++){
-                if (table.getWidth(k) != table1.getWidth(k)){
+            for (int k= 0; k < table1.length; k++){
+                if (table1.getWidth(k) != table2.getWidth(k)){
                     match= false;
                     break;
                 }
@@ -117,14 +117,21 @@ public class Graph{
                 for (int k= 0; k < map.length; k++){
                     int key= map.get(k*2);
                     int mapped= map.get(k*2+1);
-                    int keyLevel= table.getLevel(key);
-                    int mapLevel= table1.getLevel(mapped);
+                    int keyLevel= table1.getLevel(key);
+                    int mapLevel= table2.getLevel(mapped);
                     if (keyLevel != mapLevel){
                         match= false;
                         break;
                     }
                 }
             }
+        }
+        return match;
+    }
+
+    public static boolean checkHeight(Table map, Table table1, Table table2, boolean match) {
+        if (table1.length != table2.length){
+            match= false;
         }
         return match;
     }

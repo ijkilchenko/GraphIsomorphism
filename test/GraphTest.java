@@ -89,15 +89,17 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 256;
+        int n= 128;
         int t= 10;
+        int p= 7;
+        int q= 8;
 
         long totalTime= 0;
         long totalCheckTime= 0;
 
         /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
-            BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
+            BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
 
             BitMatrix permMatrix= PermMatrix.makeRandom(n);
             BitMatrix permMatrixT= PermMatrix.transpose(permMatrix);
@@ -131,7 +133,7 @@ public class GraphTest {
             System.out.println("Test " + i +" is finished!");
         }
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
+        System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
 
     }
 
