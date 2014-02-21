@@ -6,7 +6,7 @@ import org.junit.Test;
  */
 public class RunningTime {
 
-    @Test
+    /*@Test
     public void RunningTime() throws Exception {
         int n= 256;
         int t= 5;
@@ -14,7 +14,7 @@ public class RunningTime {
         long totalTime= 0;
         double totalCount= 0;
 
-        /*Test isomorphic graphs*/
+        *//*Test isomorphic graphs*//*
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
@@ -65,7 +65,7 @@ public class RunningTime {
         long totalTime= 0;
         double totalCount= 0;
 
-        /*Test isomorphic graphs*/
+        *//*Test isomorphic graphs*//*
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
 
@@ -106,5 +106,5 @@ public class RunningTime {
         System.out.println("Average number of height-compatible matches is \t" + totalCount/t + ".");
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
 
-    }
+    }*/
 }

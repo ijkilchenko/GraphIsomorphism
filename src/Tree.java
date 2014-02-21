@@ -36,7 +36,7 @@ public class Tree {
     }
 
     public void setWidth(){
-        width= new int[height];
+        width= new int[height+1];
         for (int i= 0; i < n; i++){
             width[level[i]]++;
         }

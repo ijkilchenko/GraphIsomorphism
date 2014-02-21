@@ -39,7 +39,7 @@ public class Graph{
         int i= 0;
         visited[m]= true;
         queue[i]= m;
-        int l= i + 1;
+        int l= 1;
         tree.setLevel(m, 0);
 
         while (i < l){
@@ -50,11 +50,11 @@ public class Graph{
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
                     visited[s.data]= true;
+                    queue[l]= s.data;
                     tree.setLevel(s.data, k+1);
                     l++;
                 }
             }
-            i++;
         }
         tree.setHeight();
         tree.setWidth();

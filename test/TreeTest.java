@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
  * Date: 1/20/14
  */
 public class TreeTest {
-    @Test
+/*    @Test
     public void testAdd() throws Exception {
         Tree tree = new Tree();
         assertEquals(0, tree.length);
@@ -86,5 +86,5 @@ public class TreeTest {
         assertEquals(-1, tree.getLevel(111));
         assertEquals(-1, tree.getLevel(111));
 
-    }
+    }*/
 }
