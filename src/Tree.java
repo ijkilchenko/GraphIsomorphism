@@ -2,15 +2,47 @@
  * User: ijk
  * Date: 1/6/14
  */
-public class Table {
-    TableList first;
-    int length;
+public class Tree {
+    int n;
+    int height;
+    int[] width;
+    int[] level;
 
-    public Table(){
-        length= 0;
+    public Tree(){
+
     }
 
-    public void add(int k, int data){
+    public Tree(int n){
+        this.n= n;
+        level= new int[n];
+    }
+
+    public void setLevel(int node, int l){
+        level[node]= l;
+    }
+
+    public int getLevel(int i){
+        return level[i];
+    }
+
+    public void setHeight(){
+        int largest= 0;
+        for (int i= 0; i < n; i++){
+            if (level[i] > largest){
+                largest= level[i];
+            }
+        }
+        height= largest;
+    }
+
+    public void setWidth(){
+        width= new int[height];
+        for (int i= 0; i < n; i++){
+            width[level[i]]++;
+        }
+    }
+
+    /*public void add(int k, int data){
         if (length == 0){
             first= new TableList();
             length++;
@@ -98,6 +130,6 @@ public class Table {
             s= s.next;
             level++;
         }
-    }
+    }*/
 
 }

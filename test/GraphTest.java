@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  */
 public class GraphTest {
     @Test
-    public void testMakeTable() throws Exception {
+    public void testMakeTree() throws Exception {
         /* connected graph
            1--4
            |  |
@@ -29,27 +29,11 @@ public class GraphTest {
         adjMatrix.setBit(4, 1, true);
         adjMatrix.setBit(4, 2, true);
         Graph G1= new Graph(adjMatrix);
-        Table table= Graph.makeTable(G1, 0);
-        assertEquals(0, table.first.get(0));
-        assertEquals(3, table.get(1));
-        assertEquals(1, table.get(2));
-        assertEquals(2, table.get(3));
-        assertEquals(4, table.get(4));
-        assertEquals(1, table.first.length);
-        assertEquals(1, table.first.next.length);
-        assertEquals(2, table.first.next.next.length);
-        assertEquals(4, table.length);
+        Tree tree = Graph.makeTree(G1, 0);
+        assertEquals(3, tree.height);
 
-        table= Graph.makeTable(G1, 1);
-        assertEquals(1, table.first.get(0));
-        assertEquals(3, table.get(1));
-        assertEquals(4, table.get(2));
-        assertEquals(0, table.get(3));
-        assertEquals(2, table.get(4));
-        assertEquals(1, table.first.length);
-        assertEquals(2, table.first.next.length);
-        assertEquals(2, table.first.next.next.length);
-        assertEquals(3, table.length);
+        tree = Graph.makeTree(G1, 1);
+        assertEquals(2, tree.height);
 
         /* non-connected graph
            1--4
@@ -67,37 +51,25 @@ public class GraphTest {
         adjMatrix.setBit(3, 2, true);
         adjMatrix.setBit(4, 1, true);
         Graph G2= new Graph(adjMatrix);
-        Table table2= Graph.makeTable(G2, 0);
-        assertEquals(0, table2.first.get(0));
-        assertEquals(3, table2.get(1));
-        assertEquals(2, table2.get(2));
-        assertEquals(-1, table2.get(3));
-        assertEquals(1, table2.first.length);
-        assertEquals(1, table2.first.next.length);
-        assertEquals(1, table2.first.next.next.length);
-        assertEquals(3, table2.length);
+        Tree tree2 = Graph.makeTree(G2, 0);
+        assertEquals(2, tree2.height);
 
-        table2= Graph.makeTable(G2, 1);
-        assertEquals(1, table2.first.get(0));
-        assertEquals(4, table2.get(1));
-        assertEquals(-1, table2.get(2));
-        assertEquals(1, table2.first.length);
-        assertEquals(1, table2.first.next.length);
-        assertEquals(2, table2.length);
+        tree2 = Graph.makeTree(G2, 1);
+        assertEquals(1, tree2.height);
 
     }
 
-    @Test
+    /*@Test
     public void testAreIsomorphic() throws Exception {
-        int n= 128;
+        int n= 64;
         int t= 10;
-        int p= 7;
+        int p= 1;
         int q= 8;
 
         long totalTime= 0;
         long totalCheckTime= 0;
 
-        /*Test isomorphic graphs*/
+        *//*Test isomorphic graphs*//*
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
 
@@ -110,7 +82,7 @@ public class GraphTest {
             Graph G2= new Graph(adjMatrixPerm);
 
             long startTime = System.nanoTime();
-            Table map= Graph.areIsomorphic(G1,G2);
+            Tree map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
             totalTime += duration;
@@ -145,7 +117,7 @@ public class GraphTest {
         long totalTime= 0;
         long totalCheckTime= 0;
 
-        /*Test non-isomorphic graphs*/
+        *//*Test non-isomorphic graphs*//*
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
@@ -155,7 +127,7 @@ public class GraphTest {
             Graph G2= new Graph(adjMatrix2);
 
             long startTime = System.nanoTime();
-            Table map= Graph.areIsomorphic(G1,G2);
+            Tree map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
             totalTime += duration;
@@ -182,7 +154,7 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphicSimple() throws Exception {
-        /* G1
+        *//* G1
         2--3
          \/
          1--0
@@ -196,7 +168,7 @@ public class GraphTest {
            / \
           2--3
 
-         */
+         *//*
 
         int n= 6;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -234,14 +206,14 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrix2);
 
-        Table map= Graph.areIsomorphic(G1,G2);
+        Tree map= Graph.areIsomorphic(G1,G2);
         assertTrue(Graph.checkEdges(G1, G2, map));
 
     }
 
     @Test
     public void testCheckConditions() throws Exception {
-        /* G1
+        *//* G1
         2--3
          \/
          1--0
@@ -255,7 +227,7 @@ public class GraphTest {
            / \
           2--3
 
-         */
+         *//*
 
         int n= 6;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -293,12 +265,12 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrix2);
 
-        Table table3= new Table();
-        table3= Graph.makeTable(G1,3);
-        Table table2= new Table();
-        table2= Graph.makeTable(G2,2);
+        Tree tree3 = new Tree();
+        tree3 = Graph.makeTree(G1, 3);
+        Tree tree2 = new Tree();
+        tree2 = Graph.makeTree(G2, 2);
 
-        Table map= new Table();
+        Tree map= new Tree();
         map.add(0, 0);
         map.add(1, 1);
         map.add(2, 2);
@@ -306,18 +278,18 @@ public class GraphTest {
         map.add(1, 4);
         map.add(2, 1);
 
-        assertFalse(Graph.checkConditions(map, table3, table2, false));
+        assertFalse(Graph.checkConditions(map, tree3, tree2, false));
 
     }
 
     @Test
     public void testCheckEdges() throws Exception {
-        /*
+        *//*
            1--4
            |  |
         0--3--2
 
-         */
+         *//*
 
         int n= 5;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -333,12 +305,12 @@ public class GraphTest {
         adjMatrix.setBit(4, 2, true);
         Graph G1= new Graph(adjMatrix);
 
-        /*
+        *//*
            2--0
            |  |
         1--4--3
 
-         */
+         *//*
 
         n= 5;
         BitMatrix adjMatrix2= new BitMatrix(n);
@@ -354,7 +326,7 @@ public class GraphTest {
         adjMatrix2.setBit(0, 3, true);
         Graph G2= new Graph(adjMatrix2);
 
-        Table map= new Table();
+        Tree map= new Tree();
 
         map.add(0, 0);
         map.add(1, 1);
@@ -374,5 +346,5 @@ public class GraphTest {
         long duration = endTime - startTime;
         System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
 
-    }
+    }*/
 }

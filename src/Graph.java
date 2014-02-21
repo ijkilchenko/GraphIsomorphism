@@ -30,43 +30,51 @@ public class Graph{
         }
     }
 
-    public static Table makeTable(Graph G, int i){
+    public static Tree makeTree(Graph G, int m){
         int n= G.V.length;
 
-        Table table= new Table();
+        Tree tree = new Tree(n);
         boolean[] visited= new boolean[n];
-        int m= 0;
-        visited[i]= true;
-        table.add(0, i);
+        int[] queue= new int[n];
+        int i= 0;
+        visited[m]= true;
+        queue[i]= m;
+        int l= i + 1;
+        tree.setLevel(m, 0);
 
-        while (table.get(m) != -1 ){
-            int r= table.get(m);
-            int k= table.getLevel(r);
+        while (i < l){
+            int r= queue[i];
+            i++;
+            int k= tree.level[r];
             for (int j= 0; j < G.V[r].children.length; j++){
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
                     visited[s.data]= true;
-                    table.add(k + 1, s.data);
+                    tree.setLevel(s.data, k+1);
+                    l++;
                 }
             }
-            m++;
+            i++;
         }
-        return table;
+        tree.setHeight();
+        tree.setWidth();
+
+        return tree;
     }
 
-    public static Table areIsomorphic(Graph G1, Graph G2){
+    /*public static Tree areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
-        Table map= new Table();
+        Tree map= new Tree();
         if (n != G2.V.length){
             System.out.println("False. Graphs are of different size! ");
             return map;
         }
-        Table[] tables1= new Table[n];
-        Table[] tables2= new Table[n];
+        Tree[] tables1= new Tree[n];
+        Tree[] tables2= new Tree[n];
 
         for (int i= 0; i < n; i++){
-            tables1[i]= Graph.makeTable(G1, i);
-            tables2[i]= Graph.makeTable(G2, i);
+            tables1[i]= Graph.makeTree(G1, i);
+            tables2[i]= Graph.makeTree(G2, i);
         }
 
         boolean[] matched= new boolean[n];
@@ -89,7 +97,7 @@ public class Graph{
             if (map.length == currentLength){
                 if (i-1 < 0){
                     System.out.println("False. Graphs are non-isomorphic! ");
-                    return new Table();
+                    return new Tree();
                 }
                 mismatched= map.get((i-1)*2+1);
                 matched[mismatched]= false;
@@ -102,13 +110,13 @@ public class Graph{
         return map;
     }
 
-    public static boolean checkConditions(Table map, Table table1, Table table2, boolean match) {
-        if (table1.length != table2.length){
+    public static boolean checkConditions(Tree map, Tree tree1, Tree tree2, boolean match) {
+        if (tree1.length != tree2.length){
             match= false;
         }
         else{
-            for (int k= 0; k < table1.length; k++){
-                if (table1.getWidth(k) != table2.getWidth(k)){
+            for (int k= 0; k < tree1.length; k++){
+                if (tree1.getWidth(k) != tree2.getWidth(k)){
                     match= false;
                     break;
                 }
@@ -117,8 +125,8 @@ public class Graph{
                 for (int k= 0; k < map.length; k++){
                     int key= map.get(k*2);
                     int mapped= map.get(k*2+1);
-                    int keyLevel= table1.getLevel(key);
-                    int mapLevel= table2.getLevel(mapped);
+                    int keyLevel= tree1.getLevel(key);
+                    int mapLevel= tree2.getLevel(mapped);
                     if (keyLevel != mapLevel){
                         match= false;
                         break;
@@ -129,14 +137,14 @@ public class Graph{
         return match;
     }
 
-    public static boolean checkHeight(Table map, Table table1, Table table2, boolean match) {
-        if (table1.length != table2.length){
+    public static boolean checkHeight(Tree map, Tree tree1, Tree tree2, boolean match) {
+        if (tree1.length != tree2.length){
             match= false;
         }
         return match;
     }
 
-    public static boolean checkEdges(Graph G1, Graph G2, Table map){
+    public static boolean checkEdges(Graph G1, Graph G2, Tree map){
         //Forward direction.
         int n= map.length;
         for (int i= 0; i < n; i++){
@@ -163,7 +171,7 @@ public class Graph{
             }
         }
         //Backward direction.
-        Table map2= new Table(); //Backward map.
+        Tree map2= new Tree(); //Backward map.
         for (int i= 0; i < n; i++){
             map2.add(i, i);
         }
@@ -199,7 +207,7 @@ public class Graph{
 
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
-    }
+    }*/
 
 
 }
