@@ -62,7 +62,7 @@ public class Graph{
         return tree;
     }
 
-    /*public static Tree areIsomorphic(Graph G1, Graph G2){
+    public static Tree areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
         Tree map= new Tree();
         if (n != G2.V.length){
@@ -110,22 +110,21 @@ public class Graph{
         return map;
     }
 
-    public static boolean checkConditions(Tree map, Tree tree1, Tree tree2, boolean match) {
-        if (tree1.length != tree2.length){
+    public static boolean checkConditions(int[] map, Tree tree1, Tree tree2, boolean match) {
+        if (tree1.height != tree2.height){
             match= false;
         }
         else{
-            for (int k= 0; k < tree1.length; k++){
-                if (tree1.getWidth(k) != tree2.getWidth(k)){
+            for (int k= 0; k < tree1.height; k++){
+                if (tree1.width[k] != tree2.width[k]){
                     match= false;
                     break;
                 }
             }
             if (match == true){
                 for (int k= 0; k < map.length; k++){
-                    int key= map.get(k*2);
-                    int mapped= map.get(k*2+1);
-                    int keyLevel= tree1.getLevel(key);
+                    int mapped= map[k];
+                    int keyLevel= tree1.getLevel(k);
                     int mapLevel= tree2.getLevel(mapped);
                     if (keyLevel != mapLevel){
                         match= false;
@@ -136,27 +135,28 @@ public class Graph{
         }
         return match;
     }
-
+    /*
     public static boolean checkHeight(Tree map, Tree tree1, Tree tree2, boolean match) {
         if (tree1.length != tree2.length){
             match= false;
         }
         return match;
     }
+    */
 
-    public static boolean checkEdges(Graph G1, Graph G2, Tree map){
+    public static boolean checkEdges(Graph G1, Graph G2, int[] map){
         //Forward direction.
         int n= map.length;
         for (int i= 0; i < n; i++){
-            int key= map.get(2*i);
-            int value= map.get(2*i+1);
+            int key= i;
+            int value= map[i];
             if (G1.V[key].children.length != G2.V[value].children.length){
                 System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
                 return false;
             }
             for (int j= 0; j < G1.V[key].children.length; j++){
                 int key1= G1.V[key].children[j].data;
-                int value1= map.get(2*key1+1);
+                int value1= map[key1];
                 boolean flag= false;
                 for (int k= 0; k < G2.V[value].children.length; k++){
                     if (G2.V[value].children[k].data == value1){
@@ -171,24 +171,24 @@ public class Graph{
             }
         }
         //Backward direction.
-        Tree map2= new Tree(); //Backward map.
+        int[] map2= new int[n]; //Backward map.
         for (int i= 0; i < n; i++){
-            map2.add(i, i);
+            map2[i]= i;
         }
         for (int i= 0; i < n; i++){
-            map2.add(map.get(2*i+1),i);
+            map2[map[i]]= i;
         }
 
         for (int i= 0; i < n; i++){
-            int key= map2.get(2*i);
-            int value= map2.get(2*i+1);
+            int key= i;
+            int value= map2[i];
             if (G2.V[key].children.length != G1.V[value].children.length){
                 System.out.println("Error. Backward map sets correspondence between nodes with different number of children! ");
                 return false;
             }
             for (int j= 0; j < G2.V[key].children.length; j++){
                 int key1= G2.V[key].children[j].data;
-                int value1= map2.get(2*key1+1);
+                int value1= map2[key1];
                 boolean flag= false;
                 for (int k= 0; k < G1.V[value].children.length; k++){
                     if (G1.V[value].children[k].data == value1){
@@ -207,7 +207,7 @@ public class Graph{
 
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
-    }*/
+    }
 
 
 }
