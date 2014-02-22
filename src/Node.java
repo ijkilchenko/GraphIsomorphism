@@ -17,4 +17,5 @@ public class Node {
     public void addChildren(Node[] C){
         this.children= C;
     }
+
 }

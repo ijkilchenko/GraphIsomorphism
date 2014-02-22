@@ -42,4 +42,5 @@ public class BitMatrix {
         }
         return transpose;
     }
+
 }

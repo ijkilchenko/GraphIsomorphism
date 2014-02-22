@@ -11,16 +11,18 @@ public class PermMatrix extends BitMatrix{
         Random random= new Random();
 
         int[] list= new int[n];
+        //Make set {1, 2, 3, ...}.
         for (int i= 0; i < n; i++){
             list[i]= i;
         }
+        //Randomly permute set.
         for (int i= 0; i < n; i++){
             int index= random.nextInt(n-i)+i;
             int temp= list[index];
             list[index]= list[i];
             list[i]= temp;
         }
-
+        //Finally put 1 in i-th row and list(i)-th column for all i until n.
         for (int i= 0; i < n; i++){
             matrix.setBit(i, list[i], true);
         }

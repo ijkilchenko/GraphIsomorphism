@@ -10,7 +10,7 @@ import static org.junit.Assert.fail;
  * Date: 1/20/14
  */
 public class PermMatrixTest {
-    int n= 1024; //Test matrix size.
+    int n= 128; //Test matrix size.
 
     @Test
     public void testMakeRandom() throws Exception {
@@ -41,7 +41,6 @@ public class PermMatrixTest {
                 }
             }
         }
-
     }
 
     @Test
@@ -117,4 +116,5 @@ public class PermMatrixTest {
             }
         }
     }
+
 }

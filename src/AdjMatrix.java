@@ -9,11 +9,11 @@ import java.util.Random;
  */
 public class AdjMatrix extends BitMatrix{
 
-    public static BitMatrix makeRandom(int n){
+    public static BitMatrix makeRandom(int n){ //Default edge probability is 1/2.
         return makeRandom(n, 1, 2);
     }
 
-    public static BitMatrix makeRandom(int n, int p, int q){
+    public static BitMatrix makeRandom(int n, int p, int q){ //Edge probability is p/q.
         BitMatrix matrix= new BitMatrix(n);
         Random random= new Random();
 
@@ -33,6 +33,7 @@ public class AdjMatrix extends BitMatrix{
     }
 
     public static BitMatrix readAdj(String name) throws IOException {
+        //Initialize BitMatrix from text file of adjacency matrix.
         BufferedReader br = new BufferedReader(new FileReader("Graphs/"+name+".txt"));
         StringBuilder sb = new StringBuilder();
         String line = br.readLine();
@@ -53,4 +54,5 @@ public class AdjMatrix extends BitMatrix{
         }
         return matrix;
     }
+
 }

@@ -33,4 +33,5 @@ public class AdjMatrixTest {
         assertEquals(3, G1.V[2].children.length);
         assertEquals(2, G1.V[3].children.length);
     }
+
 }

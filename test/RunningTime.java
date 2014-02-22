@@ -26,12 +26,12 @@ public class RunningTime {
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrixPerm);
 
-            Tree[] tables1= new Tree[n];
-            Tree[] tables2= new Tree[n];
+            AbstractTree[] tables1= new AbstractTree[n];
+            AbstractTree[] tables2= new AbstractTree[n];
 
             for (int j= 0; j < n; j++){
-                tables1[j]= Graph.makeTree(G1, j);
-                tables2[j]= Graph.makeTree(G2, j);
+                tables1[j]= Graph.BFS(G1, j);
+                tables2[j]= Graph.BFS(G2, j);
             }
 
             long startTime = System.nanoTime();
@@ -39,7 +39,7 @@ public class RunningTime {
 
             for (int j= 0; j < n; j++){
                 for (int k= 0; k < n; k++){
-                    if (Graph.checkConditions(new Tree(), tables1[j], tables2[k], true)){
+                    if (Graph.checkConditions(new AbstractTree(), tables1[j], tables2[k], true)){
                         count++;
                     }
                 }
@@ -77,12 +77,12 @@ public class RunningTime {
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrixPerm);
 
-            Tree[] tables1= new Tree[n];
-            Tree[] tables2= new Tree[n];
+            AbstractTree[] tables1= new AbstractTree[n];
+            AbstractTree[] tables2= new AbstractTree[n];
 
             for (int j= 0; j < n; j++){
-                tables1[j]= Graph.makeTree(G1, j);
-                tables2[j]= Graph.makeTree(G2, j);
+                tables1[j]= Graph.BFS(G1, j);
+                tables2[j]= Graph.BFS(G2, j);
             }
 
             long startTime = System.nanoTime();
@@ -90,7 +90,7 @@ public class RunningTime {
 
             for (int j= 0; j < 1; j++){
                 for (int k= 0; k < n; k++){
-                    if (Graph.checkHeight(new Tree(), tables1[j], tables2[k], true)){
+                    if (Graph.checkHeight(new AbstractTree(), tables1[j], tables2[k], true)){
                         count++;
                     }
                 }

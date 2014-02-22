@@ -30,36 +30,37 @@ public class Graph{
         }
     }
 
-    public static Tree makeTree(Graph G, int m){
+    public static AbstractTree BFS(Graph G, int m){
+        //Breadth First Search method to initialize AbstractTree object from Graph G.
         int n= G.V.length;
 
-        Tree tree = new Tree(n);
+        AbstractTree tree = new AbstractTree(n);
         boolean[] visited= new boolean[n];
-        int[] queue= new int[n];
+        int[] queue= new int[n]; //Queue object as an array.
 
         visited[m]= true;
         queue[0]= m;
         tree.setLevel(m, 0);
-        int l= 1;
+        int l= 1; //Marks the end of the queue in the array.
 
-        int i= 0;
-        while (i < l){
+        int i= 0; //Marks the beginning of the queue in the array.
+        while (i < l){ //Check if queue is empty.
             int r= queue[i];
             i++;
-            int k= tree.level[r];
+            int k= tree.getLevel(r); //Current node's level.
             for (int j= 0; j < G.V[r].children.length; j++){
                 Node s= G.V[r].children[j];
                 if (visited[s.data] == false){
                     visited[s.data]= true;
                     queue[l]= s.data;
-                    tree.setLevel(s.data, k+1);
+                    tree.setLevel(s.data, k+1); //Note: one deeper level is k+1.
                     l++;
                 }
             }
         }
 
         tree.setHeight();
-        tree.setWidth();
+        tree.setWidths();
 
         return tree;
     }
@@ -67,43 +68,46 @@ public class Graph{
     public static Map areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
         Map map= new Map(n);
+
         if (n != G2.V.length){
             System.out.println("False. Graphs are of different size! ");
             return null;
         }
-        Tree[] tables1= new Tree[n];
-        Tree[] tables2= new Tree[n];
+
+        AbstractTree[] trees1= new AbstractTree[n];
+        AbstractTree[] trees2= new AbstractTree[n];
 
         for (int i= 0; i < n; i++){
-            tables1[i]= Graph.makeTree(G1, i);
-            tables2[i]= Graph.makeTree(G2, i);
+            trees1[i]= Graph.BFS(G1, i);
+            trees2[i]= Graph.BFS(G2, i);
         }
 
-        boolean[] matched= new boolean[n];
+        boolean[] matched= new boolean[n]; //Keep track of matched nodes in G2.
         int mismatched= -1;
+
         for (int i= 0; i < n; i++){
-            int currentLength= map.length;
+            int length= map.length;
             for (int j= 0; j < n; j++){
                 if (matched[j] != true && j > mismatched){
                     boolean match= true;
-                    match = checkConditions(map, tables1[i], tables2[j], match);
+                    match = checkConditions(map, trees1[i], trees2[j], match);
                     if (match == true){
-                        map.add(currentLength, i, j);
-                        matched[j]= true;
+                        map.add(length, i, j); //Add key-value pair (i,j) to map.
+                        matched[j]= true; //Node j in G2 is now matched.
                         mismatched= -1;
-                        break;
+                        break; //Break at first match (such that j-th index in G2 is larger than 'mismatched').
                     }
                 }
             }
-            if (map.length == currentLength){
-                if (i-1 < 0){
+            if (map.length == length){ //Check if new key-value pair was not added.
+                if (i-1 < 0){ //If true, we cannot find a match for the very first node in G1.
                     System.out.println("False. Graphs are non-isomorphic! ");
                     return null;
                 }
-                mismatched= map.getValue(i-1);
-                matched[mismatched]= false;
-                map.pop();
-                i= map.length-1;
+                mismatched= map.getValue(i-1); //Update 'mismatched' because last key-value pair is wrong.
+                matched[mismatched]= false; //Update information about matched node in G2.
+                map.pop(); //Remove the last key-value pair from map.
+                i= map.length-1; //On next iteration, we will try to match i-th node in G1 with new node in G2.
             }
         }
 
@@ -111,13 +115,13 @@ public class Graph{
         return map;
     }
 
-    public static boolean checkConditions(Map map, Tree tree1, Tree tree2, boolean match) {
-        if (tree1.height != tree2.height){
+    public static boolean checkConditions(Map map, AbstractTree tree1, AbstractTree tree2, boolean match) {
+        if (tree1.height != tree2.height){ //Fastest condition to check for non-isomorphism.
             match= false;
         }
         else{
             for (int k= 0; k < tree1.height; k++){
-                if (tree1.width[k] != tree2.width[k]){
+                if (tree1.width[k] != tree2.width[k]){ //Number of nodes a distance k away must be preserved.
                     match= false;
                     break;
                 }
@@ -127,8 +131,8 @@ public class Graph{
                     int key= map.getKey(k);
                     int value= map.getValue(k);
                     int keyLevel= tree1.getLevel(key);
-                    int mapLevel= tree2.getLevel(value);
-                    if (keyLevel != mapLevel){
+                    int valueLevel= tree2.getLevel(value);
+                    if (keyLevel != valueLevel){ //Check to see if shortest distance is preserved.
                         match= false;
                         break;
                     }
@@ -138,7 +142,7 @@ public class Graph{
         return match;
     }
     /*
-    public static boolean checkHeight(Tree map, Tree tree1, Tree tree2, boolean match) {
+    public static boolean checkHeight(AbstractTree map, AbstractTree tree1, AbstractTree tree2, boolean match) {
         if (tree1.length != tree2.length){
             match= false;
         }
@@ -146,45 +150,30 @@ public class Graph{
     }
     */
 
-    public static boolean checkEdges(Graph G1, Graph G2, Map map){
-        //Forward direction.
+    public static boolean checkAllEdges(Graph G1, Graph G2, Map map){
         int n= map.length;
-        for (int i= 0; i < n; i++){
-            int key= map.getKey(i);
-            int value= map.getValue(i);
-            if (G1.V[key].children.length != G2.V[value].children.length){
-                System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
-                return false;
-            }
-            for (int j= 0; j < G1.V[key].children.length; j++){
-                int key1= G1.V[key].children[j].data;
-                int value1= map.mapKey(key1);
-                boolean flag= false;
-                for (int k= 0; k < G2.V[value].children.length; k++){
-                    if (G2.V[value].children[k].data == value1){
-                        flag= true;
-                    }
-                }
-                if (flag == false){
-                    System.out.println("Error. An edge was not mapped! ");
-                    return false;
-                }
 
-            }
-        }
-        //Backward direction.
-        Map map2= new Map(n); //Backway map.
+        //Forward direction.
+        if (checkEdges(G1, G2, map, n)) return false;
+
+        Map map2= new Map(n); //Backward map.
         for (int i= 0; i < n; i++){
-            map2.add(i, map.getValue(i), map.getKey(i));
+            map2.add(i, map.getValue(i), map.getKey(i)); //Reverse roles of keys and values.
         }
 
+        //Backward direction. Reverse roles of G1 and G2 for backward map.
+        if (checkEdges(G2, G1, map2, n)) return false;
+
+        /*
         for (int i= 0; i < n; i++){
             int key= map2.getKey(i);
             int value= map2.getValue(i);
+
             if (G2.V[key].children.length != G1.V[value].children.length){
                 System.out.println("Error. Backward map sets correspondence between nodes with different number of children! ");
                 return false;
             }
+
             for (int j= 0; j < G2.V[key].children.length; j++){
                 int key1= G2.V[key].children[j].data;
                 int value1= map2.mapKey(key1);
@@ -200,10 +189,40 @@ public class Graph{
                 }
 
             }
-        }
+        }*/
 
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
+    }
+
+    private static boolean checkEdges(Graph G1, Graph G2, Map map, int n) {
+        //Check edges in the forward direction.
+        for (int i= 0; i < n; i++){
+            int key= map.getKey(i);
+            int value= map.getValue(i);
+
+            if (G1.V[key].children.length != G2.V[value].children.length){
+                System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
+                return true;
+            }
+
+            for (int j= 0; j < G1.V[key].children.length; j++){
+                int key1= G1.V[key].children[j].data;
+                int value1= map.mapKey(key1);
+                boolean flag= false;
+
+                for (int k= 0; k < G2.V[value].children.length; k++){
+                    if (G2.V[value].children[k].data == value1){
+                        flag= true;
+                    }
+                }
+                if (flag == false){
+                    System.out.println("Error. An edge was not mapped! ");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

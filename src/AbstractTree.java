@@ -2,17 +2,20 @@
  * User: ijk
  * Date: 1/6/14
  */
-public class Tree {
+
+//An object which holds only necessary information about a spanning tree.
+
+public class AbstractTree {
     int n;
     int height;
-    int[] width;
-    int[] level;
+    int[] width; //Number of nodes in the spanning tree at a level.
+    int[] level; //Map the index of a node to its level in the spanning tree.
 
-    public Tree(){
+    public AbstractTree(){
 
     }
 
-    public Tree(int n){
+    public AbstractTree(int n){
         this.n= n;
         level= new int[n];
     }
@@ -35,7 +38,7 @@ public class Tree {
         height= largest;
     }
 
-    public void setWidth(){
+    public void setWidths(){
         width= new int[height+1];
         width[0]= 1;
         for (int i= 0; i < n; i++){

@@ -29,13 +29,13 @@ public class GraphTest {
         adjMatrix.setBit(4, 1, true);
         adjMatrix.setBit(4, 2, true);
         Graph G1= new Graph(adjMatrix);
-        Tree tree = Graph.makeTree(G1, 0);
+        AbstractTree tree = Graph.BFS(G1, 0);
         assertEquals(3, tree.height);
         assertEquals(1, tree.width[1]);
         assertEquals(2, tree.width[2]);
         assertEquals(3, tree.getLevel(4));
 
-        tree = Graph.makeTree(G1, 1);
+        tree = Graph.BFS(G1, 1);
         assertEquals(2, tree.height);
         assertEquals(2, tree.width[2]);
         assertEquals(2, tree.width[2]);
@@ -57,23 +57,22 @@ public class GraphTest {
         adjMatrix.setBit(3, 2, true);
         adjMatrix.setBit(4, 1, true);
         Graph G2= new Graph(adjMatrix);
-        Tree tree2 = Graph.makeTree(G2, 0);
+        AbstractTree tree2 = Graph.BFS(G2, 0);
         assertEquals(2, tree2.height);
         assertEquals(1, tree2.width[1]);
         assertEquals(1, tree2.width[2]);
         assertEquals(1, tree2.getLevel(3));
 
-        tree2 = Graph.makeTree(G2, 1);
+        tree2 = Graph.BFS(G2, 1);
         assertEquals(1, tree2.height);
         assertEquals(1, tree2.width[0]);
         assertEquals(1, tree2.width[1]);
         assertEquals(1, tree2.getLevel(4));
-
     }
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 1024;
+        int n= 1048;
         int t= 2;
         int p= 1;
         int q= 2;
@@ -105,7 +104,7 @@ public class GraphTest {
             }
             else{
                 long startCheck = System.nanoTime();
-                if (!Graph.checkEdges(G1, G2, map)){
+                if (!Graph.checkAllEdges(G1, G2, map)){
                     System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
                     fail();
                 }
@@ -118,13 +117,12 @@ public class GraphTest {
         }
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
         System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
-
     }
 
     @Test
     public void testAreNonIsomorphic() throws Exception {
-        int n= 128;
-        int t= 10;
+        int n= 1024;
+        int t= 2;
 
         long totalTime= 0;
         long totalCheckTime= 0;
@@ -144,12 +142,12 @@ public class GraphTest {
             long duration = endTime - startTime;
             totalTime += duration;
 
-            if (map.length == 0){
+            if (map == null || map.length == 0){
                 System.out.println("Success. Graphs are non-isomorphic. Map is null. ");
             }
             else{
                 long startCheck = System.nanoTime();
-                if (!Graph.checkEdges(G1, G2, map)){
+                if (!Graph.checkAllEdges(G1, G2, map)){
                     System.out.println("Improbable result. Two random graphs are isomorphic.");
                 }
                 long endCheck= System.nanoTime();
@@ -161,7 +159,6 @@ public class GraphTest {
         }
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
         System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
-
     }
 
     @Test
@@ -219,8 +216,7 @@ public class GraphTest {
         Graph G2= new Graph(adjMatrix2);
 
         Map map= Graph.areIsomorphic(G1,G2);
-        assertTrue(Graph.checkEdges(G1, G2, map));
-
+        assertTrue(Graph.checkAllEdges(G1, G2, map));
     }
 
     @Test
@@ -277,10 +273,10 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrix2);
 
-        Tree tree1 = new Tree(G1.V.length);
-        tree1 = Graph.makeTree(G1, 3);
-        Tree tree2 = new Tree(G2.V.length);
-        tree2 = Graph.makeTree(G2, 2);
+        AbstractTree tree1 = new AbstractTree(G1.V.length);
+        tree1 = Graph.BFS(G1, 3);
+        AbstractTree tree2 = new AbstractTree(G2.V.length);
+        tree2 = Graph.BFS(G2, 2);
 
         Map map= new Map(6);
         map.add(0, 0, 0);
@@ -288,7 +284,6 @@ public class GraphTest {
         map.add(2, 2, 2);
 
         assertFalse(Graph.checkConditions(map, tree1, tree2, false));
-
     }
 
     @Test
@@ -344,10 +339,10 @@ public class GraphTest {
         map.add(4, 4, 0);
 
         long startTime = System.nanoTime();
-        assertTrue(Graph.checkEdges(G1, G2, map));
+        assertTrue(Graph.checkAllEdges(G1, G2, map));
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
         System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
-
     }
+
 }
