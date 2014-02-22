@@ -36,12 +36,13 @@ public class Graph{
         Tree tree = new Tree(n);
         boolean[] visited= new boolean[n];
         int[] queue= new int[n];
-        int i= 0;
-        visited[m]= true;
-        queue[i]= m;
-        int l= 1;
-        tree.setLevel(m, 0);
 
+        visited[m]= true;
+        queue[0]= m;
+        tree.setLevel(m, 0);
+        int l= 1;
+
+        int i= 0;
         while (i < l){
             int r= queue[i];
             i++;
@@ -56,18 +57,19 @@ public class Graph{
                 }
             }
         }
+
         tree.setHeight();
         tree.setWidth();
 
         return tree;
     }
 
-    public static Tree areIsomorphic(Graph G1, Graph G2){
+    public static Map areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
-        Tree map= new Tree();
+        Map map= new Map(n);
         if (n != G2.V.length){
             System.out.println("False. Graphs are of different size! ");
-            return map;
+            return null;
         }
         Tree[] tables1= new Tree[n];
         Tree[] tables2= new Tree[n];
@@ -86,8 +88,7 @@ public class Graph{
                     boolean match= true;
                     match = checkConditions(map, tables1[i], tables2[j], match);
                     if (match == true){
-                        map.add(currentLength, i);
-                        map.add(currentLength, j);
+                        map.add(currentLength, i, j);
                         matched[j]= true;
                         mismatched= -1;
                         break;
@@ -97,9 +98,9 @@ public class Graph{
             if (map.length == currentLength){
                 if (i-1 < 0){
                     System.out.println("False. Graphs are non-isomorphic! ");
-                    return new Tree();
+                    return null;
                 }
-                mismatched= map.get((i-1)*2+1);
+                mismatched= map.getValue(i-1);
                 matched[mismatched]= false;
                 map.pop();
                 i= map.length-1;
@@ -110,7 +111,7 @@ public class Graph{
         return map;
     }
 
-    public static boolean checkConditions(int[] map, Tree tree1, Tree tree2, boolean match) {
+    public static boolean checkConditions(Map map, Tree tree1, Tree tree2, boolean match) {
         if (tree1.height != tree2.height){
             match= false;
         }
@@ -123,9 +124,10 @@ public class Graph{
             }
             if (match == true){
                 for (int k= 0; k < map.length; k++){
-                    int mapped= map[k];
-                    int keyLevel= tree1.getLevel(k);
-                    int mapLevel= tree2.getLevel(mapped);
+                    int key= map.getKey(k);
+                    int value= map.getValue(k);
+                    int keyLevel= tree1.getLevel(key);
+                    int mapLevel= tree2.getLevel(value);
                     if (keyLevel != mapLevel){
                         match= false;
                         break;
@@ -144,19 +146,19 @@ public class Graph{
     }
     */
 
-    public static boolean checkEdges(Graph G1, Graph G2, int[] map){
+    public static boolean checkEdges(Graph G1, Graph G2, Map map){
         //Forward direction.
         int n= map.length;
         for (int i= 0; i < n; i++){
-            int key= i;
-            int value= map[i];
+            int key= map.getKey(i);
+            int value= map.getValue(i);
             if (G1.V[key].children.length != G2.V[value].children.length){
                 System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
                 return false;
             }
             for (int j= 0; j < G1.V[key].children.length; j++){
                 int key1= G1.V[key].children[j].data;
-                int value1= map[key1];
+                int value1= map.mapKey(key1);
                 boolean flag= false;
                 for (int k= 0; k < G2.V[value].children.length; k++){
                     if (G2.V[value].children[k].data == value1){
@@ -171,24 +173,21 @@ public class Graph{
             }
         }
         //Backward direction.
-        int[] map2= new int[n]; //Backward map.
+        Map map2= new Map(n); //Backway map.
         for (int i= 0; i < n; i++){
-            map2[i]= i;
-        }
-        for (int i= 0; i < n; i++){
-            map2[map[i]]= i;
+            map2.add(i, map.getValue(i), map.getKey(i));
         }
 
         for (int i= 0; i < n; i++){
-            int key= i;
-            int value= map2[i];
+            int key= map2.getKey(i);
+            int value= map2.getValue(i);
             if (G2.V[key].children.length != G1.V[value].children.length){
                 System.out.println("Error. Backward map sets correspondence between nodes with different number of children! ");
                 return false;
             }
             for (int j= 0; j < G2.V[key].children.length; j++){
                 int key1= G2.V[key].children[j].data;
-                int value1= map2[key1];
+                int value1= map2.mapKey(key1);
                 boolean flag= false;
                 for (int k= 0; k < G1.V[value].children.length; k++){
                     if (G1.V[value].children[k].data == value1){
@@ -203,11 +202,8 @@ public class Graph{
             }
         }
 
-
-
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
     }
-
 
 }

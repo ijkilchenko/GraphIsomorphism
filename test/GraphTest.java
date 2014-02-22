@@ -71,17 +71,17 @@ public class GraphTest {
 
     }
 
-    /*@Test
+    @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 64;
-        int t= 10;
+        int n= 1024;
+        int t= 2;
         int p= 1;
-        int q= 8;
+        int q= 2;
 
         long totalTime= 0;
         long totalCheckTime= 0;
 
-        *//*Test isomorphic graphs*//*
+        /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
 
@@ -94,7 +94,7 @@ public class GraphTest {
             Graph G2= new Graph(adjMatrixPerm);
 
             long startTime = System.nanoTime();
-            Tree map= Graph.areIsomorphic(G1,G2);
+            Map map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
             totalTime += duration;
@@ -129,7 +129,7 @@ public class GraphTest {
         long totalTime= 0;
         long totalCheckTime= 0;
 
-        *//*Test non-isomorphic graphs*//*
+        /*Test non-isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
@@ -139,7 +139,7 @@ public class GraphTest {
             Graph G2= new Graph(adjMatrix2);
 
             long startTime = System.nanoTime();
-            Tree map= Graph.areIsomorphic(G1,G2);
+            Map map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
             totalTime += duration;
@@ -163,7 +163,7 @@ public class GraphTest {
         System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
 
     }
-    */
+
     @Test
     public void testAreIsomorphicSimple() throws Exception {
         /* G1
@@ -218,7 +218,7 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrix2);
 
-        int[] map= Graph.areIsomorphic(G1,G2);
+        Map map= Graph.areIsomorphic(G1,G2);
         assertTrue(Graph.checkEdges(G1, G2, map));
 
     }
@@ -277,24 +277,17 @@ public class GraphTest {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrix2);
 
-        Tree tree3 = new Tree(G1.V.length);
-        tree3 = Graph.makeTree(G1, 3);
+        Tree tree1 = new Tree(G1.V.length);
+        tree1 = Graph.makeTree(G1, 3);
         Tree tree2 = new Tree(G2.V.length);
         tree2 = Graph.makeTree(G2, 2);
 
-//        Tree map= new Tree();
-//        map.add(0, 0);
-//        map.add(1, 1);
-//        map.add(2, 2);
-//        map.add(0, 0);
-//        map.add(1, 4);
-//        map.add(2, 1);
-        int[] map= new int[G1.V.length];
-        for (int i= 0; i < G1.V.length; i++){
-            map[i]= i;
-        }
+        Map map= new Map(6);
+        map.add(0, 0, 0);
+        map.add(1, 1, 4);
+        map.add(2, 2, 2);
 
-        assertFalse(Graph.checkConditions(map, tree3, tree2, false));
+        assertFalse(Graph.checkConditions(map, tree1, tree2, false));
 
     }
 
@@ -342,13 +335,13 @@ public class GraphTest {
         adjMatrix2.setBit(0, 3, true);
         Graph G2= new Graph(adjMatrix2);
 
-        int[] map= new int[n];
+        Map map= new Map(n);
 
-        map[0]= 1;
-        map[1]= 2;
-        map[2]= 3;
-        map[3]= 4;
-        map[4]= 0;
+        map.add(0, 0, 1);
+        map.add(1, 1, 2);
+        map.add(2, 2, 3);
+        map.add(3, 3, 4);
+        map.add(4, 4, 0);
 
         long startTime = System.nanoTime();
         assertTrue(Graph.checkEdges(G1, G2, map));

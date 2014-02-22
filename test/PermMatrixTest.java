@@ -71,7 +71,7 @@ public class PermMatrixTest {
         BitMatrix B= new BitMatrix();
         B= PermMatrix.makeRandom(n);
 
-        /*Test A*B*/
+        /*Test A*B */
 
         BitMatrix product= new BitMatrix(n);
         for (int i= 0; i < n; i++){
@@ -94,7 +94,7 @@ public class PermMatrixTest {
             }
         }
 
-        /*Test B*A*/
+        /*Test B*A */
 
         product= new BitMatrix(n);
         for (int i= 0; i < n; i++){
