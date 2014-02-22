@@ -164,33 +164,6 @@ public class Graph{
         //Backward direction. Reverse roles of G1 and G2 for backward map.
         if (checkEdges(G2, G1, map2, n)) return false;
 
-        /*
-        for (int i= 0; i < n; i++){
-            int key= map2.getKey(i);
-            int value= map2.getValue(i);
-
-            if (G2.V[key].children.length != G1.V[value].children.length){
-                System.out.println("Error. Backward map sets correspondence between nodes with different number of children! ");
-                return false;
-            }
-
-            for (int j= 0; j < G2.V[key].children.length; j++){
-                int key1= G2.V[key].children[j].data;
-                int value1= map2.mapKey(key1);
-                boolean flag= false;
-                for (int k= 0; k < G1.V[value].children.length; k++){
-                    if (G1.V[value].children[k].data == value1){
-                        flag= true;
-                    }
-                }
-                if (flag == false){
-                    System.out.println("Error. An edge was not backward mapped! ");
-                    return false;
-                }
-
-            }
-        }*/
-
         //System.out.println("Success! Isomorphism confirmed.");
         return true;
     }

@@ -1,1 +1,0 @@
-1. [L] Test uniformity of the random graphs.
