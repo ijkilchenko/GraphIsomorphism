@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,16 +9,61 @@ import static org.junit.Assert.*;
  * Date: 1/21/14
  */
 public class ProgramChecker {
+	
+	public boolean Blum(Graph G1, Graph G2, BitMatrix A1, BitMatrix A2, int k){
+		int n= G1.V.length;
+		Map map= Graph.areIsomorphic(G1,G2);
+		if (map != null && map.length == n){
+			if (Graph.checkAllEdges(G1, G2, map)){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			Random random= new Random();			
+			for (int i= 0; i < k; i++){
+				int coin= random.nextInt(2);
+				if (coin == 0){
+					BitMatrix permMatrix= PermMatrix.makeRandom(n);
+		            BitMatrix permMatrixT= PermMatrix.transpose(permMatrix);
+		            A2= PermMatrix.multiply(permMatrix, A2);
+		            A2= PermMatrix.multiply(A2, permMatrixT);
+		            
+		            G2= new Graph(A2);		            
+		            map= Graph.areIsomorphic(G1, G2);
+		            
+		            if (map != null && map.length != n){
+		            	return false;
+		            }
+				}
+				if (coin == 1){
+					BitMatrix permMatrix= PermMatrix.makeRandom(n);
+		            BitMatrix permMatrixT= PermMatrix.transpose(permMatrix);
+		            A1= PermMatrix.multiply(permMatrix, A1);
+		            A1= PermMatrix.multiply(A1, permMatrixT);
+		            
+		            G1= new Graph(A1);		            
+		            map= Graph.areIsomorphic(G1, G2);
+		            
+		            if (map != null && map.length != n){
+		            	return false;
+		            }
+				}
+			}
+			return true;
+		}
+		
+	}
     
     @Test
-    public void testAreIsomorphic() throws Exception {
-        int n= 2048;
-        int t= 2;
+    public void ProgramCheckerTest() throws Exception {
+        int n= 128;
+        int t= 10;
         int p= 1;
         int q= 2;
-
-        long totalTime= 0;
-        long totalCheckTime= 0;
+        int k= 100;
 
         /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
@@ -30,73 +77,29 @@ public class ProgramChecker {
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrixPerm);
 
-            long startTime = System.nanoTime();
-            Map map= Graph.areIsomorphic(G1,G2);
-            long endTime = System.nanoTime();
-            long duration = endTime - startTime;
-            totalTime += duration;
-
-            if (map.length < n){
-                System.out.println("Error. Map returned between isomorphic graphs was not of length " + n +".");
+            if (!Blum(G1, G2, adjMatrix, adjMatrixPerm, k)){
+                System.out.println("Program check failed on isomorphic graphs!");
                 fail();
             }
-            else{
-                long startCheck = System.nanoTime();
-                if (!Graph.checkAllEdges(G1, G2, map)){
-                    System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
-                    fail();
-                }
-                long endCheck= System.nanoTime();
-                long checkDuration = endCheck - startCheck;
-                totalCheckTime += checkDuration;
-                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
-            }
+            
             System.out.println("Test " + i +" is finished!");
         }
-        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
-    }
-
-    @Test
-    public void testAreNonIsomorphic() throws Exception {
-        int n= 1024;
-        int t= 2;
-
-        long totalTime= 0;
-        long totalCheckTime= 0;
 
         /*Test non-isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
 
-
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrix2);
 
-            long startTime = System.nanoTime();
-            Map map= Graph.areIsomorphic(G1,G2);
-            long endTime = System.nanoTime();
-            long duration = endTime - startTime;
-            totalTime += duration;
-
-            if (map == null || map.length == 0){
-                System.out.println("Success. Graphs are non-isomorphic. Map is null. ");
+            if (!Blum(G1, G2, adjMatrix, adjMatrix2, k)){
+                System.out.println("Program check failed on non-isomorphic graphs!");
+                fail();
             }
-            else{
-                long startCheck = System.nanoTime();
-                if (!Graph.checkAllEdges(G1, G2, map)){
-                    System.out.println("Improbable result. Two random graphs are isomorphic.");
-                }
-                long endCheck= System.nanoTime();
-                long checkDuration = endCheck - startCheck;
-                totalCheckTime += checkDuration;
-                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
-            }
+            
             System.out.println("Test " + i +" is finished!");
         }
-        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
     }
     
 }
