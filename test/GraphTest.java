@@ -72,7 +72,7 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 1048;
+        int n= 2048;
         int t= 2;
         int p= 1;
         int q= 2;
