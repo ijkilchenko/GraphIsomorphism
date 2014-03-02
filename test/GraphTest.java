@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
  * Date: 1/21/14
  */
 public class GraphTest {
-    @Test
+    //@Test
     public void testMakeTree() throws Exception {
         /* connected graph
            1--4
@@ -72,12 +72,16 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphic() throws Exception {
-        int n= 2048;
-        int t= 2;
+    	long startTime0 = System.nanoTime();
+    	
+        int n= 1000;
+        int t= 5;
         int p= 1;
-        int q= 2;
+        int q= 30;
 
         long totalTime= 0;
+        long minTime= -1;
+        long maxTime= 0;
         long totalCheckTime= 0;
 
         /*Test isomorphic graphs*/
@@ -96,6 +100,14 @@ public class GraphTest {
             Map map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
+
+            if (duration < minTime || minTime < 0){
+            	minTime= duration;
+            }
+            if (duration > maxTime){
+            	maxTime= duration;
+            }
+            
             totalTime += duration;
 
             if (map.length < n){
@@ -116,10 +128,16 @@ public class GraphTest {
             System.out.println("Test " + i +" is finished!");
         }
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
+        System.out.println("Min time is \t\t" + minTime/Math.pow(10,9) + " seconds.");
+        System.out.println("Max time is \t\t" + maxTime/Math.pow(10,9) + " seconds.");
         System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
+        
+        long endTime0 = System.nanoTime();
+        long duration0= endTime0-startTime0;
+        System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
     }
 
-    @Test
+    /*@Test
     public void testAreNonIsomorphic() throws Exception {
         int n= 1024;
         int t= 2;
@@ -127,7 +145,7 @@ public class GraphTest {
         long totalTime= 0;
         long totalCheckTime= 0;
 
-        /*Test non-isomorphic graphs*/
+        Test non-isomorphic graphs
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
@@ -163,7 +181,7 @@ public class GraphTest {
 
     @Test
     public void testAreIsomorphicSimple() throws Exception {
-        /* G1
+         G1
         2--3
          \/
          1--0
@@ -177,7 +195,7 @@ public class GraphTest {
            / \
           2--3
 
-         */
+         
 
         int n= 6;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -221,7 +239,7 @@ public class GraphTest {
 
     @Test
     public void testCheckConditions() throws Exception {
-        /* G1
+         G1
         2--3
          \/
          1--0
@@ -235,7 +253,7 @@ public class GraphTest {
            / \
           2--3
 
-         */
+         
 
         int n= 6;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -288,12 +306,12 @@ public class GraphTest {
 
     @Test
     public void testCheckEdges() throws Exception {
-        /*
+        
            1--4
            |  |
         0--3--2
 
-         */
+         
 
         int n= 5;
         BitMatrix adjMatrix= new BitMatrix(n);
@@ -309,12 +327,12 @@ public class GraphTest {
         adjMatrix.setBit(4, 2, true);
         Graph G1= new Graph(adjMatrix);
 
-        /*
+        
            2--0
            |  |
         1--4--3
 
-         */
+         
 
         n= 5;
         BitMatrix adjMatrix2= new BitMatrix(n);
@@ -344,5 +362,5 @@ public class GraphTest {
         long duration = endTime - startTime;
         System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
     }
-
+*/
 }

@@ -93,6 +93,7 @@ public class Graph{
                     match = checkConditions(map, trees1[i], trees2[j], match);
                     if (match == true){
                         map.add(length, i, j); //Add key-value pair (i,j) to map.
+                        //System.out.println("Added!");
                         matched[j]= true; //Node j in G2 is now matched.
                         mismatched= -1;
                         break; //Break at first match (such that j-th index in G2 is larger than 'mismatched').
@@ -107,6 +108,7 @@ public class Graph{
                 mismatched= map.getValue(i-1); //Update 'mismatched' because last key-value pair is wrong.
                 matched[mismatched]= false; //Update information about matched node in G2.
                 map.pop(); //Remove the last key-value pair from map.
+                //System.out.println("Deleted! Current map size is " + map.length);
                 i= map.length-1; //On next iteration, we will try to match i-th node in G1 with new node in G2.
             }
         }
@@ -141,14 +143,6 @@ public class Graph{
         }
         return match;
     }
-    /*
-    public static boolean checkHeight(AbstractTree map, AbstractTree tree1, AbstractTree tree2, boolean match) {
-        if (tree1.length != tree2.length){
-            match= false;
-        }
-        return match;
-    }
-    */
 
     public static boolean checkAllEdges(Graph G1, Graph G2, Map map){
         int n= map.length;
