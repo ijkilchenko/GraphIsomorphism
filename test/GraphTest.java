@@ -70,14 +70,14 @@ public class GraphTest {
         assertEquals(1, tree2.getLevel(4));
     }
 
-    @Test
+    //@Test
     public void testAreIsomorphic() throws Exception {
     	long startTime0 = System.nanoTime();
     	
-        int n= 1000;
-        int t= 5;
+        int n= 4;
+        int t= 1000;
         int p= 1;
-        int q= 30;
+        int q= 8;
 
         long totalTime= 0;
         long minTime= -1;
@@ -137,30 +137,43 @@ public class GraphTest {
         System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
     }
 
-    /*@Test
+    @Test
     public void testAreNonIsomorphic() throws Exception {
-        int n= 1024;
-        int t= 2;
+    	long startTime0 = System.nanoTime();
+    	
+        int n= 512;
+        int t= 1000;
+        int p= 1;
+        int q= 1024;
 
         long totalTime= 0;
+        long minTime= -1;
+        long maxTime= 0;
         long totalCheckTime= 0;
 
-        Test non-isomorphic graphs
+        /*Test non-isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
 
-
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrix2);
-
+            
             long startTime = System.nanoTime();
             Map map= Graph.areIsomorphic(G1,G2);
             long endTime = System.nanoTime();
             long duration = endTime - startTime;
+
+            if (duration < minTime || minTime < 0){
+            	minTime= duration;
+            }
+            if (duration > maxTime){
+            	maxTime= duration;
+            }
+            
             totalTime += duration;
 
-            if (map == null || map.length == 0){
+			if (map == null || map.length == 0){
                 System.out.println("Success. Graphs are non-isomorphic. Map is null. ");
             }
             else{
@@ -176,9 +189,16 @@ public class GraphTest {
             System.out.println("Test " + i +" is finished!");
         }
         System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Average check time is " + totalCheckTime/Math.pow(10,9)/t + " seconds.");
+        System.out.println("Min time is \t\t" + minTime/Math.pow(10,9) + " seconds.");
+        System.out.println("Max time is \t\t" + maxTime/Math.pow(10,9) + " seconds.");
+        System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
+        
+        long endTime0 = System.nanoTime();
+        long duration0= endTime0-startTime0;
+        System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
     }
 
+    /*
     @Test
     public void testAreIsomorphicSimple() throws Exception {
          G1
