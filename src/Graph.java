@@ -68,6 +68,7 @@ public class Graph{
     public static Map areIsomorphic(Graph G1, Graph G2){
         int n= G1.V.length;
         Map map= new Map(n);
+        int numOp= 0;
 
         if (n != G2.V.length){
             System.out.println("False. Graphs are of different size! ");
@@ -88,6 +89,9 @@ public class Graph{
         for (int i= 0; i < n; i++){
             int length= map.length;
             for (int j= 0; j < n; j++){
+            	if (numOp > 200){
+            		System.out.println("Number of operations is " + numOp);
+            	}
                 if (matched[j] != true && j > mismatched){
                     boolean match= true;
                     match = checkConditions(map, trees1[i], trees2[j], match);
@@ -95,6 +99,7 @@ public class Graph{
                         map.add(length, i, j); //Add key-value pair (i,j) to map.
                         //System.out.println("Added!");
                         matched[j]= true; //Node j in G2 is now matched.
+                        numOp++;
                         mismatched= -1;
                         break; //Break at first match (such that j-th index in G2 is larger than 'mismatched').
                     }
@@ -107,6 +112,7 @@ public class Graph{
                 }
                 mismatched= map.getValue(i-1); //Update 'mismatched' because last key-value pair is wrong.
                 matched[mismatched]= false; //Update information about matched node in G2.
+                numOp++;
                 map.pop(); //Remove the last key-value pair from map.
                 //System.out.println("Deleted! Current map size is " + map.length);
                 i= map.length-1; //On next iteration, we will try to match i-th node in G1 with new node in G2.

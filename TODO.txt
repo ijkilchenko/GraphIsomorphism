@@ -1,0 +1,1 @@
+1. Add logic to map connected components onto connected components of disconnected graphs. 
