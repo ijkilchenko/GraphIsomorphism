@@ -17,11 +17,12 @@ public class DiameterDistribution {
     	long startTime0 = System.nanoTime();
     	
         int n= 128;
-        int t= 10;
+        int t= 100;
         int p= 1;
-        int q= 32;
+        int q= 64;
         
         int[] DD= new int[n];
+        int[] DDc= new int[n];
 
         long totalTime= 0;
         long minTime= -1;
@@ -45,8 +46,8 @@ public class DiameterDistribution {
             //AbstractTree[] trees2= new AbstractTree[n];
 
             for (int j= 0; j < n; j++){
-                trees1[i]= Graph.BFS(G1, i);
-                DD[trees1[i].height]+= 1;
+                trees1[j]= Graph.BFS(G1, j);
+                DD[trees1[j].height]+= 1;
                 //trees2[i]= Graph.BFS(G2, i);
             }
             long endTime = System.nanoTime();
@@ -71,7 +72,7 @@ public class DiameterDistribution {
         long duration0= endTime0-startTime0;
         System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
         
-        for (int i= 0; i < n; i++){
+        for (int i= n-1; i >= 0; i--){
         	System.out.println("DD[" + i + "]=" + DD[i]);
         }
 
