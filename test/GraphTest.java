@@ -70,14 +70,14 @@ public class GraphTest {
         assertEquals(1, tree2.getLevel(4));
     }
 
-    //@Test
+    @Test
     public void testAreIsomorphic() throws Exception {
     	long startTime0 = System.nanoTime();
     	
-        int n= 4;
+        int n= 20;
         int t= 1000;
         int p= 1;
-        int q= 8;
+        int q= 40;
 
         long totalTime= 0;
         long minTime= -1;
@@ -137,14 +137,14 @@ public class GraphTest {
         System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
     }
 
-    @Test
+    //@Test
     public void testAreNonIsomorphic() throws Exception {
     	long startTime0 = System.nanoTime();
     	
-        int n= 512;
-        int t= 1000;
+        int n= 2048;
+        int t= 10;
         int p= 1;
-        int q= 1024;
+        int q= 2;
 
         long totalTime= 0;
         long minTime= -1;
