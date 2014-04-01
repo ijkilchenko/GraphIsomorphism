@@ -1,3 +1,4 @@
+package com.gi.gi;
 /**
  * User: ijk
  * Date: 1/6/14
@@ -7,8 +8,8 @@
 
 public class AbstractTree {
     int n;
-    int height;
-    int[] width; //Number of nodes in the spanning tree at a level.
+    public int height;
+    public int[] width; //Number of nodes in the spanning tree at a level.
     int[] level; //Map the index of a node to its level in the spanning tree.
 
     public AbstractTree(){

@@ -1,6 +1,13 @@
+package com.gi.test;
 import java.util.Random;
 
 import org.junit.Test;
+
+import com.gi.gi.AdjMatrix;
+import com.gi.gi.BitMatrix;
+import com.gi.gi.Graph;
+import com.gi.gi.Map;
+import com.gi.gi.PermMatrix;
 
 import static org.junit.Assert.*;
 

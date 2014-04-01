@@ -1,10 +1,11 @@
+package com.gi.gi;
 /**
  * User: ijk
  * Date: 11/17/13
  */
 public class Node {
-    int data;
-    Node[] children;
+    public int data;
+    public Node[] children;
 
     public Node(){
 

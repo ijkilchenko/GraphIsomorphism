@@ -1,3 +1,4 @@
+package com.gi.gi;
 import java.util.BitSet;
 
 /**
@@ -5,7 +6,7 @@ import java.util.BitSet;
  * Date: 1/4/14
  */
 public class BitMatrix {
-    BitSet[] matrix;
+    public BitSet[] matrix;
 
     public BitMatrix(){
 

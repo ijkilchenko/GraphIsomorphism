@@ -1,3 +1,4 @@
+package com.gi.gi;
 import java.util.Random;
 
 /**

@@ -1,4 +1,12 @@
+package com.gi.test;
 import org.junit.Test;
+
+import com.gi.gi.AbstractTree;
+import com.gi.gi.AdjMatrix;
+import com.gi.gi.BitMatrix;
+import com.gi.gi.Graph;
+import com.gi.gi.Map;
+import com.gi.gi.PermMatrix;
 
 import static org.junit.Assert.*;
 
@@ -75,9 +83,9 @@ public class GraphTest {
     	long startTime0 = System.nanoTime();
     	
         int n= 20;
-        int t= 1000;
+        int t= 128;
         int p= 1;
-        int q= 40;
+        int q= 2;
 
         long totalTime= 0;
         long minTime= -1;

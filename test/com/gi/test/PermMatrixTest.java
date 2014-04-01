@@ -1,4 +1,8 @@
+package com.gi.test;
 import org.junit.Test;
+
+import com.gi.gi.BitMatrix;
+import com.gi.gi.PermMatrix;
 
 import java.util.Random;
 

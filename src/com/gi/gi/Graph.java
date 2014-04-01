@@ -1,9 +1,10 @@
+package com.gi.gi;
 /**
  * User: ijk
  * Date: 1/4/14
  */
 public class Graph{
-    Node[] V;
+    public Node[] V;
 
     public Graph(BitMatrix matrix){
         int n= matrix.getSize();

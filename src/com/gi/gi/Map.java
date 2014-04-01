@@ -1,9 +1,10 @@
+package com.gi.gi;
 /**
  * User: ijk
  * Date: 2/22/14
  */
 public class Map {
-    int length;
+    public int length;
     int[][] map;
 
     public Map(int n){

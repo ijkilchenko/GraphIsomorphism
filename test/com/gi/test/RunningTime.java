@@ -1,8 +1,9 @@
+package com.gi.test;
 import org.junit.Test;
 
 /**
  * User: ijk
- * Date: 1/21/14
+ * Date: 4/1/14
  */
 public class RunningTime {
 

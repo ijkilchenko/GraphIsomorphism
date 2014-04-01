@@ -1,3 +1,4 @@
+package com.gi.gi;
 /**
  * User: ijk
  * Date: 1/4/14
@@ -18,7 +19,7 @@ public class Main {
         Graph G1= new Graph(adjMatrix);
         Graph G2= new Graph(adjMatrixPerm);
 
-        //Graph.areIsomorphic(G1,G1);
+        System.out.println(Graph.areIsomorphic(G1,G1));
 
         System.out.println("Breakpoint!");
 
