@@ -2,6 +2,10 @@ package com.gi.exp;
 
 import static org.junit.Assert.fail;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import com.gi.gi.AbstractTree;
 import com.gi.gi.AdjMatrix;
 import com.gi.gi.BitMatrix;
@@ -15,11 +19,25 @@ public class DiameterDistribution {
 
 	public static void main(String[] args) {
     	long startTime0 = System.nanoTime();
-    	
-        int n= 128;
+    	   	
+    	/* Default values */
+        int n= 16;
         int t= 100;
         int p= 1;
-        int q= 64;
+        int q= 2;
+
+        /* Load new values from properties file */
+        try (FileReader reader = new FileReader("./graph.properties")) {
+        	Properties properties = new Properties();
+        	properties.load(reader);
+        	n= Integer.parseInt(properties.getProperty("n"));
+        	t= Integer.parseInt(properties.getProperty("t"));
+        	p= Integer.parseInt(properties.getProperty("p"));
+        	q= Integer.parseInt(properties.getProperty("q"));
+        	
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
         
         int[] DD= new int[n];
         int[] DDc= new int[n];
