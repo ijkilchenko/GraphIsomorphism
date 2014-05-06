@@ -1,23 +1,19 @@
 package com.gi.exp;
 
-import static org.junit.Assert.fail;
+import com.gi.base.AbstractTree;
+import com.gi.base.AdjMatrix;
+import com.gi.base.BitMatrix;
+import com.gi.base.Graph;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.gi.gi.AbstractTree;
-import com.gi.gi.AdjMatrix;
-import com.gi.gi.BitMatrix;
-import com.gi.gi.Graph;
-import com.gi.gi.Map;
-import com.gi.gi.PermMatrix;
-
 public class DiameterDistribution {
 	/*This class is meant to help find the diameter distribution of random graphs analytically*/
 	/*We focus on looking at lambda=2 and lambda unbounded*/
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
     	long startTime0 = System.nanoTime();
     	   	
     	/* Default values */
@@ -27,18 +23,14 @@ public class DiameterDistribution {
         int q= 2;
 
         /* Load new values from properties file */
-        try (FileReader reader = new FileReader("./graph.properties")) {
-        	Properties properties = new Properties();
-        	properties.load(reader);
-        	n= Integer.parseInt(properties.getProperty("n"));
-        	t= Integer.parseInt(properties.getProperty("t"));
-        	p= Integer.parseInt(properties.getProperty("p"));
-        	q= Integer.parseInt(properties.getProperty("q"));
-        	
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
-        
+        FileReader reader = new FileReader("./graph.properties");
+        Properties properties = new Properties();
+        properties.load(reader);
+        n= Integer.parseInt(properties.getProperty("n"));
+        t= Integer.parseInt(properties.getProperty("t"));
+        p= Integer.parseInt(properties.getProperty("p"));
+        q= Integer.parseInt(properties.getProperty("q"));
+
         int[] DD= new int[n];
         int[] DDc= new int[n];
 

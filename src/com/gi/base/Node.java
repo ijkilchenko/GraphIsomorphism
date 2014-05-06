@@ -1,4 +1,4 @@
-package com.gi.gi;
+package com.gi.base;
 /**
  * User: ijk
  * Date: 11/17/13

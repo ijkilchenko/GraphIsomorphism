@@ -1,9 +1,9 @@
 package com.gi.test;
 import org.junit.Test;
 
-import com.gi.gi.AdjMatrix;
-import com.gi.gi.BitMatrix;
-import com.gi.gi.Graph;
+import com.gi.base.AdjMatrix;
+import com.gi.base.BitMatrix;
+import com.gi.base.Graph;
 
 import static org.junit.Assert.assertEquals;
 

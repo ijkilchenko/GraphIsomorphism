@@ -1,7 +1,7 @@
 package com.gi.test;
 import org.junit.Test;
 
-import com.gi.gi.BitMatrix;
+import com.gi.base.BitMatrix;
 
 import java.util.Random;
 

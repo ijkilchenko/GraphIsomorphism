@@ -1,4 +1,4 @@
-package com.gi.gi;
+package com.gi.base;
 import java.util.Random;
 
 /**

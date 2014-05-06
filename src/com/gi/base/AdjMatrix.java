@@ -1,4 +1,4 @@
-package com.gi.gi;
+package com.gi.base;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

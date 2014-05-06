@@ -1,18 +1,12 @@
 package com.gi.test;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Properties;
-
+import com.gi.base.*;
 import org.junit.Test;
 
-import com.gi.gi.AbstractTree;
-import com.gi.gi.AdjMatrix;
-import com.gi.gi.BitMatrix;
-import com.gi.gi.Graph;
-import com.gi.gi.Map;
-import com.gi.gi.PermMatrix;
+import java.io.FileReader;
+import java.util.Properties;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * User: ijk
@@ -93,17 +87,13 @@ public class GraphTest {
         int q= 2;
 
         /* Load new values from properties file */
-        try (FileReader reader = new FileReader("./graph.properties")) {
-        	Properties properties = new Properties();
-        	properties.load(reader);
-        	n= Integer.parseInt(properties.getProperty("n"));
-        	t= Integer.parseInt(properties.getProperty("t"));
-        	p= Integer.parseInt(properties.getProperty("p"));
-        	q= Integer.parseInt(properties.getProperty("q"));
-        	
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
+        FileReader reader = new FileReader("./graph.properties");
+        Properties properties = new Properties();
+        properties.load(reader);
+        n= Integer.parseInt(properties.getProperty("n"));
+        t= Integer.parseInt(properties.getProperty("t"));
+        p= Integer.parseInt(properties.getProperty("p"));
+        q= Integer.parseInt(properties.getProperty("q"));
 
         long totalTime= 0;
         long minTime= -1;
