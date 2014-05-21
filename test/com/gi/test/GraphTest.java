@@ -76,6 +76,31 @@ public class GraphTest {
         assertEquals(1, tree2.getLevel(4));
     }
 
+    //@Test
+    public void testPredefinedGraphs() throws Exception {
+    	BitMatrix adjMatrix= AdjMatrix.readAdj("hypersquare");
+    	BitMatrix adjMatrix2= AdjMatrix.readAdj("kite");
+    	
+    	Graph G1= new Graph(adjMatrix);
+        Graph G2= new Graph(adjMatrix2);
+        int n= G1.V.length;
+
+        Map map= Graph.areIsomorphic(G1,G2);
+        
+        if (map.length < n){
+            System.out.println("Error. Map returned between isomorphic graphs was not of length " + n +".");
+            fail();
+        }
+        else{
+            long startCheck = System.nanoTime();
+            if (!Graph.checkAllEdges(G1, G2, map)){
+                System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
+                fail();
+            }
+            //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
+        }
+    }
+    
     @Test
     public void testAreIsomorphic() throws Exception {
     	long startTime0 = System.nanoTime();
@@ -157,10 +182,20 @@ public class GraphTest {
     public void testAreNonIsomorphic() throws Exception {
     	long startTime0 = System.nanoTime();
     	
+    	/* Default values */
         int n= 2048;
         int t= 10;
         int p= 1;
         int q= 2;
+        
+        /* Load new values from properties file */
+        FileReader reader = new FileReader("./graph.properties");
+        Properties properties = new Properties();
+        properties.load(reader);
+        n= Integer.parseInt(properties.getProperty("n"));
+        t= Integer.parseInt(properties.getProperty("t"));
+        p= Integer.parseInt(properties.getProperty("p"));
+        q= Integer.parseInt(properties.getProperty("q"));
 
         long totalTime= 0;
         long minTime= -1;
@@ -169,8 +204,8 @@ public class GraphTest {
 
         /*Test non-isomorphic graphs*/
         for (int i= 0; i < t; i++){
-            BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
-            BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
+            BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
+            BitMatrix adjMatrix2= AdjMatrix.makeRandom(n, p, q);
 
             Graph G1= new Graph(adjMatrix);
             Graph G2= new Graph(adjMatrix2);
