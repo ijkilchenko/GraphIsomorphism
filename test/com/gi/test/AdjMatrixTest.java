@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import com.gi.base.AdjMatrix;
 import com.gi.base.BitMatrix;
-import com.gi.base.Graph;
+import com.gi.base.ConnectedGraph;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,7 +28,7 @@ public class AdjMatrixTest {
         1-3
 
          */
-        Graph G1= new Graph(matrix);
+        ConnectedGraph G1= new ConnectedGraph(matrix);
         assertEquals(0, G1.V[0].data);
         assertEquals(1, G1.V[1].data);
         assertEquals(2, G1.V[2].data);

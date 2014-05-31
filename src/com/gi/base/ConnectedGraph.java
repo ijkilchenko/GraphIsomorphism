@@ -1,19 +1,18 @@
 package com.gi.base;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * User: ijk Date: 1/4/14
  */
-public class Graph {
-	public ConnectedGraph[] G;
-
-	public Graph(BitMatrix matrix) {
-		Node[] V;
+public class ConnectedGraph {
+	public Node[] V;
+	
+	public ConnectedGraph(){
 		
+	}
+
+	public ConnectedGraph(BitMatrix matrix) {
 		int n = matrix.getSize();
-		V = new Node[n];
+		this.V = new Node[n];
 		for (int i = 0; i < n; i++) {
 			V[i] = new Node(i);
 		}
@@ -34,62 +33,44 @@ public class Graph {
 			}
 			V[i].addChildren(C);
 		}
-		
-		G = separateIntoComponents(V);
 	}
 
-	public static ConnectedGraph[] separateIntoComponents(Node[] V) {		
-		int n = V.length;
-		List<List<Node>> V1 = new ArrayList<List<Node>>();
-		
-		int a = 0;		
+	public static AbstractTree BFS(ConnectedGraph G, int m) {
+		// Breadth First Search method to initialize AbstractTree object from Graph G.
+		int n = G.V.length;
+
+		AbstractTree tree = new AbstractTree(n);
 		boolean[] visited = new boolean[n];
-		int b = 0;
-		while (b < n){
-			if (visited[b] == false){
-				
-				int[] queue = new int[n];
-				int m = b;
-				visited[m] = true;
-				queue[0] = m;
-				
-				int l = 1; // Marks the end of the queue in the array.
-		
-				int i = 0; // Marks the beginning of the queue in the array.
-				V1.add(new ArrayList<Node>());
-				V1.get(a).add(V[m]);
-				while (i < l) { // Check if queue is empty.
-					int r = queue[i];
-					i++;
-					for (int j = 0; j < V[r].children.length; j++) {
-						Node s = V[r].children[j];
-						if (visited[s.data] == false) {
-							visited[s.data] = true;
-							V1.get(a).add(s);
-							queue[l] = s.data;
-							l++;
-						}
-					}
+		int[] queue = new int[n]; // Queue object as an array.
+
+		visited[m] = true;
+		queue[0] = m;
+		tree.setLevel(m, 0);
+		int l = 1; // Marks the end of the queue in the array.
+
+		int i = 0; // Marks the beginning of the queue in the array.
+		while (i < l) { // Check if queue is empty.
+			int r = queue[i];
+			i++;
+			int k = tree.getLevel(r); // Current node's level.
+			for (int j = 0; j < G.V[r].children.length; j++) {
+				Node s = G.V[r].children[j];
+				if (visited[s.data] == false) {
+					visited[s.data] = true;
+					queue[l] = s.data;
+					tree.setLevel(s.data, k + 1); // Note: one deeper level is k+1.
+					l++;
 				}
-				a++;
 			}
-			b++;
 		}
-		
-		ConnectedGraph[] Gfinal = new ConnectedGraph[V1.size()];		
-		for (int d = 0; d < V1.size(); d++){
-			Node[] Vfinal = new Node[V1.get(d).size()];
-			for (int c = 0; c < Vfinal.length; c++){
-				Vfinal[c] = V1.get(d).get(c);
-			}
-			Gfinal[d] = new ConnectedGraph();
-			Gfinal[d].V = Vfinal;
-		}
-		
-		return Gfinal;
+
+		tree.setHeight();
+		tree.setWidths();
+
+		return tree;
 	}
 
-	/*public static Map areIsomorphic(Graph G1, Graph G2) {
+	public static Map areIsomorphic(ConnectedGraph G1, ConnectedGraph G2) {
 		int n = G1.V.length;
 		Map map = new Map(n);
 		int numOp = 0;
@@ -103,8 +84,8 @@ public class Graph {
 		AbstractTree[] trees2 = new AbstractTree[n];
 
 		for (int i = 0; i < n; i++) {
-			trees1[i] = Graph.BFS(G1, i);
-			trees2[i] = Graph.BFS(G2, i);
+			trees1[i] = ConnectedGraph.BFS(G1, i);
+			trees2[i] = ConnectedGraph.BFS(G2, i);
 		}
 
 		boolean[] matched = new boolean[n]; // Keep track of matched nodes in G2.
@@ -113,9 +94,9 @@ public class Graph {
 		for (int i = 0; i < n; i++) {
 			int length = map.length;
 			for (int j = 0; j < n; j++) {
-				            	if (numOp > 200){
+				/*            	if (numOp > 200){
 				            		System.out.println("Number of operations is " + numOp);
-				            	}
+				            	}*/
 				if (matched[j] != true && j > mismatched) {
 					boolean match = true;
 					match = checkConditions(map, trees1[i], trees2[j], match);
@@ -146,8 +127,8 @@ public class Graph {
 		// System.out.println("True. Graphs are isomorphic! ");
 		return map;
 	}
-*/
-	/*public static boolean checkConditions(Map map, AbstractTree tree1, AbstractTree tree2, boolean match) {
+
+	public static boolean checkConditions(Map map, AbstractTree tree1, AbstractTree tree2, boolean match) {
 		if (tree1.height != tree2.height) { // Fastest condition to check for non-isomorphism.
 			match = false;
 		} else {
@@ -173,7 +154,7 @@ public class Graph {
 		return match;
 	}
 
-	public static boolean checkAllEdges(Graph G1, Graph G2, Map map) {
+	public static boolean checkAllEdges(ConnectedGraph G1, ConnectedGraph G2, Map map) {
 		int n = map.length;
 
 		// Forward direction.
@@ -193,7 +174,7 @@ public class Graph {
 		return true;
 	}
 
-	private static boolean checkEdges(Graph G1, Graph G2, Map map, int n) {
+	private static boolean checkEdges(ConnectedGraph G1, ConnectedGraph G2, Map map, int n) {
 		// Check edges in the forward direction.
 		for (int i = 0; i < n; i++) {
 			int key = map.getKey(i);
@@ -222,5 +203,5 @@ public class Graph {
 		}
 		return false;
 	}
-*/
+
 }

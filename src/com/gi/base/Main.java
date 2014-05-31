@@ -16,10 +16,10 @@ public class Main {
         BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
         adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixTrans);
 
-        Graph G1= new Graph(adjMatrix);
-        Graph G2= new Graph(adjMatrixPerm);
+        ConnectedGraph G1= new ConnectedGraph(adjMatrix);
+        ConnectedGraph G2= new ConnectedGraph(adjMatrixPerm);
 
-        System.out.println(Graph.areIsomorphic(G1,G1));
+        System.out.println(ConnectedGraph.areIsomorphic(G1,G1));
 
         System.out.println("Breakpoint!");
 
