@@ -94,9 +94,9 @@ public class GraphTest {
 	    
 		ConnectedGraph G3 = new ConnectedGraph(adjMatrix3);
 		Node[] V3 = G3.V;
-		ConnectedGraph[] GGG = Graph.separateIntoComponents(V3);
+		Graph GGG = new Graph(adjMatrix3);
 		
-		assertFalse(GGG.length != 3);
+		assertFalse(GGG.getNumOfComponents() != 3);
 
 	}
 

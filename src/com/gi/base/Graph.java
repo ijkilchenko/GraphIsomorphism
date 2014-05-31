@@ -35,7 +35,7 @@ public class Graph {
 			V[i].addChildren(C);
 		}
 		
-		G = separateIntoComponents(V);
+		this.G = separateIntoComponents(V);
 	}
 
 	public static ConnectedGraph[] separateIntoComponents(Node[] V) {		
@@ -87,6 +87,10 @@ public class Graph {
 		}
 		
 		return Gfinal;
+	}
+
+	public int getNumOfComponents() {
+		return this.G.length;
 	}
 
 	/*public static Map areIsomorphic(Graph G1, Graph G2) {
