@@ -209,6 +209,7 @@ public class ConnectedGraph {
 				for (int k = 0; k < G2.V[value].children.length; k++) {
 					if (G2.V[value].children[k].data == value1) {
 						flag = true;
+						break;
 					}
 				}
 				if (flag == false) {
