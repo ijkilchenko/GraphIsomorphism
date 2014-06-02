@@ -20,7 +20,7 @@ import com.gi.base.PermMatrix;
 
 public class GraphTest {
 
-	@Test
+	//@Test
 	public void separateIntoComponentsTest() {
 		/* non-connected graph
 		1--4
@@ -105,7 +105,7 @@ public class GraphTest {
 
 	}
 	
-	/*
+	
 	@Test
 	public void findIsomorphismTest1() throws IOException {
 		long startTime0 = System.nanoTime();
@@ -130,7 +130,7 @@ public class GraphTest {
 		long maxTime = 0;
 		long totalCheckTime = 0;
 
-		Test isomorphic graphs
+		//Test isomorphic graphs
 		for (int i = 0; i < t; i++) {
 			BitMatrix adjMatrix = AdjMatrix.makeRandom(n, p, q);
 
@@ -158,12 +158,12 @@ public class GraphTest {
 
 			for (int j = 0; j < G1.getNumOfComponents(); j++){
 					
-				if (map[j].length < G1.G[j].V.length) {
+				if (map[j+1].length < G1.G[j].V.length) {
 					System.out.println("Error. Map returned for " + j + "-th component is less than " + G1.G[j].V.length);
 					fail();
 				} else {
 					long startCheck = System.nanoTime();
-					if (!ConnectedGraph.checkAllEdges(G1., G2, map)) {
+					if (!ConnectedGraph.checkAllEdges(G1.G[map[0].getKey(j)], G2.G[map[0].getValue(j)], map[j+1])) {
 						System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
 						fail();
 					}
@@ -172,7 +172,7 @@ public class GraphTest {
 					totalCheckTime += checkDuration;
 					// System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
 				}
-				System.out.println("Test " + i + " is finished!");
+				System.out.println("Test " + i + " is finished for component " + j);
 			}
 		}
 		System.out.println("Average time is \t\t" + totalTime / Math.pow(10, 9) / t + " seconds.");
@@ -184,11 +184,9 @@ public class GraphTest {
 		long duration0 = endTime0 - startTime0;
 		System.out.println("Total time spent in method is \t\t" + duration0 / Math.pow(10, 9) + " seconds.");			
 			
-		}
-*/	
+		}	
 	
-	
-	@Test
+	//@Test
 	public void findIsomorphismTest2() {
 
 		/*
@@ -268,7 +266,7 @@ public class GraphTest {
 
 	}
 
-	@Test
+	//@Test
 	public void findIsomorphismTest3() {
 		//Test sample graphs of size 5
 		int n = 5;

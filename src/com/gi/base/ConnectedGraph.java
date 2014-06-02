@@ -187,19 +187,6 @@ public class ConnectedGraph {
 			int key = map.getKey(i);
 			int value = map.getValue(i);
 			
-			for (int l = 0; l < G1.V.length; l++){
-				if (G1.V[l].data == key){
-					key = l;
-					break;
-				}
-			}
-			for (int l = 0; l < G2.V.length; l++){
-				if (G2.V[l].data == value){
-					value = l;
-					break;
-				}
-			}
-
 			if (G1.V[key].children.length != G2.V[value].children.length) {
 				System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
 				return true;
@@ -207,20 +194,15 @@ public class ConnectedGraph {
 
 			for (int j = 0; j < G1.V[key].children.length; j++) {
 				int key1 = G1.V[key].children[j].data;
-				int value1 = map.mapKey(key1);
-				
 				for (int l = 0; l < G1.V.length; l++){
 					if (G1.V[l].data == key1){
 						key1 = l;
 						break;
 					}
 				}
-				for (int l = 0; l < G2.V.length; l++){
-					if (G2.V[l].data == value1){
-						value1 = l;
-						break;
-					}
-				}
+				int value1 = map.mapKey(key1);
+				
+				value1 = G2.V[value1].data;
 				
 				boolean flag = false;
 

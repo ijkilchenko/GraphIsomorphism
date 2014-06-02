@@ -177,7 +177,7 @@ public class ConnectedGraphTest {
 		System.out.println("Total time spent in method is \t\t" + duration0 / Math.pow(10, 9) + " seconds.");
 	}
 
-	@Test
+	//@Test
 	public void testAreNonIsomorphic() throws Exception {
 		long startTime0 = System.nanoTime();
 
@@ -248,7 +248,7 @@ public class ConnectedGraphTest {
 	}
 
 	
-	@Test
+	//@Test
 	public void testAreIsomorphicSimple() throws Exception {
 		
 		/*
@@ -309,7 +309,7 @@ public class ConnectedGraphTest {
 	    assertTrue(ConnectedGraph.checkAllEdges(G1, G2, map));
 	}
 
-	@Test
+	//@Test
 	public void testCheckConditions() throws Exception {
 		/*
 	     G1
@@ -378,7 +378,7 @@ public class ConnectedGraphTest {
 	    assertFalse(ConnectedGraph.checkConditions(map, tree1, tree2, false));
 	}
 
-	@Test
+	//@Test
 	public void testCheckEdges() throws Exception {
 		/*
 	    
