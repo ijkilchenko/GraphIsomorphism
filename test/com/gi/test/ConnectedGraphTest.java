@@ -1,13 +1,13 @@
 package com.gi.test;
 
 import com.gi.base.*;
+
 import org.junit.Test;
 
 import java.io.FileReader;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * User: ijk Date: 1/21/14
@@ -177,7 +177,7 @@ public class ConnectedGraphTest {
 		System.out.println("Total time spent in method is \t\t" + duration0 / Math.pow(10, 9) + " seconds.");
 	}
 
-	// @Test
+	@Test
 	public void testAreNonIsomorphic() throws Exception {
 		long startTime0 = System.nanoTime();
 
@@ -247,9 +247,11 @@ public class ConnectedGraphTest {
 		System.out.println("Total time spent in method is \t\t" + duration0 / Math.pow(10, 9) + " seconds.");
 	}
 
-	/*
+	
 	@Test
 	public void testAreIsomorphicSimple() throws Exception {
+		
+		/*
 	     G1
 	    2--3
 	     \/
@@ -263,7 +265,8 @@ public class ConnectedGraphTest {
 	     4--0
 	       / \
 	      2--3
-
+		
+		*/
 	     
 
 	    int n= 6;
@@ -299,15 +302,16 @@ public class ConnectedGraphTest {
 	    adjMatrix2.setBit(1, 5, true);
 	    adjMatrix2.setBit(1, 4, true);
 
-	    Graph G1= new Graph(adjMatrix);
-	    Graph G2= new Graph(adjMatrix2);
+	    ConnectedGraph G1= new ConnectedGraph(adjMatrix);
+	    ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
-	    Map map= Graph.areIsomorphic(G1,G2);
-	    assertTrue(Graph.checkAllEdges(G1, G2, map));
+	    Map map= ConnectedGraph.areIsomorphic(G1,G2);
+	    assertTrue(ConnectedGraph.checkAllEdges(G1, G2, map));
 	}
 
 	@Test
 	public void testCheckConditions() throws Exception {
+		/*
 	     G1
 	    2--3
 	     \/
@@ -321,6 +325,7 @@ public class ConnectedGraphTest {
 	     4--0
 	       / \
 	      2--3
+	    */
 
 	     
 
@@ -357,28 +362,30 @@ public class ConnectedGraphTest {
 	    adjMatrix2.setBit(1, 5, true);
 	    adjMatrix2.setBit(1, 4, true);
 
-	    Graph G1= new Graph(adjMatrix);
-	    Graph G2= new Graph(adjMatrix2);
+	    ConnectedGraph G1= new ConnectedGraph(adjMatrix);
+	    ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
 	    AbstractTree tree1 = new AbstractTree(G1.V.length);
-	    tree1 = Graph.BFS(G1, 3);
+	    tree1 = ConnectedGraph.BFS(G1, 3);
 	    AbstractTree tree2 = new AbstractTree(G2.V.length);
-	    tree2 = Graph.BFS(G2, 2);
+	    tree2 = ConnectedGraph.BFS(G2, 2);
 
 	    Map map= new Map(6);
 	    map.add(0, 0, 0);
 	    map.add(1, 1, 4);
 	    map.add(2, 2, 2);
 
-	    assertFalse(Graph.checkConditions(map, tree1, tree2, false));
+	    assertFalse(ConnectedGraph.checkConditions(map, tree1, tree2, false));
 	}
 
 	@Test
 	public void testCheckEdges() throws Exception {
+		/*
 	    
 	       1--4
 	       |  |
 	    0--3--2
+	    */
 
 	     
 
@@ -394,13 +401,13 @@ public class ConnectedGraphTest {
 	    adjMatrix.setBit(3, 2, true);
 	    adjMatrix.setBit(4, 1, true);
 	    adjMatrix.setBit(4, 2, true);
-	    Graph G1= new Graph(adjMatrix);
+	    ConnectedGraph G1= new ConnectedGraph(adjMatrix);
 
-	    
+	    /*
 	       2--0
 	       |  |
 	    1--4--3
-
+		*/
 	     
 
 	    n= 5;
@@ -415,7 +422,7 @@ public class ConnectedGraphTest {
 	    adjMatrix2.setBit(4, 3, true);
 	    adjMatrix2.setBit(0, 2, true);
 	    adjMatrix2.setBit(0, 3, true);
-	    Graph G2= new Graph(adjMatrix2);
+	    ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
 	    Map map= new Map(n);
 
@@ -426,10 +433,10 @@ public class ConnectedGraphTest {
 	    map.add(4, 4, 0);
 
 	    long startTime = System.nanoTime();
-	    assertTrue(Graph.checkAllEdges(G1, G2, map));
+	    assertTrue(ConnectedGraph.checkAllEdges(G1, G2, map));
 	    long endTime = System.nanoTime();
 	    long duration = endTime - startTime;
 	    System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
 	}
-	*/
+	
 }

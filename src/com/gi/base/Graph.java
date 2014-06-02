@@ -93,6 +93,43 @@ public class Graph {
 		return this.G.length;
 	}
 
+	public static Map[] findIsomorphism(Graph G1, Graph G2) {		
+		int n1 = G1.getNumOfComponents();
+		int n2 = G2.getNumOfComponents();
+		
+		if (n1 != n2){
+			System.out.println("The number of connected components does not match!");
+			return null;
+		}
+		
+		Map[] graphMap = new Map[n1 + 1];
+		graphMap[0] = new Map(n1 + 1);
+		boolean[] mapped = new boolean[n1];
+		
+		for (int i = 0; i < n1; i++){
+			Map map;
+			boolean flag = false; 
+			for (int j = 0; j < n2; j++){
+				if (mapped[j] != true){
+					map = ConnectedGraph.areIsomorphic(G1.G[i], G2.G[j]);
+					if (map != null && map.length != 0){
+						flag = true;
+						graphMap[0].add(i, i, j);
+						graphMap[i+1] = map;
+						mapped[j] = true;
+						break;
+					}
+				}
+			}
+			if (flag == false) {
+				System.out.println("We could not find a map for one of the connected components!");
+				return null;
+			}
+		}
+		
+		return graphMap;
+	}
+
 	/*public static Map areIsomorphic(Graph G1, Graph G2) {
 		int n = G1.V.length;
 		Map map = new Map(n);

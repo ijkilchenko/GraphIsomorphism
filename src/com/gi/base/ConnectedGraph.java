@@ -55,10 +55,16 @@ public class ConnectedGraph {
 			int k = tree.getLevel(r); // Current node's level.
 			for (int j = 0; j < G.V[r].children.length; j++) {
 				Node s = G.V[r].children[j];
-				if (visited[s.data] == false) {
-					visited[s.data] = true;
-					queue[l] = s.data;
-					tree.setLevel(s.data, k + 1); // Note: one deeper level is k+1.
+				int b = 0;
+				for (int a = 0; a < n; a++){
+					if (G.V[a] == s){
+						b = a;
+					}
+				}
+				if (visited[b] == false) {
+					visited[b] = true;
+					queue[l] = b;
+					tree.setLevel(b, k + 1); // Note: one deeper level is k+1.
 					l++;
 				}
 			}
@@ -94,8 +100,9 @@ public class ConnectedGraph {
 		for (int i = 0; i < n; i++) {
 			int length = map.length;
 			for (int j = 0; j < n; j++) {
-				/*            	if (numOp > 200){
-				            		System.out.println("Number of operations is " + numOp);
+				/*
+				if (numOp > 200){
+				System.out.println("Number of operations is " + numOp);
 				            	}*/
 				if (matched[j] != true && j > mismatched) {
 					boolean match = true;
@@ -179,6 +186,19 @@ public class ConnectedGraph {
 		for (int i = 0; i < n; i++) {
 			int key = map.getKey(i);
 			int value = map.getValue(i);
+			
+			for (int l = 0; l < G1.V.length; l++){
+				if (G1.V[l].data == key){
+					key = l;
+					break;
+				}
+			}
+			for (int l = 0; l < G2.V.length; l++){
+				if (G2.V[l].data == value){
+					value = l;
+					break;
+				}
+			}
 
 			if (G1.V[key].children.length != G2.V[value].children.length) {
 				System.out.println("Error. Map sets correspondence between nodes with different number of children! ");
@@ -188,6 +208,20 @@ public class ConnectedGraph {
 			for (int j = 0; j < G1.V[key].children.length; j++) {
 				int key1 = G1.V[key].children[j].data;
 				int value1 = map.mapKey(key1);
+				
+				for (int l = 0; l < G1.V.length; l++){
+					if (G1.V[l].data == key1){
+						key1 = l;
+						break;
+					}
+				}
+				for (int l = 0; l < G2.V.length; l++){
+					if (G2.V[l].data == value1){
+						value1 = l;
+						break;
+					}
+				}
+				
 				boolean flag = false;
 
 				for (int k = 0; k < G2.V[value].children.length; k++) {
