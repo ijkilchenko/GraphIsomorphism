@@ -59,6 +59,7 @@ public class ConnectedGraph {
 				for (int a = 0; a < n; a++){
 					if (G.V[a] == s){
 						b = a;
+						break;
 					}
 				}
 				if (visited[b] == false) {
@@ -86,6 +87,7 @@ public class ConnectedGraph {
 			return null;
 		}
 
+		long totalTime = System.nanoTime();
 		AbstractTree[] trees1 = new AbstractTree[n];
 		AbstractTree[] trees2 = new AbstractTree[n];
 
@@ -93,6 +95,9 @@ public class ConnectedGraph {
 			trees1[i] = ConnectedGraph.BFS(G1, i);
 			trees2[i] = ConnectedGraph.BFS(G2, i);
 		}
+		long endTime = System.nanoTime();
+		long duration = endTime - totalTime;
+		System.out.println("BFS took " + duration/ Math.pow(10, 9) + " seconds.");
 
 		boolean[] matched = new boolean[n]; // Keep track of matched nodes in G2.
 		int mismatched = -1;
