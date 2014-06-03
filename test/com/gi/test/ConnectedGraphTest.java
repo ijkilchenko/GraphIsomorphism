@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
  */
 public class ConnectedGraphTest {
 	//@Test
-	public void testMakeTree() throws Exception {
-		/* connected graph
+	/*public void testMakeTree() throws Exception {
+		 connected graph
 		   1--4
 		   |  |
 		0--3--2
 
-		 */
+		 
 
 		int n = 5;
 		BitMatrix adjMatrix = new BitMatrix(n);
@@ -47,12 +47,12 @@ public class ConnectedGraphTest {
 		assertEquals(2, tree.width[2]);
 		assertEquals(2, tree.getLevel(0));
 
-		/* non-connected graph
+		 non-connected graph
 		   1--4
 
 		0--3--2
 
-		 */
+		 
 
 		n = 5;
 		adjMatrix = new BitMatrix(n);
@@ -100,7 +100,7 @@ public class ConnectedGraphTest {
 			// System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
 		}
 	}
-
+*/
 	@Test
 	public void testAreIsomorphic() throws Exception {
 		long startTime0 = System.nanoTime();
@@ -138,7 +138,7 @@ public class ConnectedGraphTest {
 			ConnectedGraph G2 = new ConnectedGraph(adjMatrixPerm);
 
 			long startTime = System.nanoTime();
-			Map map = ConnectedGraph.areIsomorphic(G1, G2);
+			Map map = ConnectedGraph.areIsomorphic(G1, G2, n);
 			long endTime = System.nanoTime();
 			long duration = endTime - startTime;
 
@@ -210,7 +210,7 @@ public class ConnectedGraphTest {
 			ConnectedGraph G2 = new ConnectedGraph(adjMatrix2);
 
 			long startTime = System.nanoTime();
-			Map map = ConnectedGraph.areIsomorphic(G1, G2);
+			Map map = ConnectedGraph.areIsomorphic(G1, G2, n);
 			long endTime = System.nanoTime();
 			long duration = endTime - startTime;
 
@@ -305,7 +305,7 @@ public class ConnectedGraphTest {
 	    ConnectedGraph G1= new ConnectedGraph(adjMatrix);
 	    ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
-	    Map map= ConnectedGraph.areIsomorphic(G1,G2);
+	    Map map= ConnectedGraph.areIsomorphic(G1,G2, G1.V.length);
 	    assertTrue(ConnectedGraph.checkAllEdges(G1, G2, map));
 	}
 
@@ -366,9 +366,9 @@ public class ConnectedGraphTest {
 	    ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
 	    AbstractTree tree1 = new AbstractTree(G1.V.length);
-	    tree1 = ConnectedGraph.BFS(G1, 3);
+	    tree1 = ConnectedGraph.BFS(G1, 3, G1.V.length);
 	    AbstractTree tree2 = new AbstractTree(G2.V.length);
-	    tree2 = ConnectedGraph.BFS(G2, 2);
+	    tree2 = ConnectedGraph.BFS(G2, 2, G2.V.length);
 
 	    Map map= new Map(6);
 	    map.add(0, 0, 0);

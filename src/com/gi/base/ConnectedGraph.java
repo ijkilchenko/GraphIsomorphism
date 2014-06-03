@@ -1,5 +1,7 @@
 package com.gi.base;
 
+import java.util.HashMap;
+
 /**
  * User: ijk Date: 1/4/14
  */
@@ -34,8 +36,21 @@ public class ConnectedGraph {
 			V[i].addChildren(C);
 		}
 	}
+	
+	public static AbstractTree BFS(ConnectedGraph G, int m, int size) {
+		
+		int[] miniMap1 = new int[size];
+		
+		for (int a = 0; a < G.V.length; a++){
+			miniMap1[G.V[a].data] = a;
+		}
+		
+		AbstractTree tree = BFS(G, m, miniMap1);
+		return tree;
+		
+	}
 
-	public static AbstractTree BFS(ConnectedGraph G, int m) {
+	public static AbstractTree BFS(ConnectedGraph G, int m, int[] miniMap) {
 		// Breadth First Search method to initialize AbstractTree object from Graph G.
 		int n = G.V.length;
 
@@ -55,13 +70,14 @@ public class ConnectedGraph {
 			int k = tree.getLevel(r); // Current node's level.
 			for (int j = 0; j < G.V[r].children.length; j++) {
 				Node s = G.V[r].children[j];
-				int b = 0;
+/*				int b = 0;
 				for (int a = 0; a < n; a++){
 					if (G.V[a] == s){
 						b = a;
 						break;
 					}
-				}
+				}*/
+				int b = miniMap[s.data];
 				if (visited[b] == false) {
 					visited[b] = true;
 					queue[l] = b;
@@ -77,7 +93,7 @@ public class ConnectedGraph {
 		return tree;
 	}
 
-	public static Map areIsomorphic(ConnectedGraph G1, ConnectedGraph G2) {
+	public static Map areIsomorphic(ConnectedGraph G1, ConnectedGraph G2, int size) {
 		int n = G1.V.length;
 		Map map = new Map(n);
 		int numOp = 0;
@@ -90,10 +106,24 @@ public class ConnectedGraph {
 		long totalTime = System.nanoTime();
 		AbstractTree[] trees1 = new AbstractTree[n];
 		AbstractTree[] trees2 = new AbstractTree[n];
+		
+		//Quick maps to fix performance issue after making branch MatchByConnectedComponents
+		//Note: we don't know the largest payload so we have to use a java.util.Map as we can't set a defined size. 
+		int[] miniMap1 = new int[size];
+		
+		for (int a = 0; a < n; a++){
+			miniMap1[G1.V[a].data] = a;
+		}
+		
+		int[] miniMap2 = new int[size];
+		
+		for (int a = 0; a < n; a++){
+			miniMap2[G2.V[a].data] = a;
+		}
 
 		for (int i = 0; i < n; i++) {
-			trees1[i] = ConnectedGraph.BFS(G1, i);
-			trees2[i] = ConnectedGraph.BFS(G2, i);
+			trees1[i] = ConnectedGraph.BFS(G1, i, miniMap1);
+			trees2[i] = ConnectedGraph.BFS(G2, i, miniMap2);
 		}
 		long endTime = System.nanoTime();
 		long duration = endTime - totalTime;

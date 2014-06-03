@@ -242,7 +242,7 @@ public class GraphTest {
 		ConnectedGraph G11 = new ConnectedGraph(adjMatrix);
 		ConnectedGraph G21 = new ConnectedGraph(adjMatrix2);
 
-		Map map1 = ConnectedGraph.areIsomorphic(G11, G21);
+		Map map1 = ConnectedGraph.areIsomorphic(G11, G21, 6);
 
 		assertFalse(map1.length != 6);
 
@@ -252,7 +252,7 @@ public class GraphTest {
 		ConnectedGraph G12 = G1.G[0];
 		ConnectedGraph G22 = G2.G[0];
 
-		Map map2 = ConnectedGraph.areIsomorphic(G12, G22);
+		Map map2 = ConnectedGraph.areIsomorphic(G12, G22, 6);
 
 		assertFalse(map2.length != 6);
 		if (!ConnectedGraph.checkAllEdges(G12, G22, map2)) {
@@ -267,7 +267,7 @@ public class GraphTest {
 	}
 
 	//@Test
-	public void findIsomorphismTest3() {
+	/*public void findIsomorphismTest3() {
 		//Test sample graphs of size 5
 		int n = 5;
 		
@@ -304,5 +304,5 @@ public class GraphTest {
 
 		assertFalse(map.length != 4);
 	}
-
+*/
 }

@@ -106,12 +106,35 @@ public class Graph {
 		graphMap[0] = new Map(n1 + 1);
 		boolean[] mapped = new boolean[n1];
 		
+		int size1 = 0;
+		for (int i = 0; i < n1; i++){
+			for (int j = 0; j < G1.G[i].V.length; j++){
+				if (G1.G[i].V[j].data > size1){
+					size1 = G1.G[i].V[j].data;
+				}
+			}
+		}
+		
+		int size2 = 0;
+		for (int i = 0; i < n1; i++){
+			for (int j = 0; j < G2.G[i].V.length; j++){
+				if (G2.G[i].V[j].data > size2){
+					size2 = G2.G[i].V[j].data;
+				}
+			}
+		}
+		
+		if (size1 != size2){
+			System.out.println("The number of total nodes does not match!");
+			return null;
+		}
+		
 		for (int i = 0; i < n1; i++){
 			Map map;
 			boolean flag = false; 
 			for (int j = 0; j < n2; j++){
 				if (mapped[j] != true){
-					map = ConnectedGraph.areIsomorphic(G1.G[i], G2.G[j]);
+					map = ConnectedGraph.areIsomorphic(G1.G[i], G2.G[j], size1+1);
 					if (map != null && map.length != 0){
 						flag = true;
 						graphMap[0].add(i, i, j);
