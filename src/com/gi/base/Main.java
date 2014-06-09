@@ -19,7 +19,7 @@ public class Main {
         ConnectedGraph G1= new ConnectedGraph(adjMatrix);
         ConnectedGraph G2= new ConnectedGraph(adjMatrixPerm);
 
-        System.out.println(ConnectedGraph.areIsomorphic(G1,G1));
+        System.out.println(ConnectedGraph.areIsomorphic(G1, G1, G1.V.length));
 
         System.out.println("Breakpoint!");
 

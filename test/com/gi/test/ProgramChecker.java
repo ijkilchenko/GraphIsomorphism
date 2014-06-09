@@ -1,4 +1,6 @@
 package com.gi.test;
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.Random;
 
 import org.junit.Test;
@@ -19,7 +21,7 @@ public class ProgramChecker {
 	
 	public boolean Blum(ConnectedGraph G1, ConnectedGraph G2, BitMatrix A1, BitMatrix A2, int k){
 		int n= G1.V.length;
-		Map map= ConnectedGraph.areIsomorphic(G1,G2);
+		Map map= ConnectedGraph.areIsomorphic(G1,G2, n);
 		if (map != null && map.length == n){
 			if (ConnectedGraph.checkAllEdges(G1, G2, map)){
 				return true;
@@ -39,7 +41,7 @@ public class ProgramChecker {
 		            A2= PermMatrix.multiply(A2, permMatrixT);
 		            
 		            G2= new ConnectedGraph(A2);		            
-		            map= ConnectedGraph.areIsomorphic(G1, G2);
+		            map= ConnectedGraph.areIsomorphic(G1, G2, n);
 		            
 		            if (map != null && map.length != n){
 		            	return false;
@@ -52,7 +54,7 @@ public class ProgramChecker {
 		            A1= PermMatrix.multiply(A1, permMatrixT);
 		            
 		            G1= new ConnectedGraph(A1);		            
-		            map= ConnectedGraph.areIsomorphic(G1, G2);
+		            map= ConnectedGraph.areIsomorphic(G1, G2, n);
 		            
 		            if (map != null && map.length != n){
 		            	return false;
@@ -72,6 +74,15 @@ public class ProgramChecker {
         int q= 2;
         int k= 100;
 
+		//Load new values from properties file 
+		FileReader reader = new FileReader("./graph.properties");
+		Properties properties = new Properties();
+		properties.load(reader);
+		n = Integer.parseInt(properties.getProperty("n"));
+		t = Integer.parseInt(properties.getProperty("t"));
+		p = Integer.parseInt(properties.getProperty("p"));
+		q = Integer.parseInt(properties.getProperty("q"));
+        
         /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);

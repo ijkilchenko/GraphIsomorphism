@@ -56,7 +56,7 @@ public class DiameterDistribution {
             //AbstractTree[] trees2= new AbstractTree[n];
 
             for (int j= 0; j < n; j++){
-                trees1[j]= ConnectedGraph.BFS(G1, j);
+                trees1[j]= ConnectedGraph.BFS(G1, j, G1.V.length);
                 DD[trees1[j].height]+= 1;
                 //trees2[i]= Graph.BFS(G2, i);
             }
