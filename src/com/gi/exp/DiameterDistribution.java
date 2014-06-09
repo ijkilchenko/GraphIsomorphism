@@ -3,7 +3,7 @@ package com.gi.exp;
 import com.gi.base.AbstractTree;
 import com.gi.base.AdjMatrix;
 import com.gi.base.BitMatrix;
-import com.gi.base.Graph;
+import com.gi.base.ConnectedGraph;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class DiameterDistribution {
             BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
             adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixT);*/
 
-            Graph G1= new Graph(adjMatrix);
+            ConnectedGraph G1= new ConnectedGraph(adjMatrix);
             //Graph G2= new Graph(adjMatrixPerm);
 
             long startTime = System.nanoTime();
@@ -56,7 +56,7 @@ public class DiameterDistribution {
             //AbstractTree[] trees2= new AbstractTree[n];
 
             for (int j= 0; j < n; j++){
-                trees1[j]= Graph.BFS(G1, j);
+                trees1[j]= ConnectedGraph.BFS(G1, j, G1.V.length);
                 DD[trees1[j].height]+= 1;
                 //trees2[i]= Graph.BFS(G2, i);
             }

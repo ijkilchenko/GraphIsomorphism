@@ -1,11 +1,13 @@
 package com.gi.test;
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.Random;
 
 import org.junit.Test;
 
 import com.gi.base.AdjMatrix;
 import com.gi.base.BitMatrix;
-import com.gi.base.Graph;
+import com.gi.base.ConnectedGraph;
 import com.gi.base.Map;
 import com.gi.base.PermMatrix;
 
@@ -17,11 +19,11 @@ import static org.junit.Assert.*;
  */
 public class ProgramChecker {
 	
-	public boolean Blum(Graph G1, Graph G2, BitMatrix A1, BitMatrix A2, int k){
+	public boolean Blum(ConnectedGraph G1, ConnectedGraph G2, BitMatrix A1, BitMatrix A2, int k){
 		int n= G1.V.length;
-		Map map= Graph.areIsomorphic(G1,G2);
+		Map map= ConnectedGraph.areIsomorphic(G1,G2, n);
 		if (map != null && map.length == n){
-			if (Graph.checkAllEdges(G1, G2, map)){
+			if (ConnectedGraph.checkAllEdges(G1, G2, map)){
 				return true;
 			}
 			else{
@@ -38,8 +40,8 @@ public class ProgramChecker {
 		            A2= PermMatrix.multiply(permMatrix, A2);
 		            A2= PermMatrix.multiply(A2, permMatrixT);
 		            
-		            G2= new Graph(A2);		            
-		            map= Graph.areIsomorphic(G1, G2);
+		            G2= new ConnectedGraph(A2);		            
+		            map= ConnectedGraph.areIsomorphic(G1, G2, n);
 		            
 		            if (map != null && map.length != n){
 		            	return false;
@@ -51,8 +53,8 @@ public class ProgramChecker {
 		            A1= PermMatrix.multiply(permMatrix, A1);
 		            A1= PermMatrix.multiply(A1, permMatrixT);
 		            
-		            G1= new Graph(A1);		            
-		            map= Graph.areIsomorphic(G1, G2);
+		            G1= new ConnectedGraph(A1);		            
+		            map= ConnectedGraph.areIsomorphic(G1, G2, n);
 		            
 		            if (map != null && map.length != n){
 		            	return false;
@@ -72,6 +74,15 @@ public class ProgramChecker {
         int q= 2;
         int k= 100;
 
+		//Load new values from properties file 
+		FileReader reader = new FileReader("./graph.properties");
+		Properties properties = new Properties();
+		properties.load(reader);
+		n = Integer.parseInt(properties.getProperty("n"));
+		t = Integer.parseInt(properties.getProperty("t"));
+		p = Integer.parseInt(properties.getProperty("p"));
+		q = Integer.parseInt(properties.getProperty("q"));
+        
         /*Test isomorphic graphs*/
         for (int i= 0; i < t; i++){
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
@@ -81,8 +92,8 @@ public class ProgramChecker {
             BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
             adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixT);
 
-            Graph G1= new Graph(adjMatrix);
-            Graph G2= new Graph(adjMatrixPerm);
+            ConnectedGraph G1= new ConnectedGraph(adjMatrix);
+            ConnectedGraph G2= new ConnectedGraph(adjMatrixPerm);
 
             if (!Blum(G1, G2, adjMatrix, adjMatrixPerm, k)){
                 System.out.println("Program check failed on isomorphic graphs!");
@@ -97,8 +108,8 @@ public class ProgramChecker {
             BitMatrix adjMatrix= AdjMatrix.makeRandom(n);
             BitMatrix adjMatrix2= AdjMatrix.makeRandom(n);
 
-            Graph G1= new Graph(adjMatrix);
-            Graph G2= new Graph(adjMatrix2);
+            ConnectedGraph G1= new ConnectedGraph(adjMatrix);
+            ConnectedGraph G2= new ConnectedGraph(adjMatrix2);
 
             if (!Blum(G1, G2, adjMatrix, adjMatrix2, k)){
                 System.out.println("Program check failed on non-isomorphic graphs!");

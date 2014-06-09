@@ -1,437 +1,308 @@
 package com.gi.test;
-import com.gi.base.*;
-import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import junit.framework.Assert;
 
-/**
- * User: ijk
- * Date: 1/21/14
- */
+import org.junit.Test;
+
+import com.gi.base.AdjMatrix;
+import com.gi.base.BitMatrix;
+import com.gi.base.ConnectedGraph;
+import com.gi.base.Graph;
+import com.gi.base.Map;
+import com.gi.base.Node;
+import com.gi.base.PermMatrix;
+
 public class GraphTest {
-    //@Test
-    public void testMakeTree() throws Exception {
-        /* connected graph
-           1--4
-           |  |
-        0--3--2
 
-         */
+	//@Test
+	public void separateIntoComponentsTest() {
+		/* non-connected graph
+		1--4
 
-        int n= 5;
-        BitMatrix adjMatrix= new BitMatrix(n);
-        adjMatrix.setBit(0, 3, true);
-        adjMatrix.setBit(1, 3, true);
-        adjMatrix.setBit(1, 4, true);
-        adjMatrix.setBit(2, 3, true);
-        adjMatrix.setBit(2, 4, true);
-        adjMatrix.setBit(3, 0, true);
-        adjMatrix.setBit(3, 1, true);
-        adjMatrix.setBit(3, 2, true);
-        adjMatrix.setBit(4, 1, true);
-        adjMatrix.setBit(4, 2, true);
-        Graph G1= new Graph(adjMatrix);
-        AbstractTree tree = Graph.BFS(G1, 0);
-        assertEquals(3, tree.height);
-        assertEquals(1, tree.width[1]);
-        assertEquals(2, tree.width[2]);
-        assertEquals(3, tree.getLevel(4));
+		0--3--2
 
-        tree = Graph.BFS(G1, 1);
-        assertEquals(2, tree.height);
-        assertEquals(2, tree.width[2]);
-        assertEquals(2, tree.width[2]);
-        assertEquals(2, tree.getLevel(0));
+		*/
+		int n = 5;
+		BitMatrix adjMatrix = new BitMatrix(n);
+		adjMatrix = new BitMatrix(n);
+		adjMatrix.setBit(0, 3, true);
+		adjMatrix.setBit(1, 4, true);
+		adjMatrix.setBit(2, 3, true);
+		adjMatrix.setBit(3, 0, true);
+		adjMatrix.setBit(3, 2, true);
+		adjMatrix.setBit(4, 1, true);
+		ConnectedGraph G1 = new ConnectedGraph(adjMatrix);
+		Node[] V1 = G1.V;
+		ConnectedGraph[] G = Graph.separateIntoComponents(V1);
 
-        /* non-connected graph
-           1--4
+		assertFalse(G.length != 2);
 
-        0--3--2
+		/*
+		G2
+		2--3
+		 \/
+		 1--0
+		   / \
+		  4--5
 
-         */
+		G3
+		5  1
+		 \
+		 4  0
+		   / \
+		  2--3
+		*/
 
-        n= 5;
-        adjMatrix= new BitMatrix(n);
-        adjMatrix.setBit(0, 3, true);
-        adjMatrix.setBit(1, 4, true);
-        adjMatrix.setBit(2, 3, true);
-        adjMatrix.setBit(3, 0, true);
-        adjMatrix.setBit(3, 2, true);
-        adjMatrix.setBit(4, 1, true);
-        Graph G2= new Graph(adjMatrix);
-        AbstractTree tree2 = Graph.BFS(G2, 0);
-        assertEquals(2, tree2.height);
-        assertEquals(1, tree2.width[1]);
-        assertEquals(1, tree2.width[2]);
-        assertEquals(1, tree2.getLevel(3));
+		n = 6;
+		BitMatrix adjMatrix2 = new BitMatrix(n);
+		adjMatrix2.setBit(0, 1, true);
+		adjMatrix2.setBit(0, 4, true);
+		adjMatrix2.setBit(0, 5, true);
+		adjMatrix2.setBit(1, 0, true);
+		adjMatrix2.setBit(1, 2, true);
+		adjMatrix2.setBit(1, 3, true);
+		adjMatrix2.setBit(2, 1, true);
+		adjMatrix2.setBit(2, 3, true);
+		adjMatrix2.setBit(3, 1, true);
+		adjMatrix2.setBit(3, 2, true);
+		adjMatrix2.setBit(4, 0, true);
+		adjMatrix2.setBit(4, 5, true);
+		adjMatrix2.setBit(5, 0, true);
+		adjMatrix2.setBit(5, 4, true);
 
-        tree2 = Graph.BFS(G2, 1);
-        assertEquals(1, tree2.height);
-        assertEquals(1, tree2.width[0]);
-        assertEquals(1, tree2.width[1]);
-        assertEquals(1, tree2.getLevel(4));
-    }
+		BitMatrix adjMatrix3 = new BitMatrix(n);
+		adjMatrix3.setBit(0, 2, true);
+		adjMatrix3.setBit(0, 3, true);
+		// adjMatrix3.setBit(0, 4, true);
+		// adjMatrix3.setBit(4, 0, true);
+		adjMatrix3.setBit(4, 5, true);
+		// adjMatrix3.setBit(4, 1, true);
+		// adjMatrix3.setBit(5, 1, true);
+		adjMatrix3.setBit(5, 4, true);
+		adjMatrix3.setBit(2, 0, true);
+		adjMatrix3.setBit(2, 3, true);
+		adjMatrix3.setBit(3, 0, true);
+		adjMatrix3.setBit(3, 2, true);
+		// adjMatrix3.setBit(1, 5, true);
+		// adjMatrix3.setBit(1, 4, true);
 
-    //@Test
-    public void testPredefinedGraphs() throws Exception {
-    	BitMatrix adjMatrix= AdjMatrix.readAdj("hypersquare");
-    	BitMatrix adjMatrix2= AdjMatrix.readAdj("kite");
-    	
-    	Graph G1= new Graph(adjMatrix);
-        Graph G2= new Graph(adjMatrix2);
-        int n= G1.V.length;
+		ConnectedGraph G2 = new ConnectedGraph(adjMatrix2);
+		Node[] V2 = G2.V;
+		ConnectedGraph[] GG = Graph.separateIntoComponents(V2);
 
-        Map map= Graph.areIsomorphic(G1,G2);
-        
-        if (map.length < n){
-            System.out.println("Error. Map returned between isomorphic graphs was not of length " + n +".");
-            fail();
-        }
-        else{
-            long startCheck = System.nanoTime();
-            if (!Graph.checkAllEdges(G1, G2, map)){
-                System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
-                fail();
-            }
-            //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
-        }
-    }
-    
-    @Test
-    public void testAreIsomorphic() throws Exception {
-    	long startTime0 = System.nanoTime();
-    	
-    	/* Default values */
-        int n= 16;
-        int t= 100;
-        int p= 1;
-        int q= 2;
+		assertFalse(GG.length != 1);
 
-        /* Load new values from properties file */
-        FileReader reader = new FileReader("./graph.properties");
-        Properties properties = new Properties();
-        properties.load(reader);
-        n= Integer.parseInt(properties.getProperty("n"));
-        t= Integer.parseInt(properties.getProperty("t"));
-        p= Integer.parseInt(properties.getProperty("p"));
-        q= Integer.parseInt(properties.getProperty("q"));
+		ConnectedGraph G3 = new ConnectedGraph(adjMatrix3);
+		Graph GGG = new Graph(adjMatrix3);
 
-        long totalTime= 0;
-        long minTime= -1;
-        long maxTime= 0;
-        long totalCheckTime= 0;
+		assertFalse(GGG.getNumOfComponents() != 3);
 
-        /*Test isomorphic graphs*/
-        for (int i= 0; i < t; i++){
-            BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
+	}
+	
+	
+	@Test
+	public void findIsomorphismTest1() throws IOException {
+		long startTime0 = System.nanoTime();
 
-            BitMatrix permMatrix= PermMatrix.makeRandom(n);
-            BitMatrix permMatrixT= PermMatrix.transpose(permMatrix);
-            BitMatrix adjMatrixPerm= PermMatrix.multiply(permMatrix, adjMatrix);
-            adjMatrixPerm= PermMatrix.multiply(adjMatrixPerm, permMatrixT);
+		//Default values 
+		int n = 16;
+		int t = 100;
+		int p = 1;
+		int q = 2;
 
-            Graph G1= new Graph(adjMatrix);
-            Graph G2= new Graph(adjMatrixPerm);
+		//Load new values from properties file 
+		FileReader reader = new FileReader("./graph.properties");
+		Properties properties = new Properties();
+		properties.load(reader);
+		n = Integer.parseInt(properties.getProperty("n"));
+		t = Integer.parseInt(properties.getProperty("t"));
+		p = Integer.parseInt(properties.getProperty("p"));
+		q = Integer.parseInt(properties.getProperty("q"));
 
-            long startTime = System.nanoTime();
-            Map map= Graph.areIsomorphic(G1,G2);
-            long endTime = System.nanoTime();
-            long duration = endTime - startTime;
+		long totalTime = 0;
+		long minTime = -1;
+		long maxTime = 0;
+		long totalCheckTime = 0;
 
-            if (duration < minTime || minTime < 0){
-            	minTime= duration;
-            }
-            if (duration > maxTime){
-            	maxTime= duration;
-            }
-            
-            totalTime += duration;
+		//Test isomorphic graphs
+		for (int i = 0; i < t; i++) {
+			BitMatrix adjMatrix = AdjMatrix.makeRandom(n, p, q);
 
-            if (map.length < n){
-                System.out.println("Error. Map returned between isomorphic graphs was not of length " + n +".");
-                fail();
-            }
-            else{
-                long startCheck = System.nanoTime();
-                if (!Graph.checkAllEdges(G1, G2, map)){
-                    System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
-                    fail();
-                }
-                long endCheck= System.nanoTime();
-                long checkDuration = endCheck - startCheck;
-                totalCheckTime += checkDuration;
-                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
-            }
-            System.out.println("Test " + i +" is finished!");
-        }
-        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Min time is \t\t" + minTime/Math.pow(10,9) + " seconds.");
-        System.out.println("Max time is \t\t" + maxTime/Math.pow(10,9) + " seconds.");
-        System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
-        
-        long endTime0 = System.nanoTime();
-        long duration0= endTime0-startTime0;
-        System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
-    }
+			BitMatrix permMatrix = PermMatrix.makeRandom(n);
+			BitMatrix permMatrixT = PermMatrix.transpose(permMatrix);
+			BitMatrix adjMatrixPerm = PermMatrix.multiply(permMatrix, adjMatrix);
+			adjMatrixPerm = PermMatrix.multiply(adjMatrixPerm, permMatrixT);
 
-    //@Test
-    public void testAreNonIsomorphic() throws Exception {
-    	long startTime0 = System.nanoTime();
-    	
-    	/* Default values */
-        int n= 2048;
-        int t= 10;
-        int p= 1;
-        int q= 2;
-        
-        /* Load new values from properties file */
-        FileReader reader = new FileReader("./graph.properties");
-        Properties properties = new Properties();
-        properties.load(reader);
-        n= Integer.parseInt(properties.getProperty("n"));
-        t= Integer.parseInt(properties.getProperty("t"));
-        p= Integer.parseInt(properties.getProperty("p"));
-        q= Integer.parseInt(properties.getProperty("q"));
+			Graph G1 = new Graph(adjMatrix);
+			Graph G2 = new Graph(adjMatrixPerm);
+			
+			long startTime = System.nanoTime();
+			Map[] map = Graph.findIsomorphism(G1, G2);
+			long endTime = System.nanoTime();
+			long duration = endTime - startTime;
 
-        long totalTime= 0;
-        long minTime= -1;
-        long maxTime= 0;
-        long totalCheckTime= 0;
+			if (duration < minTime || minTime < 0) {
+				minTime = duration;
+			}
+			if (duration > maxTime) {
+				maxTime = duration;
+			}
 
-        /*Test non-isomorphic graphs*/
-        for (int i= 0; i < t; i++){
-            BitMatrix adjMatrix= AdjMatrix.makeRandom(n, p, q);
-            BitMatrix adjMatrix2= AdjMatrix.makeRandom(n, p, q);
+			totalTime += duration;
 
-            Graph G1= new Graph(adjMatrix);
-            Graph G2= new Graph(adjMatrix2);
-            
-            long startTime = System.nanoTime();
-            Map map= Graph.areIsomorphic(G1,G2);
-            long endTime = System.nanoTime();
-            long duration = endTime - startTime;
+			for (int j = 0; j < G1.getNumOfComponents(); j++){
+					
+				if (map[j+1].length < G1.G[j].V.length) {
+					System.out.println("Error. Map returned for " + j + "-th component is less than " + G1.G[j].V.length);
+					fail();
+				} else {
+					long startCheck = System.nanoTime();
+					if (!ConnectedGraph.checkAllEdges(G1.G[map[0].getKey(j)], G2.G[map[0].getValue(j)], map[j+1])) {
+						System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
+						fail();
+					}
+					long endCheck = System.nanoTime();
+					long checkDuration = endCheck - startCheck;
+					totalCheckTime += checkDuration;
+					// System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
+				}
+				System.out.println("Test " + i + " is finished for component " + j);
+			}
+		}
+		System.out.println("Average time is \t\t" + totalTime / Math.pow(10, 9) / t + " seconds.");
+		System.out.println("Min time is \t\t" + minTime / Math.pow(10, 9) + " seconds.");
+		System.out.println("Max time is \t\t" + maxTime / Math.pow(10, 9) + " seconds.");
+		System.out.println("Average check time is \t" + totalCheckTime / Math.pow(10, 9) / t + " seconds.");
 
-            if (duration < minTime || minTime < 0){
-            	minTime= duration;
-            }
-            if (duration > maxTime){
-            	maxTime= duration;
-            }
-            
-            totalTime += duration;
+		long endTime0 = System.nanoTime();
+		long duration0 = endTime0 - startTime0;
+		System.out.println("Total time spent in method is \t\t" + duration0 / Math.pow(10, 9) + " seconds.");			
+			
+		}	
+	
+	//@Test
+	public void findIsomorphismTest2() {
 
-			if (map == null || map.length == 0){
-                System.out.println("Success. Graphs are non-isomorphic. Map is null. ");
-            }
-            else{
-                long startCheck = System.nanoTime();
-                if (!Graph.checkAllEdges(G1, G2, map)){
-                    System.out.println("Improbable result. Two random graphs are isomorphic.");
-                }
-                long endCheck= System.nanoTime();
-                long checkDuration = endCheck - startCheck;
-                totalCheckTime += checkDuration;
-                //System.out.println("Check took " + checkDuration/Math.pow(10,9)+ " seconds");
-            }
-            System.out.println("Test " + i +" is finished!");
-        }
-        System.out.println("Average time is \t\t" + totalTime/Math.pow(10,9)/t + " seconds.");
-        System.out.println("Min time is \t\t" + minTime/Math.pow(10,9) + " seconds.");
-        System.out.println("Max time is \t\t" + maxTime/Math.pow(10,9) + " seconds.");
-        System.out.println("Average check time is \t" + totalCheckTime/Math.pow(10,9)/t + " seconds.");
-        
-        long endTime0 = System.nanoTime();
-        long duration0= endTime0-startTime0;
-        System.out.println("Total time spent in method is \t\t" + duration0/Math.pow(10, 9) + " seconds.");
-    }
+		/*
+			     
+		G1
+		2--3
+		 \/
+		 1--0
+		   / \
+		  4--5
 
-    /*
-    @Test
-    public void testAreIsomorphicSimple() throws Exception {
-         G1
-        2--3
-         \/
-         1--0
-           / \
-          4--5
+		   G2
+		5--1
+		 \/
+		 4--0
+		   / \
+		  2--3
+		*/
 
-           G2
-        5--1
-         \/
-         4--0
-           / \
-          2--3
+		int n = 6;
+		BitMatrix adjMatrix = new BitMatrix(n);
+		adjMatrix.setBit(0, 1, true);
+		adjMatrix.setBit(0, 4, true);
+		adjMatrix.setBit(0, 5, true);
+		adjMatrix.setBit(1, 0, true);
+		adjMatrix.setBit(1, 2, true);
+		adjMatrix.setBit(1, 3, true);
+		adjMatrix.setBit(2, 1, true);
+		adjMatrix.setBit(2, 3, true);
+		adjMatrix.setBit(3, 1, true);
+		adjMatrix.setBit(3, 2, true);
+		adjMatrix.setBit(4, 0, true);
+		adjMatrix.setBit(4, 5, true);
+		adjMatrix.setBit(5, 0, true);
+		adjMatrix.setBit(5, 4, true);
 
-         
+		BitMatrix adjMatrix2 = new BitMatrix(n);
+		adjMatrix2.setBit(0, 2, true);
+		adjMatrix2.setBit(0, 3, true);
+		adjMatrix2.setBit(0, 4, true);
+		adjMatrix2.setBit(4, 0, true);
+		adjMatrix2.setBit(4, 5, true);
+		adjMatrix2.setBit(4, 1, true);
+		adjMatrix2.setBit(5, 1, true);
+		adjMatrix2.setBit(5, 4, true);
+		adjMatrix2.setBit(2, 0, true);
+		adjMatrix2.setBit(2, 3, true);
+		adjMatrix2.setBit(3, 0, true);
+		adjMatrix2.setBit(3, 2, true);
+		adjMatrix2.setBit(1, 5, true);
+		adjMatrix2.setBit(1, 4, true);
 
-        int n= 6;
-        BitMatrix adjMatrix= new BitMatrix(n);
-        adjMatrix.setBit(0, 1, true);
-        adjMatrix.setBit(0, 4, true);
-        adjMatrix.setBit(0, 5, true);
-        adjMatrix.setBit(1, 0, true);
-        adjMatrix.setBit(1, 2, true);
-        adjMatrix.setBit(1, 3, true);
-        adjMatrix.setBit(2, 1, true);
-        adjMatrix.setBit(2, 3, true);
-        adjMatrix.setBit(3, 1, true);
-        adjMatrix.setBit(3, 2, true);
-        adjMatrix.setBit(4, 0, true);
-        adjMatrix.setBit(4, 5, true);
-        adjMatrix.setBit(5, 0, true);
-        adjMatrix.setBit(5, 4, true);
+		ConnectedGraph G11 = new ConnectedGraph(adjMatrix);
+		ConnectedGraph G21 = new ConnectedGraph(adjMatrix2);
 
-        BitMatrix adjMatrix2= new BitMatrix(n);
-        adjMatrix2.setBit(0, 2, true);
-        adjMatrix2.setBit(0, 3, true);
-        adjMatrix2.setBit(0, 4, true);
-        adjMatrix2.setBit(4, 0, true);
-        adjMatrix2.setBit(4, 5, true);
-        adjMatrix2.setBit(4, 1, true);
-        adjMatrix2.setBit(5, 1, true);
-        adjMatrix2.setBit(5, 4, true);
-        adjMatrix2.setBit(2, 0, true);
-        adjMatrix2.setBit(2, 3, true);
-        adjMatrix2.setBit(3, 0, true);
-        adjMatrix2.setBit(3, 2, true);
-        adjMatrix2.setBit(1, 5, true);
-        adjMatrix2.setBit(1, 4, true);
+		Map map1 = ConnectedGraph.areIsomorphic(G11, G21, 6);
 
-        Graph G1= new Graph(adjMatrix);
-        Graph G2= new Graph(adjMatrix2);
+		assertFalse(map1.length != 6);
 
-        Map map= Graph.areIsomorphic(G1,G2);
-        assertTrue(Graph.checkAllEdges(G1, G2, map));
-    }
+		Graph G1 = new Graph(adjMatrix);
+		Graph G2 = new Graph(adjMatrix2);
 
-    @Test
-    public void testCheckConditions() throws Exception {
-         G1
-        2--3
-         \/
-         1--0
-           / \
-          4--5
+		ConnectedGraph G12 = G1.G[0];
+		ConnectedGraph G22 = G2.G[0];
 
-           G2
-        5--1
-         \/
-         4--0
-           / \
-          2--3
+		Map map2 = ConnectedGraph.areIsomorphic(G12, G22, 6);
 
-         
+		assertFalse(map2.length != 6);
+		if (!ConnectedGraph.checkAllEdges(G12, G22, map2)) {
+			System.out.println("Error. Non-null map between isomorphic graphs did not preserve edges");
+			fail();
+		}
 
-        int n= 6;
-        BitMatrix adjMatrix= new BitMatrix(n);
-        adjMatrix.setBit(0, 1, true);
-        adjMatrix.setBit(0, 4, true);
-        adjMatrix.setBit(0, 5, true);
-        adjMatrix.setBit(1, 0, true);
-        adjMatrix.setBit(1, 2, true);
-        adjMatrix.setBit(1, 3, true);
-        adjMatrix.setBit(2, 1, true);
-        adjMatrix.setBit(2, 3, true);
-        adjMatrix.setBit(3, 1, true);
-        adjMatrix.setBit(3, 2, true);
-        adjMatrix.setBit(4, 0, true);
-        adjMatrix.setBit(4, 5, true);
-        adjMatrix.setBit(5, 0, true);
-        adjMatrix.setBit(5, 4, true);
+		Map[] map = Graph.findIsomorphism(G1, G2);
 
-        BitMatrix adjMatrix2= new BitMatrix(n);
-        adjMatrix2.setBit(0, 2, true);
-        adjMatrix2.setBit(0, 3, true);
-        adjMatrix2.setBit(0, 4, true);
-        adjMatrix2.setBit(4, 0, true);
-        adjMatrix2.setBit(4, 5, true);
-        adjMatrix2.setBit(4, 1, true);
-        adjMatrix2.setBit(5, 1, true);
-        adjMatrix2.setBit(5, 4, true);
-        adjMatrix2.setBit(2, 0, true);
-        adjMatrix2.setBit(2, 3, true);
-        adjMatrix2.setBit(3, 0, true);
-        adjMatrix2.setBit(3, 2, true);
-        adjMatrix2.setBit(1, 5, true);
-        adjMatrix2.setBit(1, 4, true);
+		assertFalse(map.length != 2);
 
-        Graph G1= new Graph(adjMatrix);
-        Graph G2= new Graph(adjMatrix2);
+	}
 
-        AbstractTree tree1 = new AbstractTree(G1.V.length);
-        tree1 = Graph.BFS(G1, 3);
-        AbstractTree tree2 = new AbstractTree(G2.V.length);
-        tree2 = Graph.BFS(G2, 2);
+	//@Test
+	/*public void findIsomorphismTest3() {
+		//Test sample graphs of size 5
+		int n = 5;
+		
+		BitMatrix adjMatrix = new BitMatrix(n);
+		adjMatrix.setBit(0, 1, true);
+		adjMatrix.setBit(1, 0, true);
+		adjMatrix.setBit(0, 2, true);
+		adjMatrix.setBit(2, 0, true);
 
-        Map map= new Map(6);
-        map.add(0, 0, 0);
-        map.add(1, 1, 4);
-        map.add(2, 2, 2);
+		BitMatrix adjMatrix2 = new BitMatrix(n);
+		adjMatrix2.setBit(0, 1, true);
+		adjMatrix2.setBit(1, 0, true);
+		adjMatrix2.setBit(0, 3, true);
+		adjMatrix2.setBit(3, 0, true);
 
-        assertFalse(Graph.checkConditions(map, tree1, tree2, false));
-    }
+		ConnectedGraph G11 = new ConnectedGraph(adjMatrix);
+		ConnectedGraph G21 = new ConnectedGraph(adjMatrix2);
 
-    @Test
-    public void testCheckEdges() throws Exception {
-        
-           1--4
-           |  |
-        0--3--2
+		Map map1 = ConnectedGraph.areIsomorphic(G11, G21);
 
-         
+		assertFalse(map1.length != n);
+		
+		Graph G12 = new Graph(adjMatrix);
+		Graph G22 = new Graph(adjMatrix2);
 
-        int n= 5;
-        BitMatrix adjMatrix= new BitMatrix(n);
-        adjMatrix.setBit(0, 3, true);
-        adjMatrix.setBit(1, 3, true);
-        adjMatrix.setBit(1, 4, true);
-        adjMatrix.setBit(2, 3, true);
-        adjMatrix.setBit(2, 4, true);
-        adjMatrix.setBit(3, 0, true);
-        adjMatrix.setBit(3, 1, true);
-        adjMatrix.setBit(3, 2, true);
-        adjMatrix.setBit(4, 1, true);
-        adjMatrix.setBit(4, 2, true);
-        Graph G1= new Graph(adjMatrix);
+		ConnectedGraph G13 = G12.G[0];
+		ConnectedGraph G23 = G22.G[0];
 
-        
-           2--0
-           |  |
-        1--4--3
+		Map map2 = ConnectedGraph.areIsomorphic(G13, G23);
 
-         
+		assertFalse(map2.length != 3);
+		
+		Map[] map = Graph.findIsomorphism(G12, G22);
 
-        n= 5;
-        BitMatrix adjMatrix2= new BitMatrix(n);
-        adjMatrix2.setBit(1, 4, true);
-        adjMatrix2.setBit(2, 4, true);
-        adjMatrix2.setBit(2, 0, true);
-        adjMatrix2.setBit(3, 4, true);
-        adjMatrix2.setBit(3, 0, true);
-        adjMatrix2.setBit(4, 1, true);
-        adjMatrix2.setBit(4, 2, true);
-        adjMatrix2.setBit(4, 3, true);
-        adjMatrix2.setBit(0, 2, true);
-        adjMatrix2.setBit(0, 3, true);
-        Graph G2= new Graph(adjMatrix2);
-
-        Map map= new Map(n);
-
-        map.add(0, 0, 1);
-        map.add(1, 1, 2);
-        map.add(2, 2, 3);
-        map.add(3, 3, 4);
-        map.add(4, 4, 0);
-
-        long startTime = System.nanoTime();
-        assertTrue(Graph.checkAllEdges(G1, G2, map));
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-        System.out.println("Check took " + duration/Math.pow(10,9)+ " seconds");
-    }
+		assertFalse(map.length != 4);
+	}
 */
 }
