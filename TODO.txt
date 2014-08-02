@@ -1,3 +1,0 @@
-1. [M] Add logic to map connected components onto connected components of disconnected graphs.
-
-2. [H] Create some experiments on the distribution of intervertex distances...
